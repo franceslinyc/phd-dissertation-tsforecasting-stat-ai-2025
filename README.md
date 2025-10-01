@@ -1,19 +1,19 @@
 # phd-dissertation-tsforecasting-stat-ai-2025
-PhD dissertation for PhD in statistics at OSU
+Dissertation for PhD in statistics at OSU
 
 ## Title
 
-Copula-Based Markov MTD Models for Forecasting Positively-Skewed and Zero-Inflated Time Series: Methodology, Application, and Comparison with Deep Learning LSTM Networks
+Copula-Based Mixture Transition Distribution Models for Forecasting Skewed and Zero-Inflated Time Series: Methodology and Comparisons with Deep Learning LSTM Networks
 
 ## Abstract
 
 ## TOC
 
-PART I Models for Forecasting Positively-Skewed Time Series
+PART I Models for Forecasting Skewed Time Series
 
-PART II Models for Forecasting Zero-Inflated Positively-Skewed Time Series
+PART II Models for Forecasting Zero-Inflated Skewed Time Series
 
-PART III Copula-Based MTD Models vs. Deep Learning LSTM Networks
+PART III Copula-Based Markov MTD Models vs. Deep Learning LSTM Networks
 
 ## Acknowlegements
 
