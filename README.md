@@ -7,13 +7,10 @@ Copula-Based Mixture Transition Distribution Models for Forecasting Skewed and Z
 
 ## Abstract
 
-## TOC
+Real-world time series in domains such as energy, insurance, and transportation often ex- hibit skewness and zero-inflation, which can undermine model performance if not properly addressed. To tackle these challenges, we develop the copula-based Gamma Mixture Tran- sition Distribution (Gamma MTD) model and its zero-inflated extension (ZIGamma MTD) to capture high-order dependence, skewed distributions, and semicontinuous patterns. The proposed framework is generalizable, accommodating a wide range of marginal distributions and copula families beyond the Gamma and ZIGamma specifications. Simulation studies show promising results across various scenarios, demonstrating their effectiveness and robustness. Continued development of probabilistic frameworks for skewed and zero-inflated time series is crucial for methodological advancement and for expanding their applicability across a wider range of fields. While recent AI advances such as Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) networks effectively capture nonlinear and long-range dependence, claims of LSTM superiority can be misleading with inappropriate benchmarks, and prior work has shown that probabilistic models such as MTD perform comparably in predicting, for example, disease spread. To assess the relative strengths and limitations of each approach, we compare the proposed Gamma and ZIGamma MTD models with LSTM networks. Results from both simulation and real-data applications show that MTD models achieve higher predictive accuracy and greater robustness, albeit at the cost
+of increased computational demands and more involved model design, whereas LSTMs pro- vide faster predictions but with lower accuracy. These findings highlight the complementary strengths of flexible probabilistic models and AI-driven neural architectures, suggesting op- portunities for further advancements that integrate both approaches to better model skewed and zero-inflated time series. 
 
-PART I Models for Forecasting Skewed Time Series
-
-PART II Models for Forecasting Zero-Inflated Skewed Time Series
-
-PART III Copula-Based Markov MTD Models vs. Deep Learning LSTM Networks
+[dissertation]() (source) 
 
 ## Acknowlegements
 
