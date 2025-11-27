@@ -1,0 +1,6 @@
+# Predictions for Gamma MTD Models {#sec-appendix-ch1-add-pred}
+
+![$95\%$ one-step ahead posterior predictive intervals for (a) Gamma Scenario 3, (b) Scenario 4, (c) Scenario 5, and (d) Scenario 6.](../../images/chapter1/pred_gamma_s3456.png){#fig-pred-gamma-s3456}
+
+![$95\%$ one-step ahead posterior predictive intervals for (a) Gamma Scenario 7, (b) Scenario 8, and (c) Scenario 9.](../../images/chapter1/pred_gamma_s789.png){#fig-pred-gamma-s789}
+

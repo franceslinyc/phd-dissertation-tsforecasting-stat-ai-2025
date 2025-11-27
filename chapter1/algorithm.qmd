@@ -1,0 +1,32 @@
+```{=latex}
+\begin{algorithm}
+\caption{MCMC Algorithm for Parameter Estimation for Gamma MTD Models}
+\label{alg:mcmc}
+\begin{algorithmic}
+
+\Require data $\boldsymbol{y}$, mtd order $L$, priors for $\alpha$, $\beta$, $\boldsymbol{w}$, starting for $\alpha$, $\beta$, $\boldsymbol{\rho}$, tuning for slice sampler, mcmc settings
+
+\Ensure 
+\State $\alpha$: a vector of marginal parameters with dimension $\texttt{nsample} =(\texttt{niter} - \texttt{nburn}) / \texttt{nthin}$
+
+\State $\beta$: a vector of marginal parameters with dimension $\texttt{nsample}$
+
+\State $\boldsymbol{\rho}$: a matrix of dependence parameters with dimension $L \times \texttt{nsample}$
+
+\State $\boldsymbol{w}$: a matrix weight parameters with dimension $L \times \texttt{nsample}$
+
+\State Initialize $\alpha$, $\beta$, $\boldsymbol{\rho}$, ${\{z_t\}}_{t=L+1}^n$, $\boldsymbol{w}$
+\For{each MCMC iteration $\texttt{iter} = 1,..., \texttt{niter}$}
+    \State update $\alpha$ \Comment{Sample $\alpha$ using a slice sampler *}
+    \State update $\beta$ \Comment{Sample $\beta$ using a slice sampler *}
+    \State update $\boldsymbol{\rho}$ \Comment{Sample $\rho_l, l = 1,...,L$ using a slice sampler  *}
+    \State update ${\{z_t\}}_{t=L+1}^n$ \Comment{Sample $z_t, t = L+1,..., n$ with probability $q_l$ *}
+    \State update $\boldsymbol{w}$ \Comment{Sample $w_l, l = 1,...,L$ from $Dirichlet(\cdot)$}
+\EndFor
+\State Discard the first 
+\texttt{nburn}
+iterations and retain every 
+\texttt{nthin} iteration 
+\end{algorithmic}
+\end{algorithm}
+```

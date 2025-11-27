@@ -1,0 +1,23 @@
+# Prediction {#sec-ch1-pred}
+
+@tbl-pred-gamma summaries the $95\%$ one-step ahead posterior predictive intervals for Scenario 1 through 9. As presented in this table, the model appropriately captures the predictive uncertainty across all scenarios. @fig-pred-gamma-s12 illustrate these intervals for Scenario 1 and 2. The differences in the observed patterns arise from the specific configurations of the weight and dependence parameters in each scenario; Scenario 1 employs exponentially decreasing weight and dependence, while Scenario 2 adopts an uneven arrangement of weight and dependence across lags. Additional plots illustrating the intervals for Scenarios 3 through 9 (@fig-pred-gamma-s3456, @fig-pred-gamma-s789) are provided in the @sec-appendix-ch1-add-pred. 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Empirical coverage of the $95\%$ predictive intervals for Gamma Scenario 1-9 (s1–s9).} 
+\label{tbl-pred-gamma}
+\begin{tabular}{rrrrrrrrrr}
+  \hline
+ & s1 & s2 & s3 & s4 & s5 & s6 & s7 & s8 & s9 \\ 
+  \hline
+Coverage & 0.9539 & 0.9524 & 0.9514 & 0.9474 & 0.9539 & 0.9479 & 0.9534 & 0.9459 & 0.9549 \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+![$95\%$ one-step ahead posterior predictive intervals for (a) Gamma Scenario 1 and (b) Scenario 2.](../images/chapter1/pred_gamma_s12.png){#fig-pred-gamma-s12}
+
+
+

@@ -1,0 +1,50 @@
+# Background {#sec-ch2-background}
+
+In this section, we discuss existing approaches and a related framework that forms the basis of our proposed method. We first review the zero-inflated count and zero-inflated continuous models, which are widely used for handling zero-inflated data. We then introduce the continuous extension (CE) approach, an existing framework that has been applied to zero-inflated continuous data in spatial contexts, but not previously to our specific problem setting. 
+
+## Zero-Inflated Count Models {#sec-ch2-background-zi-count}
+
+Zero-inflated count data are prevalent across diverse domains such as finance, economics, healthcare, transportation, and ecology. Examples include claim frequencies in automobile insurance [@chowdhury2019group; @zhang2022new; @bermudez2022copula; @simmachan2024comparison; @slime2025optimizing], the number of business service firms within an airport economic zone [@jiang2018locational], the frequency of medical service use [@pizer2011time; @chatterjee2018group], crash counts or accident frequencies [@dong2014examining; @hao2016research; @liu2018multivariate; @mathew2021highway], and species abundances [@martin2005zero]. 
+
+Accordingly, there is a rich literature on zero-inflated count models in these domains. For a comprehensive review of zero-inflated count regression models, as well as zero-inflated count time series, spatial, and multivariate models, we refer the reader to @young2022zero1 and @young2022zero2, respectively. 
+
+Our primary goal is to develop models for zero-inflated continuous time series data. To provide a foundation for this discussion, we review two zero-inflated count time series models in the next section. 
+
+## Zero-Inflated Count Models for Dependent Data {#sec-ch2-background-zi-count-dependent}
+
+### State Space Models
+
+@yang2015statespace propose a state space or dynamic model for zero-inflated count time series. @feng2020zero extends this framework to continuous-valued zero-inflated time series, resulting in the development of the dynamic semi-continuous zero-inflated (DSCZI) model. 
+
+Both the dynamic model and the MTD model include a latent state and can be classified as state space models. However, they differ in how they capture time dependence. In particular, the dynamic model introduces a continuous latent process that evolves over time according to a autoregressive (AR) process of order $p$, which can be equivalently represented as a $p$-dimentional AR($1$) process. In contrast, the MTD framework represents time dependence via a set of discrete latent variables, each selecting a lag-specific kernel among $L$ kernels. These latent variables determine which lag-specific kernel governs the current state through a random but non-dynamically evolving mechanism. As a result, while the dynamic model represents temporal evolution via a continuous, hidden state process, the MTD model captures time dependence through the dynamics embedded in the lag-specific kernels, with selection governed by a set of discrete, static latent variables. 
+
+While the standard MTD framework assumes latent variables are independent across time, some MTD variants incorporate a dynamic latent state that evolves over time, governing by a temporal process. For example, @bartolucci2010note propose a model in which the discrete latent variables follow a hidden Markov chain and note that further generalizations, though possible, often result in models with a large number of parameters and require computationally intensive algorithms for fitting. In addition, @yang2015statespace relies on an expectation maximization (EM) algorithm for estimation, but with the advancement of modern computing, they suggest a full Bayesian framework using a MCMC approach for future work. In contrast, the MTD model already implements a full Bayesian framework using MCMC, allowing for efficient posterior inference. 
+
+### Copula-Based Markov Models
+
+@alqawba2019copula and @alqawba2021copula propose the copula-based Markov zero-inflated count time series model, utilizing marginal distributions such as the zero-inflated Poisson (ZIP), zero-inflated negative binomial (ZINB), and zero-inflated Conway-Maxwell-Poisson (ZICMP). 
+
+Similarly, the MTD and NNMP models, discussed in @sec-ch1-background, belong to the class of first-order Markov models. However, copulas were not incorporated into these frameworks until the later work of @zheng2023nnmp and @zheng2023nnmpdiscrete. Even then, in the discrete spatial NNMP models, @zheng2023nnmpdiscrete utilize copulas in a different manner. More specifically, @alqawba2019copula and @alqawba2021copula directly compute the joint PMF of $(X_t, X_{t-1})$ and express it using a copula function adapted for discrete variables, from which the conditional probability is obtained by dividing by the marginal of $x_{t-1}$. In contrast, @zheng2023nnmpdiscrete adopt the continuous extension approach, associating each discrete variable with a continuous variable. This enables the direct use of copulas in a continuous setting to construct the transition kernel in a structured mixture. Once the continuous variables are introduced, the conditional probability is specified as a mixture over $L$ transition kernels, each constructed from the bivariate random vector $(U_l, V_l)$, with the dependence between $U_l$ and $V_l$ captured by a copula function. 
+
+Although copula-based Markov models have been widely applied to count and zero-inflated count data in both time series and spatial contexts, their application to zero-inflated continuous data remains largely unexplored.
+
+## Zero-Inflated Continuous models 
+
+Zero-inflated continuous data frequently appear in domains such as healthcare, insurance, environment, and transportation. While existing literature has primarily focused on zero-inflated count data, there has been relatively less attention given to zero-inflated continuous data. Nevertheless, these studies suggest promising potential for broader applications. For example, @mills2013zigamma conducts two-part tests for zero-inflated Gamma (ZIG) and zero-inflated log-normal (ZILN) models and applies them to assess driving risk in individuals with neurological conditions. @zhou2020two develope a two-part hidden Markov model and apply it to analyze data from the Alzheimer's Disease Neuroimaging Initiative (ADNI) to enhance prognosis and support early treatment. @feng2020zero applies a dynamic semi-continuous zero-inflated (DSCZI) time series model to analyze adaptive cruise control data to investigate drivers’ braking behavior, informing the in-vehicle assistance design. @sun2020zispatial compares the spatial Gaussian copula model with the kriging and the spatial random forests for zero-inflated forestry inventory prediction, crucial for ecosystem management. More recently, @kaewprasert2022simultaneous and @kaewprasert2024bayesian construct Bayesian and fiducial intervals and apply them to rainfall data from northern Thailand, informing the design of disaster warning systems. @zou2024fiducial construct fiducial-based intervals for the ZIG distribution and apply them to lipid profiles in a lung cancer study, enhancing screening and staging accuracy. 
+
+The DSCZI model by @feng2020zero is built based on the dynamic framework by @yang2015statespace, as discussed in @sec-ch2-background-zi-count-dependent. Conditioning on the latent state, the model uses logistic regression to model the zero values and a Gamma distribution for the positive responses. For parameter estimation, the DSCZI model utilizes the data cloning method [@lele2007data; @lele2010estimability; @al2019estimation], which leverages Markov chain Monte Carlo (MCMC) sampling to approximate maximum likelihood estimates, avoiding gradient-based methods due to the intractable marginal likelihood and latent variable complexity. 
+
+Although data cloning provides a practical approach for intractable likelihoods and is robust to the choice of prior distributions, it can be computationally expensive and sensitive to the choice of the number of clones [@lele2007data]. Moreover, convergence diagnostics can be challenging, and identifiability issues may persist even after cloning [@lele2007data]. In contrast, MCMC draws samples from the full posterior distribution, providing a more comprehensive quantification of parameter uncertainty.
+
+## The Continuous Extension Approach
+
+The continuous extension (CE) approach was first proposed by @denuit2005constraints. Under the CE framework, @madsen2009spatial introduces a discrete spatial Gaussian copula regresion model and applies it to the Japanese beetle grub data, while @zheng2023nnmpdiscrete develop a discrete spatial copula NNMP regression model to study North American Breeding Bird Survey data. Using this approach, each discrete random variable, $Y_i$, is associated with a continuous variable, $Y_i^*$, defined as
+```{=latex} 
+\begin{equation}
+Y_i^* = Y_i - U_i,
+\end{equation}
+```
+where $U_i$ follows a continuous uniform distribution on $(0, 1)$, independent of both $Y_i$ and $U_j$, for $i \neq j$. The resulting $Y_i^*$ is a continuous random variable. Not only does this continuous extension of $Y_i$ preserves all information, but $Y^*_i$ and $Y^*_j$ also retain the dependence structure of $Y_i$ and $Y_j$, as shown by @denuit2005constraints. 
+
+Our work once again builds upon the MTD time series model by @zheng2022construction and draws inspiration from the NNMP and the discrete NNMP spatial models developed by the same authors [@zheng2023nnmp; @zheng2023nnmpdiscrete]. Additional motivation comes from the work of @monleon2019small and @sun2020zispatial, which extend the spatial Gaussian copula model of @madsen2009spatial by adapting the CE approach for zero-inflated continuous data. Building onto these models, we propose to reconstruct the marginal distribution to accomondate for zero-inflation. We present the proposed model in the next chapter. 
+

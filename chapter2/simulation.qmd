@@ -1,0 +1,323 @@
+# Simulation Studies {#sec-ch2-simu}
+
+## Simulation Settings
+
+The goal of simulation studies is to assess accuracy and performance of the proposed model in @sec-ch2-prop. We explore a range of configurations by varying the parameters for weight, dependence, and marginal distribution, with particular emphasis on the zero-inflated probability.
+
+With weight parameters $\boldsymbol{w}$, dependence parameters for Gaussian copula $\boldsymbol{\rho}$, mean $\mu$, scale $\beta$, zero-inflated probability $P$, and threshold parameter $\epsilon$, we generate $n = 2000$ observations from the copula-based ZIGamma MTD model. For model fitting, we set the order $L = 5$ and consider the Gaussian copula with zero-inflated gamma marginals. 
+
+We run the Gibbs sampler for $165,000$ iterations, discard the first $5000$ iterations as burn-in, and collect samples every $20$ iterations, resulting in $8000$ iterations per MCMC chain. To ensure that we can assess MCMC convergence and obtain more precise estimates of parameters, we also run four MCMC chains with $8000$ iterations each for all of the following scenarios in Tables (@tbl-scenarios-description-zigamma, @tbl-scenarios-zigamma), which contain the description and the summary of scenarios, respectively. 
+
+```{=latex}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{13.85cm}|}    
+        \hline 
+        Section \ref{sec-ch2-simu-res-convergence}: Convergence Diagnostics \\         \hline 
+        - Focuses on convergence diagnostics using the Gelman-Rubin statistic and additional diagnostic tools. \\ 
+        - \textbf{Scenario 1}: Follows the same setup as the original studies. \\ 
+        \hline\hline
+        Section \ref{sec-ch2-simu-res-w-rho}: Weight, Dependence Parameters, $\boldsymbol{w}$, $\boldsymbol{\rho}$ \\
+        \hline
+        - Focuses on weight and dependence parameters for the copula. \\
+        - \textbf{Scenarios 1, 2}: Follow the same setup as the original studies. \\
+        \hline\hline
+        Section \ref{sec-ch2-simu-res-marginal}: Mean, Scale, Zero-Inflated Probability, Threshold Parameters, $\mu$, $\beta$, $P$, $\epsilon$ \\
+        \hline
+        - Examines varying parameters for the marginal distribution. \\
+        - \textbf{Scenarios 3-6}: Present the usual cases. \\
+        - \textbf{Scenarios 7-9}: Focus on unusual cases with highly skewed distributions. \\        
+        \hline
+    \end{tabular}
+    \caption{Description of Scenarios for Zero-Inflated Gamma Model}
+    \label{tbl-scenarios-description-zigamma}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Scenario} & $\boldsymbol{w}$ & $\boldsymbol{\rho}$ & $\mu$ & $\beta$ & $P$ & $\epsilon$ \\
+        \hline
+        \textbf{1} & $w_i \propto \exp(-i), i = 1,..., 5$ & $(0.7, 0.5, 0.3, 0.1, 0.1)$ & $7$ & $1$ & $0.1$ & $0.1$ \\
+        & & & & & $0.1$ & $0.4$ \\
+        & & & & & $0.5$ & $0.1$ \\
+        & & & & & $0.5$ & $0.4$ \\
+        & & & & & $0.7$ & $0.1$ \\
+        & & & & & $0.7$ & $0.4$ \\
+        \hline
+        \textbf{2} & $(0.2, 0.05, 0.45, 0.05, 0.25)$ & $(0.4, 0.1, 0.7, 0.1, 0.5)$ & $7$ & $1$ & $0.1$ & $0.1$  \\ 
+        & & & & & $0.1$ & $0.4$ \\
+        & & & & & $0.5$ & $0.1$ \\
+        & & & & & $0.5$ & $0.4$ \\
+        & & & & & $0.7$ & $0.1$ \\
+        & & & & & $0.7$ & $0.4$ \\
+        \hline
+        \textbf{3} & $w_i \propto \exp(-i), i = 1,..., 5$ & $(0.7, 0.5, 0.3, 0.1, 0.1)$ & $4$ & $1$ & $\cdots$ & $\cdots$ \\
+        \textbf{4} &  &  & $9$ & $1$ & $\cdots$ & $\cdots$ \\
+        \textbf{5} &  &  & $4$ & $2$ & $\cdots$ & $\cdots$ \\
+        \textbf{6} &  &  & $9/2$ & $1/2$ & $\cdots$ & $\cdots$ \\
+        \hline        
+        \textbf{7} & $w_i \propto \exp(-i), i = 1,..., 5$ & $(0.7, 0.5, 0.3, 0.1, 0.1)$ &  $2$ & $1$ & $\cdots$ & $\cdots$ \\ 
+        \textbf{8} &  &  & $1$ & $1/2$ & $\cdots$ & $\cdots$ \\
+        \textbf{9} &  &  & $1/2$ & $1/4$ & $\cdots$ & $\cdots$ \\
+        \hline
+    \end{tabular}
+    \caption{Summary of Scenarios for Zero-Inflated Gamma Model}
+    \label{tbl-scenarios-zigamma}
+\end{table}
+```
+
+In all scenarios, we use the cdf-based Dirichlet process (CDP) prior on the weights. Other prior choices, such as the Dirichlet prior and the truncated stick-breaking (SB) prior are readily available, but the original MTD studies has shown that SB and CDP priors give more precise estimates. 
+
+All scenarios were initially analyzed using a single replicate. Scenarios 1 and 2 were further evaluated with multiple replicates to assess coverage and robustness. Each replicate consisted of a new synthetic dataset generated with the same underlying parameters but different random seeds. Specifically, we ran the models on $40$ independently generated replicates for Scenarios 1 and 2 to evaluate the consistency and robustness of the results, ensuring comparability across scenarios.
+
+## Simulation Results {#sec-ch2-simu-res} 
+
+### Convergence Diagnostics {#sec-ch2-simu-res-convergence} 
+
+Scenario 1 in @tbl-scenarios-zigamma serves as an example to show and track convergence and has the same setup for $w$ and $\rho$ as Scenario 1 in the original MTD studies. 
+
+Tables (@tbl-w-table-s1-zigamma, @tbl-rho-table-s1-zigamma, @tbl-mar-table-s1-zigamma) present the posterior estimates and convergence diagnostics for the parameters related to weight, dependence, and marginal distribution, respectively. We defer the discussion of the estimates of the posterior mean and standard deviation (mean and SD) until a later section. There is no evidence of lack of convergence for all parameters (Gelman-Rubin statistic $R$ and its upper CI $\leq 1.1$). The simulation error of the estimates is also negligible for all parameters  (Naive SE and Time-series SE are close to zero).
+
+Gelman–Rubin convergence diagnostic and ACF plots  (@fig-w-gelman-zigamma, @fig-rho-gelman-zigamma, @fig-mar-gelman-zigamma) can be found in @sec-appendix-ch2-simu @sec-appendix-ch2-simu-res-convergence. In Scenario 1, the chains converge more rapidly for the parameters related to the marginal distribution, achieving convergence at around $2000$ iterations. The chains converge more slowly for the parameters related to weight and dependence, especially at later lags. Nevertheless, all weight and dependence parameters reach convergence by $8000$ iterations. Similar patterns emerge across all other scenarios. Trace and density plots (@fig-w-trace-zigamma, @fig-rho-trace-zigamma, @fig-mar-trace-zigamma) are also included in @sec-appendix-ch2-simu @sec-appendix-ch2-simu-res-convergence.
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$w_1 = 0.636$ & 0.6395 (0.0425) & 1 (1) & 0.0002 & 0.0003 \\ 
+  $w_2 = 0.234$ & 0.1905 (0.0636) & 1.01 (1.01) & 0.0004 & 0.0013 \\ 
+  $w_3 = 0.086$ & 0.1315 (0.0739) & 1 (1) & 0.0004 & 0.0021 \\ 
+  $w_4 = 0.032$ & 0.0346 (0.0529) & 1.01 (1.03) & 0.0003 & 0.0017 \\ 
+  $w_5 = 0.012$ & 0.0039 (0.0171) & 1 (1) & 0.0001 & 0.0004 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman-Rubin Diagnostics for Scenario 1's $w$ at Each Lag ($P = 0.1$ and $\epsilon = 0.1$)} 
+\label{tbl-w-table-s1-zigamma} 
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\rho_1 = 0.700$ & 0.6847 (0.0274) & 1 (1) & 0.0002 & 0.0002 \\ 
+  $\rho_2 = 0.500$ & 0.606 (0.1426) & 1.01 (1.01) & 0.0008 & 0.0027 \\ 
+  $\rho_3 = 0.300$ & 0.1168 (0.2389) & 1 (1) & 0.0013 & 0.0018 \\ 
+  $\rho_4 = 0.100$ & 0.0147 (0.4675) & 1 (1) & 0.0026 & 0.0027 \\ 
+  $\rho_5 = 0.100$ & -0.0046 (0.5659) & 1 (1) & 0.0032 & 0.0032 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman-Rubin Diagnostics for Scenario 1's $\rho$ at Each Lag ($P = 0.1$ and $\epsilon = 0.1$)} 
+\label{tbl-rho-table-s1-zigamma} 
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\mu$ & 7.35 (0.1132) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0082 (0.0433) & 1 (1) & 0.0002 & 0.0002 \\ 
+  $P$ & 0.0769 (0.0085) & 1 (1) & 0.0000 & 0.0000 \\ 
+  $\epsilon$ & 0.1 (7e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 7.1454 (0.12) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 1.0994 (0.0472) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.1091 (0.0103) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4017 (0.0019) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.9447 (0.1207) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 1.0659 (0.0542) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.5248 (0.0172) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.1001 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.8454 (0.1154) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0086 (0.0512) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.5064 (0.0173) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4 (4e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.988 (0.1303) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 0.9593 (0.0594) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.6879 (0.016) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.0999 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.8482 (0.1373) & 1 (1) & 0.0008 & 0.0008 \\ 
+  $\beta$ & 1.0506 (0.0665) & 1 (1) & 0.0004 & 0.0004 \\ 
+  $P$ & 0.7048 (0.0154) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4002 (3e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman–Rubin Diagnostics for Scenario 1 (varying $P$ and $\epsilon$), with true parameter values fixed at $\mu = 7$ and $\beta = 1$. The table includes all combinations of $P = 0.1, 0.5, 0.7$ and $\epsilon = 0.1, 0.4$. Specifically, the top two rows correspond to $P = 0.1$ with $\epsilon = 0.1$ and $0.4$; the middle two rows to $P = 0.5$ with $\epsilon = 0.1$ and $0.4$; and the final two rows to $P = 0.7$ with $\epsilon = 0.1$ and $0.4$.}
+
+\label{tbl-mar-table-s1-zigamma}
+\end{table}
+```
+
+### Weight and Dependence Parameters for Copula {#sec-ch2-simu-res-w-rho}
+
+Scenarios 1 and 2 in @tbl-scenarios-zigamma are employed to demonstrate the effectiveness of weight and dependence construction, as well as their interplay. 
+
+Scenario 1 and 2 share the same setup for $w$ and $\rho$ as the original MTD studies, where weight and dependence are compatible. In Scenario 1, we consider exponentially decreasing weights. In Scenario 2, we consider an uneven arrangement of the relevant lags. 
+
+As shown in (a), (b) of @fig-w-rho-res-all-zigamma, the results appear reasonable; that is, the estimates are consistent with the true values, with minor discrepancies. Nevertheless, the differences are minimal, and the $95\%$ posterior credible intervals cover the true value for both weight and dependence across all lags. 
+
+Consistent with the results of the Gamma MTD model, placing greater weight on a lag yields narrower $95\%$ posterior credible interval (CI) for that lag. When less information is available to estimate its influence, the CI widens and approaches the prior distribution. 
+
+![(a), (b) Results for Scenarios 1 and 2: default setup for $w$ and $\rho$ ($P = 0.1$ and $\epsilon = 0.1$). (Left) Dashed (black) lines are true weights, dot-dashed (red) lines are prior means, solid lines are posterior means, and (purple) polygons are $95\%$ posterior credible intervals. (Right) Dashed (black) lines are true dependence, dot-dashed (red) lines are prior means, solid (blue) lines are posterior means, and (purple) polygons are $95\%$ posterior credible intervals.](../images/chapter2/zigamma_w_rho_res.jpeg){#fig-w-rho-res-all-zigamma fig-alt="Inference results for weights and dependence parameters for two scenarios."}
+
+### Parameters for Marginal Distributions {#sec-ch2-simu-res-marginal}
+
+Scenario 3 to 6 in @tbl-scenarios-zigamma are used to evaluate the mean and the scale parameter for the zero-inflated gamma marginal distribution. Scenario 7 through 9 are used to evaluate these parameters in cases with high skewness. 
+
+In Scenario 3 to 9, we revert to the same settings for weight and dependence as used in Scenario 1. That is, we fix $w_i \propto \exp(-i), i = 1,..., 5$ and $\rho_l = (0.7, 0.5, 0.3, 0.1, 0.1)$.
+
+For the ZIGamma MTD model, the slice sampler faces similar challenges when the target distribution is not evaluable. Skewness of the target distribution may reduce sampling efficiency by inducing correlations between successive draws [@planas2024slice]. To investigate this effect, we explore additional scenarios to identify where the algorithm may fail, focusing on Scenarios 7 through 9, which exhibit increasing skewness similar to that illustrated in @fig-gamma. 
+
+We present the results of Scenario 3 and Scenario 7 as examples. Each scenario consists of six cases, covering all combinations of $P = 0.1, 0.5, 0.7$, and $\epsilon = 0.1, 0.4$. As shown in Tables (@tbl-mar-table-s3-zigamma, @tbl-mar-table-s7-zigamma), the results appear reasonable; that is, convergence has been achieved and the estimates are consistent with the true values. 
+
+To demonstrate how plots showing the marginal results for the Gamma MTD model in @sec-appendix-ch1-simu @sec-appendix-ch1-simu-res-marginal can be generated for the ZIGamma MTD model, we include example plots for Scenario 1 in @sec-appendix-ch2-simu @sec-appendix-ch2-simu-res-marginal: the simulated data in @fig-zigamma-s1-raw and the results overlaid on the simulated data in @fig-zigamma-s1. 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\mu$ & 4.2622 (0.0862) & 1 (1) & 0.0005 & 0.0005 \\ 
+  $\beta$ & 1.0153 (0.0446) & 1 (1) & 0.0002 & 0.0003 \\ 
+  $P$ & 0.0769 (0.0085) & 1 (1) & 0.0000 & 0.0000 \\ 
+  $\epsilon$ & 0.1 (7e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 4.2545 (0.0927) & 1 (1) & 0.0005 & 0.0029 \\ 
+  $\beta$ & 1.0345 (0.1744) & 1 (1) & 0.0010 & 0.0285 \\ 
+  $P$ & 0.0778 (0.0116) & 1 (1) & 0.0001 & 0.0011 \\ 
+  $\epsilon$ & 0.4003 (0.0328) & 1 (1) & 0.0002 & 0.0041 \\ 
+   \hline 
+$\mu$ & 4.2381 (0.0952) & 1 (1) & 0.0005 & 0.0005 \\ 
+  $\beta$ & 1.051 (0.0532) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.476 (0.0178) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.0999 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 4.2375 (0.0951) & 1 (1) & 0.0005 & 0.0005 \\ 
+  $\beta$ & 1.0511 (0.0532) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.4761 (0.0178) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.3996 (4e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 4.2018 (0.1017) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0101 (0.0604) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.6674 (0.016) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.1 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 4.2017 (0.1022) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0102 (0.0608) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.6673 (0.016) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4001 (3e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman–Rubin Diagnostics for Scenario 3 (varying $P$ and $\epsilon$), with true parameter values fixed at $\mu = 4$ and $\beta = 1$. The table includes all combinations of $P = 0.1, 0.5, 0.7$ and $\epsilon = 0.1, 0.4$. Specifically, the top two rows correspond to $P = 0.1$ with $\epsilon = 0.1$ and $0.4$; the middle two rows to $P = 0.5$ with $\epsilon = 0.1$ and $0.4$; and the final two rows to $P = 0.7$ with $\epsilon = 0.1$ and $0.4$.}
+\label{tbl-mar-table-s3-zigamma} 
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\mu$ & 2.181 (0.0623) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $\beta$ & 1.0256 (0.0475) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.0771 (0.0085) & 1 (1) & 0.0000 & 0.0000 \\ 
+  $\epsilon$ & 0.1 (6e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 2.0907 (0.0676) & 1 (1) & 0.0004 & 0.0008 \\ 
+  $\beta$ & 1.1278 (0.0826) & 1 (1) & 0.0005 & 0.0113 \\ 
+  $P$ & 0.1065 (0.0144) & 1 (1) & 0.0001 & 0.0016 \\ 
+  $\epsilon$ & 0.3865 (0.0581) & 1 (1) & 0.0003 & 0.0112 \\ 
+   \hline 
+$\mu$ & 1.9803 (0.0656) & 1 (1) & 0.0004 & 0.0004 \\ 
+  $\beta$ & 1.0664 (0.0586) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.525 (0.0172) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.1001 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 1.9212 (0.0616) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $\beta$ & 1.0043 (0.0542) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.5064 (0.0173) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4 (4e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 1.99 (0.0701) & 1 (1) & 0.0004 & 0.0004 \\ 
+  $\beta$ & 0.9605 (0.0624) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.6879 (0.0159) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.0999 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 1.9303 (0.0735) & 1 (1) & 0.0004 & 0.0004 \\ 
+  $\beta$ & 1.0389 (0.0704) & 1 (1) & 0.0004 & 0.0004 \\ 
+  $P$ & 0.7057 (0.0153) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4002 (3e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman–Rubin Diagnostics for Scenario 7 (varying $P$ and $\epsilon$), with true parameter values fixed at $\mu = 2$ and $\beta = 1$. The table includes all combinations of $P = 0.1, 0.5, 0.7$ and $\epsilon = 0.1, 0.4$. Specifically, the top two rows correspond to $P = 0.1$ with $\epsilon = 0.1$ and $0.4$; the middle two rows to $P = 0.5$ with $\epsilon = 0.1$ and $0.4$; and the final two rows to $P = 0.7$ with $\epsilon = 0.1$ and $0.4$.} 
+\label{tbl-mar-table-s7-zigamma} 
+\end{table}
+```
+
+### Coverage Assessment
+
+To compute coverage rates, for each of the $40$ replicates, we first combine the four chains of $8000$ posterior samples per parameter, then calculate the $95\%$ credible interval from the combined samples, and record whether the true parameter value falls within this interval. The overall coverage is the proportion of replicates for which the true value is contained within the interval.
+
+As shown in Tables (@tbl-coverage-1-zigamma and @tbl-coverage-2-zigamma), the $95\%$ credible intervals for all parameters successfully contain the true values in most replicates across both scenarios. Most parameters achieve full coverage, with a few slightly below $1$, indicating that the credible intervals reliably capture the true parameter values. Importantly, the lengths of the credible intervals vary across parameters, reflecting differences in estimation uncertainty.
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 1 (varying $P$ and $\epsilon$), with true parameter values fixed at $\mu = 7$ and $\beta = 1$. The table includes all combinations of $P = 0.1, 0.5, 0.7$ and $\epsilon = 0.1, 0.4$. Specifically, the top two rows correspond to $P = 0.1$ with $\epsilon = 0.1$ and $0.4$; the middle two rows to $P = 0.5$ with $\epsilon = 0.1$ and $0.4$; and the final two rows to $P = 0.7$ with $\epsilon = 0.1$ and $0.4$.}
+\label{tbl-coverage-1-zigamma}  
+\begin{tabular}{cccccccccccccc}
+  \hline
+$\mu$ & $\beta$ & $P$ & $\epsilon$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
+  \hline
+0.95 & 0.93 & 0.95 & 0.93 & 0.93 & 0.93 & 1.00 & 1.00 & 1.00 & 0.88 & 1.00 & 1.00 & 0.97 & 1.00 \\ 
+  0.97 & 0.97 & 0.97 & 0.93 & 0.95 & 0.95 & 0.97 & 1.00 & 0.97 & 0.97 & 1.00 & 1.00 & 0.97 & 1.00 \\ 
+  0.95 & 0.95 & 0.93 & 0.97 & 0.88 & 0.95 & 1.00 & 1.00 & 0.93 & 0.93 & 1.00 & 1.00 & 1.00 & 1.00 \\ 
+  0.97 & 0.93 & 0.95 & 1.00 & 0.95 & 1.00 & 1.00 & 1.00 & 0.93 & 0.88 & 0.97 & 1.00 & 1.00 & 1.00 \\ 
+  0.95 & 0.95 & 0.93 & 0.97 & 1.00 & 1.00 & 1.00 & 1.00 & 0.95 & 0.93 & 1.00 & 1.00 & 1.00 & 1.00 \\ 
+  0.93 & 1.00 & 1.00 & 0.93 & 0.95 & 0.93 & 0.95 & 0.97 & 0.95 & 1.00 & 0.97 & 1.00 & 0.97 & 1.00 \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 2 (varying $P$ and $\epsilon$), with true parameter values fixed at $\mu = 7$ and $\beta = 1$. The table includes all combinations of $P = 0.1, 0.5, 0.7$ and $\epsilon = 0.1, 0.4$. Specifically, the top two rows correspond to $P = 0.1$ with $\epsilon = 0.1$ and $0.4$; the middle two rows to $P = 0.5$ with $\epsilon = 0.1$ and $0.4$; and the final two rows to $P = 0.7$ with $\epsilon = 0.1$ and $0.4$.} 
+\label{tbl-coverage-2-zigamma} 
+\begin{tabular}{cccccccccccccc}
+  \hline
+$\mu$ & $\beta$ & $P$ & $\epsilon$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
+  \hline
+0.93 & 0.95 & 0.93 & 0.90 & 1.00 & 0.97 & 0.97 & 1.00 & 0.97 & 1.00 & 0.97 & 0.97 & 1.00 & 0.97 \\ 
+  0.88 & 0.95 & 0.95 & 0.88 & 1.00 & 1.00 & 0.97 & 1.00 & 0.93 & 0.97 & 0.95 & 0.97 & 1.00 & 1.00 \\ 
+  0.93 & 0.95 & 0.95 & 0.95 & 1.00 & 1.00 & 0.97 & 1.00 & 0.95 & 1.00 & 0.97 & 1.00 & 1.00 & 0.97 \\ 
+  0.95 & 0.97 & 0.88 & 0.97 & 1.00 & 1.00 & 0.93 & 1.00 & 0.97 & 1.00 & 1.00 & 1.00 & 1.00 & 0.97 \\ 
+  0.95 & 0.95 & 0.90 & 0.97 & 1.00 & 1.00 & 0.97 & 1.00 & 0.88 & 1.00 & 0.95 & 0.95 & 1.00 & 0.90 \\ 
+  0.97 & 0.95 & 0.97 & 0.95 & 1.00 & 1.00 & 1.00 & 1.00 & 0.97 & 1.00 & 0.97 & 0.97 & 1.00 & 1.00 \\ 
+   \hline
+\end{tabular}
+\end{table}
+``` 

@@ -1,0 +1,153 @@
+# Background {#sec-ch3-background}
+
+## Recurrent Neural Network (RNN) Architecture 
+
+### Recurrent Unit
+
+An Recurrent Neural Network (RNN) is composed of repeating cells or units that unfold or unroll over time, where each unit passes recurrent information stored in the hidden state from one time step to the next. @fig-rnn presents a visual representation of an RNN unit. 
+
+![Architecture of an RNN unit, reproduced from @olah2015understandinglstm. $x_t$ is the input, $h_t$ is the hidden state, and $o_t$ is the output. $tanh$ is the activation function, squashing values to $(-1, 1)$ for stability and zero-centered output.](../images/chapter3/rnn.png){#fig-rnn width=50%}
+
+An RNN unit computes a weighted combination of input data, $x_t$, and the previous hidden state, $h_{t-1}$, applies an activation function, and updates the hidden state to $h_t$. Let $x_t$, $h_t$, and $o_t$ denote the input data, the hidden state, and the output at time $t$, respectively. Then, an RNN unit can be expressed as: 
+```{=latex} 
+\begin{equation}
+\begin{split}
+\label{eq:rnn}
+h_t &= f(W_{ih} h_{t-1} + W_{ix} x_t + b_i), \\
+o_t &= g(W_{oh} \cdot h_t + b_o), 
+\end{split}
+\end{equation}
+```
+where  $W_{ix}$, $W_{ih}$ and $W_{oh}$ denote the weight matrices, and $b_i$ and $b_o$ the bias vectors. The subscripts $i$ and $o$ indicate their steps in RNN: $i$ refer to the input/hidden step (first line in \eqref{eq:rnn}), and $o$ to the output step (second line in \eqref{eq:rnn}). $f$ and $g$ denote the activation functions for the hidden layer and output layer, respectively. $f$ is typically set to the logistic sigmoid function, denoted as $\sigma$, which outputs values in range $(0, 1)$ to act as a gate that controls how much information passes through. $g$ is the hyperbolic tangent function, denoted as $tanh$, which outputs values in range $(-1, 1)$ to generate output in a stable, zero-centered range. 
+
+### Problems with Long-Term Dependence 
+
+When trained on long sequences, RNNs are prone to the well-documented vanishing gradient issue [@bengio1994learning]. Both vanishing and exploding issues can introduce instability during training and hinder the ability of standard RNNs to capture long-term dependence in sequence data. In the vanishing case, gradients become too small to effectively update network weights, while in the exploding case, gradients grow excessively large, leading to unstable weight updates. 
+
+To capture long-term dependence in sequence data while alleviating the vanishing gradient problem, @hochreiter1997long introduce the Long Short-Term Memory (LSTM) unit. Since this introduction, several LSTM variants have been developed. Notable variants include LSTM with a forget gate [@gers2000lstmgate], LSTM with peephole connections [@gers2000peephole], and gated recurrent unit (GRU) [@cho2014learning]. 
+
+While LSTMs effectively address the vanishing gradient problem and capture long-term dependencies, recent advances in sequence modeling have introduced transformer-based foundation models, which approach the problem with a fundamentally different architecture. 
+
+### A Note on Foundation Models such as Transformers
+
+Foundation models, or large pre-trained models, are general-purpose AI systems trained on large, diverse datasets to learn broad patterns before fine-tuning on specific tasks. This pretraining framework has enabled their widespread adoption across domains. Their rise followed the success of large language models like BERT [@devlin2019bert] and GPT-3 [@brown2020language]. Typically built on the transformer architecture [@vaswani2017attention], these models have excelled in natural language processing (NLP) and computer vision, with extensions to multi-modal and reinforcement learning. Recently, foundation models have been increasingly applied to forecasting tasks, particularly in time series analysis. Notable domain-specific models include TimeGPT-1 by Nixtla [@garza2024timegpt1], Lag-Llama [@rasul2024lagllama], TimesFM by Google Research [@das2024decoderonlyfoundationmodel], Tiny Time Mixers by IBM Research [@ekambaram2024tinytimemixersttms], Moirai by Salesforce [@woo2024moirai], and Chronos by Amazon Web Services[@ansari2024chronos]. 
+
+These trends highlight the growing preference for transformer architectures in sequence modeling. Unlike RNNs and LSTMs, which process data *sequentially* via BPTT, transformers leverage multi-head attention with positional encoding to capture dependencies *in parallel*. Recurrent units are replaced with stacked encoder and decoder layers, each followed by feed-forward neural network layers, resulting in improved training efficiency and stability. For an overview of the transformer architecture and its applications in time series forecasting, see @ahmed2023transformerstutorial. For a comprehensive survey of foundation models, see @liang2024foundation. 
+
+As with many deep learning architectures, transformer-based models require large datasets to train effectively and are prone to overfitting, whereas simpler architectures like LSTMs often perform well on smaller datasets, offering easier training and tuning for practical forecasting tasks. Developing robust and interpretable transformer architectures remains a challenge, and benchmarking issues persist [@hewamalage2023forecast; @bergmeir2024llms]. Nonetheless, transformers hold strong potential for advancing areas of ML, including time series forecasting. 
+
+Despite the emergence of transformer-based models, LSTMs remain a practical and effective choice for our experiments, and our discussion focus on the LSTM architecture with a forget gate [@gers2000lstmgate]. We distinguish between two related decisions: the choice of LSTM variant and the choice of network architecture. 
+
+First, we select the LSTM with a forget gate because it is the version that is implemented in `PyTorch`, a widely used framework for deep learning research and development. Furthermore, while several variants of the vanilla LSTM exist, such as the LSTM with peephole connections [@gers2000peephole] and gated recurrent unit (GRU) [@cho2014learning], a comprehensive study has shown that these variants generally offer comparable performance [@greff2016lstmcompare]. For a comprehensive list of vanilla LSTM variants, we refer the reader to @yu2019reviewlstm and @hewamalage2021reviewrnn. 
+
+Second, we choose LSTMs over transformer-based architectures because LSTMs are better suited for smaller datasets, require fewer computational resources, and are easier to train and tune. In contrast, transformer-based foundation models often demand much larger datasets and substantial computing power to perform optimally, making LSTMs a more practical choice for our forecasting experiments. Moreover, LSTMs provide a simpler foundation for sequence modeling, forming the conceptual basis for transformer architectures. By starting with LSTMs, we gain more control over the training process and a clearer understanding of model behavior. 
+
+## Long Short-Term Memory (LSTM) Network Architecture 
+
+### LSTM Units {#sec-ch3-background-lstm}
+
+An Long Short-Term Memory (LSTM) unit extends an RNN by introducing a cell state and three gates: the forget gate, the input gate, and the output gate. The cell state carries long-term dependence, while the hidden state encodes short-term patterns. The gates regulate the flow of information by determining how much of the previous cell state should be forgotten, how much new information should be added, and how much of the updated cell state should be passed to the hidden state at each time step. @fig-lstm presents a visual representation of an LSTM unit. 
+
+![Architecture of an LSTM unit with a forget gate, reproduced from @olah2015understandinglstm. $x_t$ is the input, $h_t$ the hidden state, and $c_t$ the cell state. $f_t$, $i_t$, and $o_t$ are the forget, input, and output gates, respectively. $\sigma$ is used to squash values to $(0, 1)$ for gating, while $tanh$ squashes values to $(-1, 1)$ for stability and zero-centered output.](../images/chapter3/lstm.png){#fig-lstm width=50%}
+
+An LSTM unit process the input data, $x_t$, and the previous hidden state, $h_{t-1}$, and the cell state, $c_{t-1}$, through several gating mechanisms, updates the cell state to $c_t$ and the hidden state to $h_t$. Let $c_t$ and $h_t$ denote the cell and the hidden state vector. Let $f_t$, $i_t$, and $o_t$ represent the forget, the input, and the output gate vector at time $t$, respectively. Then, an LSTM unit can be expressed as: 
+```{=latex} 
+\begin{equation}
+\begin{split}
+\label{eq:lstm}
+f_t &= \sigma(W_{fh} h_{t-1} + W_{fx} x_t + b_f), \\
+i_t &= \sigma(W_{ih} h_{t-1} + W_{ix} x_t + b_i), \\
+\tilde{c}_t &= \tanh(W_{\tilde{c} h} h_{t-1} + W_{\tilde{c} x} x_t + b_{\tilde{c}}), \\
+c_t &= f_t \cdot c_{t-1} + i_t \cdot \tilde{c}_t, \\
+o_t &= \sigma(W_{oh} h_{t-1} + W_{ox} x_t + b_o), \\
+h_t &= o_t \cdot \tanh(c_t), 
+\end{split}
+\end{equation}
+```
+where $\boldsymbol{W}$ denotes the weight matrices, $\boldsymbol{b}$ the bias vectors, $\sigma$ the logistic sigmoid function, and $tanh$ the hyperbolic tangent function. 
+
+The internal structure of an LSTM unit consists of several components that work together to regulate information flow at each time step $t$: 
+
+1. The forget gate, $f_t$, controls the extent to which information is discarded or retained. The forget gate outputs values in range $(0, 1)$, where $0$ means the information is completely discarded, and $1$ means it is fully retained. The values never reach $0$ or $1$, since the range is exclusive. 
+
+2. The input gate, $i_t$, regulates the amount of new information to add. The input gate outputs values in in range $(0, 1)$, where $0$ means no information is added, and $1$ means it is nearly fully added. The values never reach $0$ or $1$, since the range is exclusive. 
+
+3. The network computes the candidate values, $\tilde{c}$, which represents the proposed new information. 
+
+4. Next, the cell state, $c_t$, is updated by combining the previous cell state, $c_{t-1}$, and the candidate values, $\tilde{c}$. As previously mentioned, $f_t$ controls how much irrelevant information to discard, while $i_t$ determines how much new information to incorporate when updating the cell state. 
+
+5. Then, the output gate, $o_t$, determines the extent to which the cell state, $c_t$, is exposed to the hidden state, $h_t$. 
+
+6. The hidden state, $h_t$, is updated by taking the cell state, $c_t$, and scaling it with the output gate, $o_t$. This resulting hidden state, $h_t$, is the final output of the LSTM network at time $t$. 
+
+To produce the output, $\hat{y}_t$, a fully connected layer, where every neuron is connected to every neuron in the previous layer, is applied to the hidden state, $h_t$. This layer performs a linear transformation, effectively mapping the high-dimensional representation learned by the LSTM to the target output space. For regression tasks, the output is typically a single scalar representing the prediction, and no non-linear activation is applied, allowing the network to generate an unconstrained real value.
+
+## Training, Hyperparameter Tuning, and Metrics 
+
+During training, forward pass involves passing input data, $x_t$, through the network to generate a predicted value, $\hat{y}_{t}$, for each time step from $t =1$ to $T$, as outlined in the steps above in @sec-ch3-background-lstm. The error is then calculated using a loss function, which measures the discrepancy between the predicted output, $\hat{y}_t$, and the target value, $y_t$. The total loss is computed by summing up the loss over time: 
+```{=latex} 
+\begin{equation}
+\begin{split}
+\mathcal{L}(\hat{y}, y) = \sum_{t=1}^T \ell(\hat{y}_t, y_t),
+\end{split}
+\end{equation}
+```
+where $\mathcal{L}$ represents the overall loss accumulated over time and $\ell_i$ the loss at each time step $t$. 
+
+Backpropagation involves propagating the error backward through the network, from time step $t = T$ to $1$, and computing the gradients of the objective function with respect to each parameter in the network. These gradients guide how the network parameters should be updated in order to minimize the loss. For sequence-based models, such as RNNs, LSTMs, and GRUs, the Backpropagation Through Time (BPTT) procedure [@werbos1988generalization; @werbos1990bptt] is employed as an extension of the standard backpropagation algorithm. BPTT unfolds the network across time steps, allowing the computation of gradients for the entire sequence of inputs. For the specific derivation of LSTM gradients, we refer the reader to @chen2016gentle and @sherstinsky2020fundamentals. 
+
+Once the gradients are computed using BPTT, standard gradient-based optimization techniques, such as Stochastic Gradient Descent (SGD) and Adaptive Moment Estimation (Adam) [@kingma2014adam], can be used to update the parameters in the direction that minimizes loss. The following update rule reflects the basic form of SGD, where parameters are adjusted using the gradient, scaled by the learning rate: 
+```{=latex} 
+\begin{equation}
+\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \alpha \, \nabla_{\boldsymbol{\theta}} \mathcal{L}, 
+\end{equation}
+```
+where $\boldsymbol{\theta} = \{W_{fx}, W_{ix}, W_{\tilde{c}x}, W_{ox}, W_{fh}, W_{ih}, W_{\tilde{c}h}, W_{oh}, \boldsymbol{b}\}$ in \eqref{eq:lstm} denotes the set of network parameters, with $\boldsymbol{b}$ representing all bias vectors collectively, $\alpha$ the learning rate, and $\nabla_{\boldsymbol{\theta}} \mathcal{L}$ the gradient of the loss function with respect to $\theta$. 
+
+The process of forward pass, backpropagation, and parameter updates is repeated over multiple epochs until convergence. Convergence is typically determined by stopping criterion such as early stopping based on validation loss, reaching a predefined number of epochs, and when the improvement in loss between epochs falls below a specified threshold [@goodfellow2016deep]. 
+
+Hyperparameter tuning plays a crucial role in improving model performance. Key hyperparameters include, for example: 
+
+1. Batch Size 
+
+2. Number of Epochs
+
+3. Learning Rate
+
+4. Number of Hidden Units or Cell Dimension
+
+5. Number of Hidden Layers, etc. 
+
+Batch size refers to the number of training samples or sequences processed simultaneously by the network in one forward and backward pass before updating its parameters. An epoch is one complete pass through the entire training dataset, during which the network processes all batches once, performing one forward and one backward pass per batch. The number of epochs refers the the number of passes the network iterates over the full dataset to achieve optimal training of the RNN. 
+
+The learning rate controls how much the network’s parameters are adjusted during training in response to the gradients of the loss function. The effectiveness of the learning rate often depends on the optimizer used. 
+
+The cell dimension and the number of hidden layers and are two additional hyperparameters that define the structure of the RNN architecture. The cell dimension refers to the size of the hidden state vector, which corresponds to the number of neurons or nodes inside each RNN cell. The number of hidden layers determines how many recurrent layers are stacked on top of each other. 
+
+Hyperparameter tuning can be performed manually through hand tuning or automatically using methods such as grid search and random search [@bergstra2012random]. Manual search, also known as manual hyperparameter tuning, involves adjusting hyperparameters based on commonly used defaults, insights from prior literature, and feedback from model performance, while automated tuning involves systematically searching the hyperparameter space. Grid search exhaustively evaluates all possible combinations within a predefined set of hyperparameter values, while random search samples hyperparameter values randomly from specified distributions for evaluation. 
+
+Evaluation metrics are essential for assessing performance and guiding improvements. @tbl-metrics presents a list of common metrics used for evaluating forecasting models. 
+
+```{=latex} 
+\begin{table}[ht]
+\centering
+\caption{Common metrics for evaluating forecasting models.}
+\label{tbl-metrics}
+\begin{tabular}{lll}
+\hline
+\textbf{Metric} & \textbf{Definition} & \textbf{Formula} \\
+\hline
+RMSE & Root Mean Squared Error & $\sqrt{\frac{1}{T} \sum_{t=1}^{T} (y_t - \hat{y}_t)^2}$ \\
+MAE & Mean Absolute Error & $\frac{1}{T} \sum_{t=1}^{T} |y_t - \hat{y}_t|$ \\
+MAPE & Mean Absolute Percentage Error & $\frac{100}{T} \sum_{t=1}^{T} \left| \frac{y_t - \hat{y}_t}{y_t} \right|$ \\
+SMAPE & Symmetric MAPE & $\frac{100}{T} \sum_{t=1}^{T} \frac{|y_t - \hat{y}_t|}{(|y_t| + |\hat{y}_t|) / 2}$ \\
+MASE & Mean Absolute Scaled Error & $\frac{ \frac{1}{T} \sum_{t=1}^{T} |y_t - \hat{y}_t| }{ \frac{1}{T - 1} \sum_{t=2}^{T} |y_t - y_{t-1}| }$ \\
+\hline
+\end{tabular}
+\end{table}
+```
+
+Root Mean Squared Error (RMSE), like Mean Squared Error (MSE), penalizes outliers, but is more interpretable, since it is expressed in the same units as the target value. Mean Absolute Error (MAE) treats all errors linearly, so it is less sensitive to outliers compared to MSE or RMSE. 
+
+MSE, RMSE, and MAE are scale-dependent metrics. In contrast, Mean Absolute Percentage Error (MAPE), Symmetric MAPE (SMAPE), and Mean Absolute Scaled Error (MASE) are scale-independent, allowing for comparison across datasets with different units. Finally, Mean Absolute Scaled Error (MASE) addresses some of the limitations of MAPE and SMAPE by scaling errors relative to a naive forecast, serving as an additional metric for evaluating forecast accuracy. 
+

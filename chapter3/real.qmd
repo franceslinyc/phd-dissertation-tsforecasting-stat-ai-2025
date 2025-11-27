@@ -1,0 +1,205 @@
+# Data Applications: NASA MERRA-2 Wind Speeds Data {#sec-ch3-real}
+
+## Experimental Setup 
+
+### Data Access and Description
+
+Wind speed is a key proxy variable in energy forecasting, and accurate prediction of wind speed is crucial for reliable power generation. The MERRA-2 wind speed data were accessed and downloaded from the NASA GES DISC Earthdata API [@gmao2015merra2] via `Python`. Wind speed components at multiple heights (50 m, 10 m, 2 m) for the Limon Wind Energy Center, the largest wind farm in Colorado, were extracted and interpolated using an adapted `R` script [@mosshammer2016wind; @baumgartner2016wind]. @fig-windspeed-ch3 shows the time series of hourly wind speeds (m/s) at these heights during 2024. 
+
+The datasets used for the experiments are: 
+
+1. wind speeds (m/s) at heights of 50 m above ground level
+
+2. wind speeds (m/s) at heights of 10 m above ground level
+
+3. wind speeds (m/s) at heights of 2 m above ground level
+
+![Time series plot of observed hourly wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level at the Limon Wind Energy Center, Colorado, for the year 2024. Data sourced from MERRA-2 via the NASA GES DISC Earthdata API.](../images/chapter1/windspeed.png){#fig-windspeed-ch3}
+
+### Model Configuration and Implementation
+
+For MTD, the hyperparameter settings are detailed in @sec-ch1-comp. MTD is implemented in `R` and executed on a high-performance computing (HPC) cluster. Training is performed following the procedure described in Algorithm 1 (@fig-alg). For MTD, one-step-ahead prediction is performed using the preceding observed values to forecast each test observation, with the predictive distribution obtained by averaging over all posterior MCMC samples.
+
+For LSTM, we reuse the default configuration for subsequent experiments: learning rate = $0.001$, batch size = $32$, number of layers = $1$, and cell dimension = $64$. LSTM is implemented in `PyTorch` and trained on a standard workstation. 
+
+During training, each iteration of the LSTM loop involves:
+
+1. Perform a forward pass to obtain predictions. 
+
+2. Calculate the loss between predictions and targets. 
+
+3. Compute gradients of the loss with respect to network parameters via backpropagation. 
+
+4. Update the parameters using the Adam optimizer. 
+
+5. Return the training loss. 
+
+For LSTM, one-step-ahead prediction is performed by feeding the model the sequence of past observed values at each test time point, generating the predicted value, and repeating the process across the entire test set. 
+
+## Results 
+
+### Prediction Results
+
+In the initial configuration, the LSTM network are trained using an L2 loss function and evaluated against the MTD model using RMSE. For MAE evaluation, a separate LSTM is trained with an L1 loss function. In contrast, MTD does not rely on training with an explicit loss function. 
+
+To facilitate a more rigorous and independent comparison, we incorporate additional error metrics, namely MAPE, SMAPE, and MASE to evaluate and compare the performance of the LSTM and MTD models. All LSTM models are trained using an L2 loss function, except for the one evaluated with MAE, which is trained using an L1 loss function.
+
+As shown in Tables (@tbl-real-uv50, @tbl-real-uv10, @tbl-real-uv2), MTD consistently outperforms the LSTM models across all evaluated metrics and training configurations for wind speeds at 50 m, 10 m, and 2 m above ground level. Since all reported MASE values are less than 1, this indicates that both models outperform the naïve forecasting benchmark on average. 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 50 m above ground level.} 
+\label{tbl-real-uv50}
+\begin{tabular}{lrr}
+  \hline
+. & LSTM & MTD \\ 
+  \hline
+RMSE & 0.6359 & \textbf{0.3508} \\ 
+  MAE & 0.6021 & \textbf{0.2692} \\ 
+  MAPE & 11.1103 & \textbf{4.2550} \\ 
+  SMAPE & 9.9305 & \textbf{4.2051} \\ 
+  MASE & 0.6595 & \textbf{0.3660} \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 10 m above ground level.} 
+\label{tbl-real-uv10}
+\begin{tabular}{lrr}
+  \hline
+. & LSTM & MTD \\ 
+  \hline
+RMSE & 0.4607 & \textbf{0.2376} \\ 
+  MAE & 0.3692 & \textbf{0.1614} \\ 
+  MAPE & 11.2891 & \textbf{4.0688} \\ 
+  SMAPE & 10.2499 & \textbf{3.9569} \\ 
+  MASE & 0.6194 & \textbf{0.2873} \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 2 m above ground level.} 
+\label{tbl-real-uv2}
+\begin{tabular}{lrr}
+  \hline
+. & LSTM & MTD \\ 
+  \hline
+RMSE & 0.4011 & \textbf{0.2215} \\ 
+  MAE & 0.2696 & \textbf{0.1543} \\ 
+  MAPE & 11.6386 & \textbf{6.5935} \\ 
+  SMAPE & 12.6050 & \textbf{6.2548} \\ 
+  MASE & 0.6660 & \textbf{0.3537} \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+To strengthen the comparison, we conduct an additional experiment by increasing the LSTM input window size, $W$, and the MTD order, $L$, from $5$ to $15$ (i.e., longer look-back steps). We then re-evaluate these models using RMSE, MAE, MAPE, and SMAPE. 
+
+As shown in Tables (@tbl-real-uv50-L15, @tbl-real-uv10-L15, @tbl-real-uv2-L15), the performance of the LSTM network shows slight improvement with a larger window size, though the gains are minimal. In contrast, the MTD model shows no performance gain, but still consistently outperform the LSTM across all metrics. 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Comparison of LSTM and MTD with 5 vs. 15 look-back steps for predicting wind speeds (m/s) at 50 m above ground level. $W$ denotes the LSTM input window size and $L$ denotes the MTD order; both represent look-back steps.}
+\label{tbl-real-uv50-L15} 
+\begin{tabular}{lrrrr}
+  \hline
+. & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
+  \hline
+RMSE & 0.6359 & 0.3508 & 0.6185 & 0.3568 \\ 
+  MAE & 0.6021 & 0.2692 & 0.5923 & 0.2753 \\ 
+  MAPE & 11.1103 & 4.2550 & 10.4424 & 4.3487 \\ 
+  SMAPE & 9.9305 & 4.2051 & 9.9404 & 4.3002 \\ 
+  MASE & 0.6595 & 0.3660 & 0.6618 & 0.3743 \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Comparison of LSTM and MTD with 5 vs. 15 look-back steps for predicting wind speeds (m/s) at 10 m above ground level. $W$ denotes the LSTM input window size and $L$ denotes the MTD order; both represent look-back steps.} 
+\label{tbl-real-uv10-L15} 
+\begin{tabular}{lrrrr}
+  \hline
+. & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
+  \hline
+RMSE & 0.4607 & 0.2376 & 0.4740 & 0.2407 \\ 
+  MAE & 0.3692 & 0.1614 & 0.3849 & 0.1644 \\ 
+  MAPE & 11.2891 & 4.0688 & 10.3323 & 4.1250 \\ 
+  SMAPE & 10.2499 & 3.9569 & 10.0114 & 4.0145 \\ 
+  MASE & 0.6194 & 0.2873 & 0.6269 & 0.2927 \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Comparison of LSTM and MTD with 5 vs. 15 look-back steps for predicting wind speeds (m/s) at 2 m above ground level. $W$ denotes the LSTM input window size and $L$ denotes the MTD order; both represent look-back steps.} 
+\label{tbl-real-uv2-L15} 
+\begin{tabular}{lrrrr}
+  \hline
+. & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
+  \hline
+RMSE & 0.4011 & 0.2215 & 0.3873 & 0.2240 \\ 
+  MAE & 0.2696 & 0.1543 & 0.2714 & 0.1562 \\ 
+  MAPE & 11.6386 & 6.5935 & 13.2704 & 6.6896 \\ 
+  SMAPE & 12.6050 & 6.2548 & 12.8026 & 6.3384 \\ 
+  MASE & 0.6660 & 0.3537 & 0.6536 & 0.3582 \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+Given that batch size appears to be an important hyperparameter for LSTM, we further test values of $8$, $16$, $64$, $128$, and $256$, compared to the baseline of $32$. Nevertheless, none of these settings yield better performance than the MTD model. Corresponding training and validation loss plots are provided in the @sec-appendix-ch3-add-pred-real. 
+
+@fig-pred-real illustrates the one-step-ahead predicted mean wind speeds (in m/s) between LSTM and MTD models at heights of 50 m, 10 m, and 2 m above ground level. @fig-pred-real-zoom presents a zoomed-in view of the same plot, focusing on a subset of the test data ($n = 200$). Prediction error plots (@fig-pred-real-diff, @fig-pred-real-zoom-diff) are also provided to highlight the differences between model predictions and actual values. 
+
+![One-step ahead predicted means for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means.](../images/chapter3/lstm_vs_mtd_real_n1756.png){#fig-pred-real}
+
+![Zoomed-in view of one-step ahead predicted means for wind speeds (m/s) at (a) 50 m, (b) 10 m, and (c) 2 m above ground level for $n = 200$. Solid (black) lines represent true values. Dashed (red) lines are LSTM predictions; dashed (blue) lines are MTD predictions.](../images/chapter3/lstm_vs_mtd_real_n200.png){#fig-pred-real-zoom}
+
+![One-step ahead prediction errors for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Dashed (red) lines show differences between LSTM predicted means and observed values and dashed (blue) lines show differences between MTD predicted means and observed values.](../images/chapter3/lstm_vs_mtd_real_diff_n1756.png){#fig-pred-real-diff}
+
+![Zoomed-in view of one-step ahead prediction errors for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Dashed (red) lines show differences between LSTM predicted means and observed values and dashed (blue) lines show differences between MTD predicted means and observed values.](../images/chapter3/lstm_vs_mtd_real_diff_n200.png){#fig-pred-real-zoom-diff}
+
+### Empirical Coverage of the MTD Model
+
+Empirical coverage is particularly relevant for probabilistic forecasting methods such as MTD, where uncertainty estimation is an integral part of the model output. Therefore, in addition to standard evaluation metrics, MTD is also assessed using this technique to evaluate the reliability of its predictive intervals.
+
+@tbl-pred-mtd-real summaries the $95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of 50 m, 10 m, and 2 m above ground level. As shown in the table, the model appropriately captures the predictive uncertainty across wind speeds at all heights. @fig-pred-mtd-real and @fig-pred-mtd-real-L15 illustrate these intervals. 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Empirical coverage of the $95\%$ predictive intervals for wind speeds (m/s), with look-back steps $L = 5$ vs $15$.} 
+\label{tbl-pred-mtd-real}
+\begin{tabular}{lrr}
+  \hline
+ . & L = 5 & L = 15 \\ 
+  \hline
+ windspeed50mms & 0.9522 & 0.9510 \\ 
+  windspeed10mms & 0.9562 & 0.9561 \\ 
+  windspeed2mms & 0.9567 & 0.9561 \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+![$95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level for look-back steps $L = 5$.](../images/chapter3/mtd_real_n1756.png){#fig-pred-mtd-real} 
+
+![$95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level for look-back steps $L = 15$.](../images/chapter3/mtd_real_n1754_L15.png){#fig-pred-mtd-real-L15} 
+

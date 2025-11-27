@@ -1,0 +1,13 @@
+# `mtd`: An `R` Package for Modeling Non-Gaussian Time Series {#sec-ch2-pkag}
+
+This is Chapter 2's package.
+
+## Extension to the `mtd` Package
+
+## Usage of the Extended `mtd` Package
+
+### Data Simulation 
+
+### Model Training 
+
+### Prediction

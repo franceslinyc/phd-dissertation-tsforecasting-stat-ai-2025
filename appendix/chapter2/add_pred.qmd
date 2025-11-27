@@ -1,0 +1,16 @@
+# Predictions for Zero-Inflated Gamma MTD Models {#sec-appendix-ch2-add-pred}
+
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 3. Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../../images/chapter2/pred_zigamma_s3.png){#fig-pred-zigamma-s3}
+
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 4. Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../../images/chapter2/pred_zigamma_s4.png){#fig-pred-zigamma-s4}
+
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 5. Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../../images/chapter2/pred_zigamma_s5.png){#fig-pred-zigamma-s5}
+
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 6. Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../../images/chapter2/pred_zigamma_s6.png){#fig-pred-zigamma-s6}
+
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 7. Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../../images/chapter2/pred_zigamma_s7.png){#fig-pred-zigamma-s7}
+
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 8. Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../../images/chapter2/pred_zigamma_s8.png){#fig-pred-zigamma-s8}
+
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 9. Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../../images/chapter2/pred_zigamma_s9.png){#fig-pred-zigamma-s9}
+

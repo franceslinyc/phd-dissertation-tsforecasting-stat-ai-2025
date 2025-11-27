@@ -1,0 +1,19 @@
+# Real Data for Gamma MTD Models {#sec-appendix-ch1-add-real}
+
+## Results
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & windspeed50mms & windspeed10mms & windspeed2mms \\ 
+  \hline
+Coverage & 0.9411 & 0.9469 & 0.9471 \\ 
+   \hline
+\end{tabular}
+\caption{Empirical coverage of the $95\%$ predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level} 
+\end{table}
+```
+
+![$95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level.](../../images/chapter1/pred_windspeed.png)

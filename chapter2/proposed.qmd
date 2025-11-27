@@ -1,0 +1,60 @@
+# Proposed Method: Copula-Based Zero-Inflated Gamma MTD Models {#sec-ch2-prop}
+
+The proposed model extends the copula-based Gamma MTD model to handle zero-inflated data by reconstructing the marginal distribution. By transforming semi-continuous distributions into continuous distributions, the proposed approach addresses the issues encountered with non-continuity in the copula model, thus maintaining the same effectiveness and flexibility in modeling dependence structures as described in @sec-ch1-prop. 
+
+As stated in Definition \ref{def:copula}, if $X_j$ is continuous for all $j$, then copula function $C$ is unique and differentiable. The joint probability density function of $X_j$, $f(x_j)$, can be factored into the product of the copula density, $c$, and the density of $X_j$, $f_j$, $j=1,...,p$. However, in the case of zero-inflated gamma distribution, $X_j$ is semi-continuous, i.e., it exhibits a point mass at zero combined with a continuous distribution over positive values. 
+
+Building on the CE framework for discrete values, zero values are replaced with non-zero values drawn from a continuous uniform distribution. The resulting distribution is continuous, effectively smoothing the zero values while preserving the overall distributional structure, including its dependence structure. We defer the details of the marginal distribution reconstruction to @sec-ch2-prop-marginal. 
+
+We use an asterisk ($*$) to denote that a density is CE-based. Without the asterisk, the notation corresponds to the Gamma MTD model introduced in Part I. Based on a pre-specified stationary marginal density $f^*_X$, we define copulas $C^*_l = C_l$ over continuous random vectors $(U^*_l, V^*_l)$, with marginals $f_{U^*_l} = f^*_X$ and $f_{V^*_l} = f^*_X$, analogous to copulas in the Gamma MTD model. For $t > L$, the proposed copula-based zero-inflated Gamma MTD (ZIGamma MTD) model specifies the conditional distribution in the same form as given in \eqref{eq:cond_distribution_copula} in @sec-ch1-prop. 
+
+As before, a variety of copula families are available, and the proposed model can be readily extended by reconstructing the zero-inflated continuous marginal distribution in a similar manner, provided that the resulting distribution remains within the class of continuous distributions. 
+
+## Copula
+
+We consider the Gaussian copula with the dependence parameter $\rho$, as described in @sec-ch1-prop-copula. As previously noted, while the marginal distributions can be arbitrary, they are required to be continuous. In the subsequent section, we outline a technique to transform semi-continuous distributions into continuous distributions.
+
+## Marginal Distribution {#sec-ch2-prop-marginal}
+
+To construct zero-inflated Gamma for the marginal distribution, the Gamma distribution is first reparametrized in terms of the mean, $\mu$, and the scale parameter, $\beta$. Specifically, 
+```{=latex} 
+\begin{equation}
+f(y; \mu, \beta) = 
+\frac{1} {\Gamma(\frac{\mu}{\beta}) \beta^{\frac{\mu}{\beta}}} {y}^{\frac{\mu}{\beta} - 1} \exp(- \frac{y} {\beta}) \quad y \geq 0, 
+\end{equation}
+```
+where $\frac{\mu}{\beta} > 0$ denotes the shape and $\beta > 0$ the scale parameter.
+
+Zero values are then replaced with non-zero values drawn from a uniform distribution. Specifically,
+```{=latex} 
+\begin{equation}
+0 \leftarrow U_i.  
+\end{equation}
+```
+where $U_i$ follows a continuous uniform distribution on $(0, \epsilon)$ with $\epsilon$ is a data-driven parameter representing the smallest observed non-zero values. The resulting distribution, denoted as $\text{ZIGamma}(\mu, \beta, P, \epsilon)$, is expressed as:
+```{=latex} 
+\begin{equation}
+f(x; \mu, \beta, P, \epsilon) = 
+\begin{cases} 
+\text{Unif}(0, \epsilon) & \text{with probability } P \\
+\text{ShiftedGamma}(\mu, \beta; \epsilon) & \text{with probability } 1-P, 
+\end{cases}
+\end{equation}
+```
+where $\mu$ denotes the mean and $\beta$ the scale parameter of the shifted Gamma distribution, $P \in [0, 1]$ the zero-inflated probability, and $\epsilon > 0$ the threshold parameter. The shifted Gamma distribution, $\text{ShiftedGamma}(\mu, \beta; \epsilon)$, is a standard Gamma distribution with mean $\mu$ and scale $\beta$ that is shifted to the right by $\epsilon$, with the support $[\epsilon, \infty)$. It is expressed as:
+```{=latex} 
+\begin{equation}
+f(y; \mu, \beta, \epsilon) = 
+\frac{1} {\Gamma(\frac{\mu}{\beta}) \beta^{\frac{\mu}{\beta}}} {(y - \epsilon)}^{\frac{\mu}{\beta} - 1} \exp(- \frac{y - \epsilon} {\beta}) \quad y \geq \epsilon, 
+\end{equation}
+```
+where $\frac{\mu}{\beta} > 0$ denotes the shape, $\beta > 0$ the scale, and $\epsilon > 0$ the threshold parameter.
+
+@fig-zigamma shows the probability density function (PDF) of the zero-inflated gamma distribution, along with the corresponding cumulative distribution function (CDF) for fixing the parameters $\mu = 7$ and $\beta = 1$, while varying the parameters $\epsilon$ and $P$ ($\epsilon = 0.1, 0.4$; $P = 0.1, 0.5, 0.7$). Each row of the figure corresponds to a different value of $P$: $P = 0.1$, $0.5$, and $0.7$ from top to bottom. Within each row, plot (a) shows the case for $\epsilon = 0.1$, with the left and right panels depicting the PDF and CDF, respectively. Plot (b) shows the corresponding curves for $\epsilon = 0.4$. 
+
+As also shown in the right panels in @fig-zigamma, the CDF is continuous and no longer exhibits a point mass at zero, i.e., there is no longer a discontinuous jump at zero. Comparing the left and right panels we can see parameter $\epsilon$ controls the degree of the slope near the origin, where smaller value of $\epsilon$ results in steep increase in the CDF, while larger value leads to a more gradual increase. Comparing left panels from top ($P = 0.1$) to bottom ($P = 0.7$) we see the contribution of the shifted gamma distribution decreases as $P$ increases. In other words, zero values become increasingly dominant over positive values with higher $P$. Additional plots are provided in the @sec-appendix-ch2-add-dzig-pzig. 
+
+![(a), (b): $ZIGamma(\mu = 7, \beta = 1, P = 0.1, \epsilon = 0.1, 0.4)$; (c), (d): $ZIGamma(\mu = 7, \beta = 1, P = 0.5, \epsilon = 0.1, 0.4)$; (e), (f): $ZIGamma(\mu = 7, \beta = 1, P = 0.7, \epsilon = 0.1, 0.4)$. (Left) Probability density function (PDF) and (Right) cumulative distribution function (CDF) of the zero-inflated gamma distribution with varying parameters.](../images/chapter2/fig_zigamma.png){#fig-zigamma}
+
+While we use a Gaussian copula with a zero-inflated Gamma marginal distribution to illustrate the structure of the proposed model, the proposed model can be readily extended by reconstructing the marginal distribution similarly. For example, one could construct a Gaussian copula with a zero-inflated log-normal (ZILN) MTD model or a Gumble copula with a zero-inflated Gamma (ZIGamma) MTD model, among other configurations. As copula modeling constitutes a substantial research area beyond the scope of this work, we refer the reader to @joe2014dependence for more details. 
+

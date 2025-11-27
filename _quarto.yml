@@ -1,0 +1,132 @@
+project:
+  type: book
+
+book:
+  title: "Copula-Based Mixture Transition Distribution Models for Forecasting Skewed and Zero-Inflated Time Series: Methodology and Comparisons with Deep Learning LSTM Networks"
+  author: "Frances Lin"
+  date: "November 5, 2025"
+  output-file: LinFrances2025
+  chapters:
+    - index.qmd
+    - part: "Models for Forecasting Skewed Time Series"
+      chapters:
+        - chapter1/intro.qmd
+        - chapter1/background.qmd
+        - chapter1/proposed.qmd
+        - chapter1/computation.qmd        
+        - chapter1/simulation.qmd
+        - chapter1/prediction.qmd
+        - chapter1/discussion.qmd
+    - part: "Models for Forecasting Zero-Inflated Skewed Time Series"
+      chapters:
+        - chapter2/intro.qmd
+        - chapter2/background.qmd        
+        - chapter2/proposed.qmd
+        - chapter2/computation.qmd        
+        - chapter2/simulation.qmd
+        - chapter2/prediction.qmd
+        - chapter2/discussion.qmd
+    - part: "Copula-Based Markov MTD Models vs. Deep Learning LSTM Networks"
+      chapters:
+        - chapter3/intro.qmd
+        - chapter3/background.qmd
+        - chapter3/simulation.qmd
+        - chapter3/real.qmd
+        - chapter3/discussion.qmd
+    - part: "Conclusion"
+      chapters:
+        - conclusion.qmd
+    - part: "Bibliography"
+      chapters:
+        - references.qmd
+  appendices: 
+    - appendix/chapter2/add_dzig_pzig.qmd
+    - appendix/chapter1/add_simu.qmd
+    - appendix/chapter2/add_simu.qmd
+    - appendix/chapter1/add_pred.qmd
+    - appendix/chapter2/add_pred.qmd
+    - appendix/chapter3/add_pred.qmd
+    - appendix/chapter1/add_pkag.qmd
+
+thesis:    
+  department: Statistics
+  depttype: Department
+  depthead: Chair
+  doctype: Dissertation
+  major: Statistics
+  advisor: Lisa Madsen
+  coadvisor: Charlotte Wickham
+  commencementyear: 2026
+  degree: Doctor of Philosophy
+  acknowledgements: | 
+    First and foremost, I would like to thank my advisors, Lisa Madsen and Charlotte Wickham, for their 
+    dedication, support, and inspiration throughout the process. 
+    They have not only shaped me as a researcher, but have also inspired me 
+    on a personal level through their integrity, kindness, and diligence. 
+    I am grateful for all the support they have given. 
+    I could not have made it this far without their guidance,
+    nor could I have asked for better advisors.
+    I would also like to thank my committee memebers, James Molyneux, Claudio Fuentes, 
+    and Prasad Tadepalli, for the time they dedicated and for their valuable feedback. 
+    I am also grateful to Xiaotian Zheng, whose models formed the basis of our work. 
+    He has been incredibly generous with his time and advice. 
+
+    I am grateful to my family, my mom, dad, and brother, for their occational financial support and 
+    for their patience and understanding througout the journey. While I am privileged not 
+    to be the first in my family to pursue a doctoral degree, 
+    the unique challenges of my path have been shared and felt by all of us. I am grateful to 
+    my uncle, a professor of statistics in Taiwan, for his lifelong guidence and influence, 
+    and to Kate Huntington, a professor of geology at my undergraduate university, for inspiring me and
+    igniting my interest in research. 
+    I am thankful to my friends, including my cohort, for their emotional support and for 
+    always being there, from late-night talks and fun hikes to ski trips and random food 
+    adventures. I am thankful to Gauri, my friend, cohort, and roommmate of over five years, and to Baloo, Gauri's dog, 
+    for making this experience more manageable. Last but not least, I give special thanks to my partner, 
+    Joseph, for his timely distractions and annoyances. 
+
+    This journey has been a long one: from navigating the challenges of remote work during COVID in 2020-2021, to 
+    supporting my grandma as she battled a brain tumor and gradually lost her ability to communicate 
+    over the years, the passing of our family dog, Collie, in 2024, 
+    swearing in as a U.S. citizen later in the same year, and completing an internship at Posit
+    this summer. I would not have made it this far without the support of the aforementioned people, as well as many others.  
+    
+
+  abstract: > 
+    Real-world time series in domains such as energy, insurance, and transportation often exhibit 
+    skewness and zero-inflation, which can undermine model performance if not 
+    properly addressed. To tackle these challenges, we develop the copula-based Gamma Mixture Transition Distribution
+    (Gamma MTD) model and its zero-inflated extension (ZIGamma MTD) 
+    to capture high-order dependence, skewed distributions, and semicontinuous patterns. 
+    The proposed framework is generalizable, accommodating a wide range of marginal distributions and copula families
+    beyond the Gamma and ZIGamma specifications. 
+    Simulation studies show promising results across various scenarios, demonstrating their effectiveness and robustness. 
+    Continued development of probabilistic frameworks for skewed and zero-inflated
+    time series is crucial for methodological advancement and for expanding their applicability across
+    a wider range of fields. 
+    While recent AI advances such as Recurrent Neural Networks (RNNs) and Long Short-Term 
+    Memory (LSTM) networks effectively capture nonlinear and long-range dependence, claims of 
+    LSTM superiority can be misleading with inappropriate benchmarks, and prior work has shown 
+    that probabilistic models such as MTD perform comparably in predicting, for example, disease spread. To assess the relative 
+    strengths and limitations of each approach, we compare the proposed Gamma and ZIGamma MTD
+    models with LSTM networks. Results from both simulation and real-data applications 
+    show that MTD models achieve higher predictive accuracy and greater robustness, albeit at 
+    the cost of increased computational demands and more involved model design, whereas LSTMs provide 
+    faster predictions but with lower accuracy. These findings highlight the complementary strengths
+    of flexible probabilistic models and AI-driven neural architectures, suggesting opportunities 
+    for further advancements that integrate both approaches to better model skewed and zero-inflated time series.
+       
+bibliography: references.bib
+
+format:
+  html: 
+    toc: true
+    toc-depth: 3
+    number-sections: true
+  beav-pdf: 
+    toc: true
+    toc-depth: 3
+    number-sections: true 
+    keep-tex: true
+    include-in-header: preamble.tex
+    classoption: [seploa]
+

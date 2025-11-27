@@ -1,0 +1,48 @@
+# Proposed Method: Copula-Based Gamma MTD Models {#sec-ch1-prop}
+
+The proposed MTD model extends the original MTD model by incorporating copulas into the transition kernels. By allowing dependence structures to be modeled separately from the marginal distribution, the proposed approach enables a choice of copula families that effectively capture the data's dependence structures while allowing flexibility in marginal selection, thereby enhancing modeling capabilities and flexibility.
+
+The invariant condition in Proposition \ref{prop:proposition1} is achieved using the bivariate distribution approach, which specifies the stationary density $f_X$ as the marginal densities of $(U_l, V_l)$, $f_{U_l}$ and $f_{V_l}$, for all $l$. This is facilitated by the use of a copula, which separates the marginal behavior of the random variables from their dependence structure. 
+
+Copula is a multivariate cumulative distribution function where its marginal distribution of each random variable follows a uniform distribution on the interval $[0, 1]$. Copulas are useful for modeling dependence between random variables. Copulas decompose any joint distribution $F$ into two parts: the copula $C$ and the marginal distributions $F_j$. The theoretical groundwork for copulas is rooted in Sklar's theorem @sklar1959fonctions.
+
+```{=latex}
+\begin{definition}
+For any $p$-dimensional multivariate cumulative distribution function of a random vector $(X_1, ..., X_p)$, denoted as $F(x_1, ..., x_p)$, there exists a copula function $C: {[0,1]}^p \rightarrow [0, 1]$ for which $F(x_1, ..., x_p) = C(F_1(x_1), ..., F_p(x_p))$, where $F_j$ is the marginal cumulative distribution function of $X_j, j = 1,..., p$.
+
+If $X_j$ is continuous for all $j$, then $C$ is unique and differentiable. The joint probability density function of $X_j, j=1,...,p$ is given by $f(x_j) = c(x_j) \prod_{j=1}^p f_j(x_j)$, where $c = \partial^p{C} / \partial{F_j}$ is the copula density and $f_j$ is the density of $X_j$.
+\label{def:copula}
+\end{definition}
+```
+
+In the bivariate setting, as outlined in the bivariate distribution approach, the joint density of $(U_l, V_l)$ is $f_{U_l, V_l} (x_t, x_{t-l})$ $= c(x_t, x_{t-l})$ $f_{U_l}(x_t) f_{V_l}(x_{t-l})$. By applying the law of conditional probability, the conditional density of $U_l$ given $V_l$ is then $f_{U_l | V_l}(x_t | x_{t-l}) = c(x_t, x_{t-l}) f_{U_l}(x_t) f_{V_l}(x_{t-l}) / f_{V_l}(x_{t-l})$ $= c(x_t, x_{t-l}) f_{U_l}(x_t)$. Given a pre-specified stationary marginal density $f_X$, and replace $f_{U_l}$ and $f_{V_l}$ with $f_X$, for every $x_t$ and for all $l$. For $t > L$, the proposed copula-based MTD model specifies the conditional distribution as
+```{=latex} 
+\begin{equation}
+f(x_t | \textbf{x}^{t-1}) = \sum_{l=1}^L w_l c_l (x_t, x_{t-l}) f_X(x_t)
+\label{eq:cond_distribution_copula}
+\end{equation}
+```
+$c_l (x_t, x_{t-l})$ is the copula density evaluated at $x_t$ and $x_{t-l}$, and $f_X(x_t)$ is the stationary marginal density evaluated at $x_t$. Compared to \ref{eq:cond_distribution}, the transition kernel, $f_l$, is now replaced by two components: the copula density $c_l$, and the stationary marginal density $f_X$. The copula captures the dependence between current and lagged value and controls the strength of the dependence through a dependence parameter. Stationary marginal density describes the marginal behavior of the current value. A variety of copula families and marginal distributions are available for choice. Without much modifications to our proposed model, the marginal distribution can take any form, but is limited to continuous distributions.
+
+## Copula {#sec-ch1-prop-copula}
+
+We consider the Gaussian copula with the dependence parameter $\rho$. A Gaussian copula for $(X_1, X_2)$ is 
+\begin{equation}
+    C(u_1, u_2 |  \rho) = \Phi_2 (\Phi^{-1} (u_1),  \Phi^{-1} (u_2) | \rho)
+\end{equation}
+
+$u_j = F_j(x_j)$ are standard uniform distribution, where $F_j$ is the marginal cdf of $X_j$, for $j = 1,2$. 
+$\Phi_2$ is the cdf of a  bivariate standard Gaussian distribution with the dependence parameter $\rho \in (-1, 1)$, and $\Phi$ is the cdf of a univariate standard Gaussian distribution. If both $X_1$ and $X_2$ are continuous variables, the copula has the density
+\begin{equation}
+\begin{split}
+    c(\Phi^{-1} (u_1), \Phi^{-1} (u_2) | \rho) = \frac{1} {\sqrt{(1 - \rho^2)}} \exp{\Biggl( \frac{2 \rho \Phi^{-1} (u_1) \Phi^{-1} (u_2) - \rho^2\{ {(\Phi^{-1} (u_1))}^2 + {(\Phi^{-1} (u_2))}^2 \}} {2 (1 - \rho^2)} \Biggr)}.
+\end{split}
+\end{equation}
+
+## Marginal Distribution
+
+We choose Gamma with the shape, $\alpha$, and the rate parameter, $\beta$, as the marginal distribution, i.e., $Gamma (\alpha, \beta)$ with mean $\alpha / \beta$ and variance $\alpha / \beta^2$. @fig-gamma illustrates gamma distributions with varying shape and rate parameters, which are subsequently used in the simulation studies. The Gamma distribution is useful for modeling positively-skewed, non-negative data, such as failure times, runoff amounts, and insurance claims. @fig-windspeed illustrates a positively-skewed time series dataset of wind speeds, motivating the model design.
+
+![Probability density function (PDF) of the gamma distribution with varying shape and rate parameters](../images/chapter1/gamma.jpg){#fig-gamma}
+
+While we use a Gaussian copula with a Gamma marginal distribution to illustrate the structure of the proposed model, other choices of copulas and marginal distributions can also be employed without requiring significant modifications to the proposed model. For example, one could develop a Gumble copula with a Gamma MTD model or a  Gaussian copula with a Beta MTD model, among others. As copula modeling constitutes a substantial research area beyond the scope of this work, we refer the reader to @joe2014dependence for more details. 

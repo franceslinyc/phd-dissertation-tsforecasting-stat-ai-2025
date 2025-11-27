@@ -1,0 +1,11 @@
+# `mtd`: An `R` Package for Modeling Zero-inflated Gamma Time Series {#sec-appendix-ch2-pkag}
+
+## Extension to the `mtd` Package
+
+## Usage of the Extended `mtd` Package
+
+### Data Simulation 
+
+### Model Training 
+
+### Prediction

@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.34">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>17&nbsp; Background – Copula-Based Mixture Transition Distribution Models for Forecasting Skewed and Zero-Inflated Time Series: Methodology and Comparisons with Deep Learning LSTM Networks</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapter3/simulation.html" rel="next">
+<link href="../chapter3/intro.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-231ef2f9d4ce3268f31ef752336c15d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter3/intro.html">Copula-Based Markov MTD Models vs.&nbsp;Deep Learning LSTM Networks</a></li><li class="breadcrumb-item"><a href="../chapter3/background.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Background</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Copula-Based Mixture Transition Distribution Models for Forecasting Skewed and Zero-Inflated Time Series: Methodology and Comparisons with Deep Learning LSTM Networks</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Models for Forecasting Skewed Time Series</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter1/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter1/background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter1/proposed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Proposed Method: Copula-Based Gamma MTD Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter1/computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Overview of MCMC Algorithms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter1/simulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Simulation Studies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter1/prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Prediction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter1/discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Models for Forecasting Zero-Inflated Skewed Time Series</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter2/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter2/background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter2/proposed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Proposed Method: Copula-Based Zero-Inflated Gamma MTD Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter2/computation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Overview of MCMC Algorithms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter2/simulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Simulation Studies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter2/prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Prediction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter2/discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Copula-Based Markov MTD Models vs.&nbsp;Deep Learning LSTM Networks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter3/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter3/background.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter3/simulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simulation Studies</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter3/real.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Data Applications: NASA MERRA-2 Wind Speeds Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter3/discussion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Discussion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Conclusion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bibliography</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliography</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../appendix/chapter2/add_dzig_pzig.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">PDF and CDF Plots for Zero-Inflated Gamma MTD Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../appendix/chapter1/add_simu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Simulations for Gamma MTD Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../appendix/chapter2/add_simu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Simulations for Zero-Inflated Gamma MTD Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../appendix/chapter1/add_pred.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Predictions for Gamma MTD Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../appendix/chapter2/add_pred.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Predictions for Zero-Inflated Gamma MTD Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../appendix/chapter3/add_pred.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Predictions for MTD Models vs LSTM Networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../appendix/chapter1/add_pkag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title"><code>mtd</code>: An <code>R</code> Package for Modeling Gamma and Zero-inflated Gamma Time Series</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#recurrent-neural-network-rnn-architecture" id="toc-recurrent-neural-network-rnn-architecture" class="nav-link active" data-scroll-target="#recurrent-neural-network-rnn-architecture"><span class="header-section-number">17.1</span> Recurrent Neural Network (RNN) Architecture</a>
+  <ul class="collapse">
+  <li><a href="#recurrent-unit" id="toc-recurrent-unit" class="nav-link" data-scroll-target="#recurrent-unit"><span class="header-section-number">17.1.1</span> Recurrent Unit</a></li>
+  <li><a href="#problems-with-long-term-dependence" id="toc-problems-with-long-term-dependence" class="nav-link" data-scroll-target="#problems-with-long-term-dependence"><span class="header-section-number">17.1.2</span> Problems with Long-Term Dependence</a></li>
+  <li><a href="#a-note-on-foundation-models-such-as-transformers" id="toc-a-note-on-foundation-models-such-as-transformers" class="nav-link" data-scroll-target="#a-note-on-foundation-models-such-as-transformers"><span class="header-section-number">17.1.3</span> A Note on Foundation Models such as Transformers</a></li>
+  </ul></li>
+  <li><a href="#long-short-term-memory-lstm-network-architecture" id="toc-long-short-term-memory-lstm-network-architecture" class="nav-link" data-scroll-target="#long-short-term-memory-lstm-network-architecture"><span class="header-section-number">17.2</span> Long Short-Term Memory (LSTM) Network Architecture</a>
+  <ul class="collapse">
+  <li><a href="#sec-ch3-background-lstm" id="toc-sec-ch3-background-lstm" class="nav-link" data-scroll-target="#sec-ch3-background-lstm"><span class="header-section-number">17.2.1</span> LSTM Units</a></li>
+  </ul></li>
+  <li><a href="#training-hyperparameter-tuning-and-metrics" id="toc-training-hyperparameter-tuning-and-metrics" class="nav-link" data-scroll-target="#training-hyperparameter-tuning-and-metrics"><span class="header-section-number">17.3</span> Training, Hyperparameter Tuning, and Metrics</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter3/intro.html">Copula-Based Markov MTD Models vs.&nbsp;Deep Learning LSTM Networks</a></li><li class="breadcrumb-item"><a href="../chapter3/background.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Background</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-ch3-background" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Background</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="recurrent-neural-network-rnn-architecture" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="recurrent-neural-network-rnn-architecture"><span class="header-section-number">17.1</span> Recurrent Neural Network (RNN) Architecture</h2>
+<section id="recurrent-unit" class="level3" data-number="17.1.1">
+<h3 data-number="17.1.1" class="anchored" data-anchor-id="recurrent-unit"><span class="header-section-number">17.1.1</span> Recurrent Unit</h3>
+<p>An Recurrent Neural Network (RNN) is composed of repeating cells or units that unfold or unroll over time, where each unit passes recurrent information stored in the hidden state from one time step to the next. <a href="#fig-rnn" class="quarto-xref">Figure&nbsp;<span>17.1</span></a> presents a visual representation of an RNN unit.</p>
+<div id="fig-rnn" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rnn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/chapter3/rnn.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rnn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.1: Architecture of an RNN unit, reproduced from <span class="citation" data-cites="olah2015understandinglstm">Olah (<a href="../references.html#ref-olah2015understandinglstm" role="doc-biblioref">2015</a>)</span>. <span class="math inline">\(x_t\)</span> is the input, <span class="math inline">\(h_t\)</span> is the hidden state, and <span class="math inline">\(o_t\)</span> is the output. <span class="math inline">\(tanh\)</span> is the activation function, squashing values to <span class="math inline">\((-1, 1)\)</span> for stability and zero-centered output.
+</figcaption>
+</figure>
+</div>
+<p>An RNN unit computes a weighted combination of input data, <span class="math inline">\(x_t\)</span>, and the previous hidden state, <span class="math inline">\(h_{t-1}\)</span>, applies an activation function, and updates the hidden state to <span class="math inline">\(h_t\)</span>. Let <span class="math inline">\(x_t\)</span>, <span class="math inline">\(h_t\)</span>, and <span class="math inline">\(o_t\)</span> denote the input data, the hidden state, and the output at time <span class="math inline">\(t\)</span>, respectively. Then, an RNN unit can be expressed as:</p>
+<span class="math display">\[\begin{equation}
+\begin{split}
+\label{eq:rnn}
+h_t &amp;= f(W_{ih} h_{t-1} + W_{ix} x_t + b_i), \\
+o_t &amp;= g(W_{oh} \cdot h_t + b_o),
+\end{split}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(W_{ix}\)</span>, <span class="math inline">\(W_{ih}\)</span> and <span class="math inline">\(W_{oh}\)</span> denote the weight matrices, and <span class="math inline">\(b_i\)</span> and <span class="math inline">\(b_o\)</span> the bias vectors. The subscripts <span class="math inline">\(i\)</span> and <span class="math inline">\(o\)</span> indicate their steps in RNN: <span class="math inline">\(i\)</span> refer to the input/hidden step (first line in <span class="math inline">\(\eqref{eq:rnn}\)</span>), and <span class="math inline">\(o\)</span> to the output step (second line in <span class="math inline">\(\eqref{eq:rnn}\)</span>). <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> denote the activation functions for the hidden layer and output layer, respectively. <span class="math inline">\(f\)</span> is typically set to the logistic sigmoid function, denoted as <span class="math inline">\(\sigma\)</span>, which outputs values in range <span class="math inline">\((0, 1)\)</span> to act as a gate that controls how much information passes through. <span class="math inline">\(g\)</span> is the hyperbolic tangent function, denoted as <span class="math inline">\(tanh\)</span>, which outputs values in range <span class="math inline">\((-1, 1)\)</span> to generate output in a stable, zero-centered range.</p>
+</section>
+<section id="problems-with-long-term-dependence" class="level3" data-number="17.1.2">
+<h3 data-number="17.1.2" class="anchored" data-anchor-id="problems-with-long-term-dependence"><span class="header-section-number">17.1.2</span> Problems with Long-Term Dependence</h3>
+<p>When trained on long sequences, RNNs are prone to the well-documented vanishing gradient issue <span class="citation" data-cites="bengio1994learning">(<a href="../references.html#ref-bengio1994learning" role="doc-biblioref">Bengio, Simard, and Frasconi 1994</a>)</span>. Both vanishing and exploding issues can introduce instability during training and hinder the ability of standard RNNs to capture long-term dependence in sequence data. In the vanishing case, gradients become too small to effectively update network weights, while in the exploding case, gradients grow excessively large, leading to unstable weight updates.</p>
+<p>To capture long-term dependence in sequence data while alleviating the vanishing gradient problem, <span class="citation" data-cites="hochreiter1997long">Hochreiter and Schmidhuber (<a href="../references.html#ref-hochreiter1997long" role="doc-biblioref">1997</a>)</span> introduce the Long Short-Term Memory (LSTM) unit. Since this introduction, several LSTM variants have been developed. Notable variants include LSTM with a forget gate <span class="citation" data-cites="gers2000lstmgate">(<a href="../references.html#ref-gers2000lstmgate" role="doc-biblioref">Gers, Schmidhuber, and Cummins 2000</a>)</span>, LSTM with peephole connections <span class="citation" data-cites="gers2000peephole">(<a href="../references.html#ref-gers2000peephole" role="doc-biblioref">Gers and Schmidhuber 2000</a>)</span>, and gated recurrent unit (GRU) <span class="citation" data-cites="cho2014learning">(<a href="../references.html#ref-cho2014learning" role="doc-biblioref">Cho et al. 2014</a>)</span>.</p>
+<p>While LSTMs effectively address the vanishing gradient problem and capture long-term dependencies, recent advances in sequence modeling have introduced transformer-based foundation models, which approach the problem with a fundamentally different architecture.</p>
+</section>
+<section id="a-note-on-foundation-models-such-as-transformers" class="level3" data-number="17.1.3">
+<h3 data-number="17.1.3" class="anchored" data-anchor-id="a-note-on-foundation-models-such-as-transformers"><span class="header-section-number">17.1.3</span> A Note on Foundation Models such as Transformers</h3>
+<p>Foundation models, or large pre-trained models, are general-purpose AI systems trained on large, diverse datasets to learn broad patterns before fine-tuning on specific tasks. This pretraining framework has enabled their widespread adoption across domains. Their rise followed the success of large language models like BERT <span class="citation" data-cites="devlin2019bert">(<a href="../references.html#ref-devlin2019bert" role="doc-biblioref">Devlin et al. 2019</a>)</span> and GPT-3 <span class="citation" data-cites="brown2020language">(<a href="../references.html#ref-brown2020language" role="doc-biblioref">Brown et al. 2020</a>)</span>. Typically built on the transformer architecture <span class="citation" data-cites="vaswani2017attention">(<a href="../references.html#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span>, these models have excelled in natural language processing (NLP) and computer vision, with extensions to multi-modal and reinforcement learning. Recently, foundation models have been increasingly applied to forecasting tasks, particularly in time series analysis. Notable domain-specific models include TimeGPT-1 by Nixtla <span class="citation" data-cites="garza2024timegpt1">(<a href="../references.html#ref-garza2024timegpt1" role="doc-biblioref">Garza, Challu, and Mergenthaler-Canseco 2024</a>)</span>, Lag-Llama <span class="citation" data-cites="rasul2024lagllama">(<a href="../references.html#ref-rasul2024lagllama" role="doc-biblioref">Rasul et al. 2024</a>)</span>, TimesFM by Google Research <span class="citation" data-cites="das2024decoderonlyfoundationmodel">(<a href="../references.html#ref-das2024decoderonlyfoundationmodel" role="doc-biblioref">Das et al. 2024</a>)</span>, Tiny Time Mixers by IBM Research <span class="citation" data-cites="ekambaram2024tinytimemixersttms">(<a href="../references.html#ref-ekambaram2024tinytimemixersttms" role="doc-biblioref">Ekambaram et al. 2024</a>)</span>, Moirai by Salesforce <span class="citation" data-cites="woo2024moirai">(<a href="../references.html#ref-woo2024moirai" role="doc-biblioref">Woo et al. 2024</a>)</span>, and Chronos by Amazon Web Services<span class="citation" data-cites="ansari2024chronos">(<a href="../references.html#ref-ansari2024chronos" role="doc-biblioref">Ansari et al. 2024</a>)</span>.</p>
+<p>These trends highlight the growing preference for transformer architectures in sequence modeling. Unlike RNNs and LSTMs, which process data <em>sequentially</em> via BPTT, transformers leverage multi-head attention with positional encoding to capture dependencies <em>in parallel</em>. Recurrent units are replaced with stacked encoder and decoder layers, each followed by feed-forward neural network layers, resulting in improved training efficiency and stability. For an overview of the transformer architecture and its applications in time series forecasting, see <span class="citation" data-cites="ahmed2023transformerstutorial">Ahmed et al. (<a href="../references.html#ref-ahmed2023transformerstutorial" role="doc-biblioref">2023</a>)</span>. For a comprehensive survey of foundation models, see <span class="citation" data-cites="liang2024foundation">Liang et al. (<a href="../references.html#ref-liang2024foundation" role="doc-biblioref">2024</a>)</span>.</p>
+<p>As with many deep learning architectures, transformer-based models require large datasets to train effectively and are prone to overfitting, whereas simpler architectures like LSTMs often perform well on smaller datasets, offering easier training and tuning for practical forecasting tasks. Developing robust and interpretable transformer architectures remains a challenge, and benchmarking issues persist <span class="citation" data-cites="hewamalage2023forecast bergmeir2024llms">(<a href="../references.html#ref-hewamalage2023forecast" role="doc-biblioref">Hewamalage, Ackermann, and Bergmeir 2023</a>; <a href="../references.html#ref-bergmeir2024llms" role="doc-biblioref">Bergmeir 2024</a>)</span>. Nonetheless, transformers hold strong potential for advancing areas of ML, including time series forecasting.</p>
+<p>Despite the emergence of transformer-based models, LSTMs remain a practical and effective choice for our experiments, and our discussion focus on the LSTM architecture with a forget gate <span class="citation" data-cites="gers2000lstmgate">(<a href="../references.html#ref-gers2000lstmgate" role="doc-biblioref">Gers, Schmidhuber, and Cummins 2000</a>)</span>. We distinguish between two related decisions: the choice of LSTM variant and the choice of network architecture.</p>
+<p>First, we select the LSTM with a forget gate because it is the version that is implemented in <code>PyTorch</code>, a widely used framework for deep learning research and development. Furthermore, while several variants of the vanilla LSTM exist, such as the LSTM with peephole connections <span class="citation" data-cites="gers2000peephole">(<a href="../references.html#ref-gers2000peephole" role="doc-biblioref">Gers and Schmidhuber 2000</a>)</span> and gated recurrent unit (GRU) <span class="citation" data-cites="cho2014learning">(<a href="../references.html#ref-cho2014learning" role="doc-biblioref">Cho et al. 2014</a>)</span>, a comprehensive study has shown that these variants generally offer comparable performance <span class="citation" data-cites="greff2016lstmcompare">(<a href="../references.html#ref-greff2016lstmcompare" role="doc-biblioref">Greff et al. 2016</a>)</span>. For a comprehensive list of vanilla LSTM variants, we refer the reader to <span class="citation" data-cites="yu2019reviewlstm">Yu et al. (<a href="../references.html#ref-yu2019reviewlstm" role="doc-biblioref">2019</a>)</span> and <span class="citation" data-cites="hewamalage2021reviewrnn">Hewamalage, Bergmeir, and Bandara (<a href="../references.html#ref-hewamalage2021reviewrnn" role="doc-biblioref">2021</a>)</span>.</p>
+<p>Second, we choose LSTMs over transformer-based architectures because LSTMs are better suited for smaller datasets, require fewer computational resources, and are easier to train and tune. In contrast, transformer-based foundation models often demand much larger datasets and substantial computing power to perform optimally, making LSTMs a more practical choice for our forecasting experiments. Moreover, LSTMs provide a simpler foundation for sequence modeling, forming the conceptual basis for transformer architectures. By starting with LSTMs, we gain more control over the training process and a clearer understanding of model behavior.</p>
+</section>
+</section>
+<section id="long-short-term-memory-lstm-network-architecture" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="long-short-term-memory-lstm-network-architecture"><span class="header-section-number">17.2</span> Long Short-Term Memory (LSTM) Network Architecture</h2>
+<section id="sec-ch3-background-lstm" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="sec-ch3-background-lstm"><span class="header-section-number">17.2.1</span> LSTM Units</h3>
+<p>An Long Short-Term Memory (LSTM) unit extends an RNN by introducing a cell state and three gates: the forget gate, the input gate, and the output gate. The cell state carries long-term dependence, while the hidden state encodes short-term patterns. The gates regulate the flow of information by determining how much of the previous cell state should be forgotten, how much new information should be added, and how much of the updated cell state should be passed to the hidden state at each time step. <a href="#fig-lstm" class="quarto-xref">Figure&nbsp;<span>17.2</span></a> presents a visual representation of an LSTM unit.</p>
+<div id="fig-lstm" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lstm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/chapter3/lstm.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lstm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.2: Architecture of an LSTM unit with a forget gate, reproduced from <span class="citation" data-cites="olah2015understandinglstm">Olah (<a href="../references.html#ref-olah2015understandinglstm" role="doc-biblioref">2015</a>)</span>. <span class="math inline">\(x_t\)</span> is the input, <span class="math inline">\(h_t\)</span> the hidden state, and <span class="math inline">\(c_t\)</span> the cell state. <span class="math inline">\(f_t\)</span>, <span class="math inline">\(i_t\)</span>, and <span class="math inline">\(o_t\)</span> are the forget, input, and output gates, respectively. <span class="math inline">\(\sigma\)</span> is used to squash values to <span class="math inline">\((0, 1)\)</span> for gating, while <span class="math inline">\(tanh\)</span> squashes values to <span class="math inline">\((-1, 1)\)</span> for stability and zero-centered output.
+</figcaption>
+</figure>
+</div>
+<p>An LSTM unit process the input data, <span class="math inline">\(x_t\)</span>, and the previous hidden state, <span class="math inline">\(h_{t-1}\)</span>, and the cell state, <span class="math inline">\(c_{t-1}\)</span>, through several gating mechanisms, updates the cell state to <span class="math inline">\(c_t\)</span> and the hidden state to <span class="math inline">\(h_t\)</span>. Let <span class="math inline">\(c_t\)</span> and <span class="math inline">\(h_t\)</span> denote the cell and the hidden state vector. Let <span class="math inline">\(f_t\)</span>, <span class="math inline">\(i_t\)</span>, and <span class="math inline">\(o_t\)</span> represent the forget, the input, and the output gate vector at time <span class="math inline">\(t\)</span>, respectively. Then, an LSTM unit can be expressed as:</p>
+<span class="math display">\[\begin{equation}
+\begin{split}
+\label{eq:lstm}
+f_t &amp;= \sigma(W_{fh} h_{t-1} + W_{fx} x_t + b_f), \\
+i_t &amp;= \sigma(W_{ih} h_{t-1} + W_{ix} x_t + b_i), \\
+\tilde{c}_t &amp;= \tanh(W_{\tilde{c} h} h_{t-1} + W_{\tilde{c} x} x_t + b_{\tilde{c}}), \\
+c_t &amp;= f_t \cdot c_{t-1} + i_t \cdot \tilde{c}_t, \\
+o_t &amp;= \sigma(W_{oh} h_{t-1} + W_{ox} x_t + b_o), \\
+h_t &amp;= o_t \cdot \tanh(c_t),
+\end{split}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\boldsymbol{W}\)</span> denotes the weight matrices, <span class="math inline">\(\boldsymbol{b}\)</span> the bias vectors, <span class="math inline">\(\sigma\)</span> the logistic sigmoid function, and <span class="math inline">\(tanh\)</span> the hyperbolic tangent function.</p>
+<p>The internal structure of an LSTM unit consists of several components that work together to regulate information flow at each time step <span class="math inline">\(t\)</span>:</p>
+<ol type="1">
+<li><p>The forget gate, <span class="math inline">\(f_t\)</span>, controls the extent to which information is discarded or retained. The forget gate outputs values in range <span class="math inline">\((0, 1)\)</span>, where <span class="math inline">\(0\)</span> means the information is completely discarded, and <span class="math inline">\(1\)</span> means it is fully retained. The values never reach <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, since the range is exclusive.</p></li>
+<li><p>The input gate, <span class="math inline">\(i_t\)</span>, regulates the amount of new information to add. The input gate outputs values in in range <span class="math inline">\((0, 1)\)</span>, where <span class="math inline">\(0\)</span> means no information is added, and <span class="math inline">\(1\)</span> means it is nearly fully added. The values never reach <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, since the range is exclusive.</p></li>
+<li><p>The network computes the candidate values, <span class="math inline">\(\tilde{c}\)</span>, which represents the proposed new information.</p></li>
+<li><p>Next, the cell state, <span class="math inline">\(c_t\)</span>, is updated by combining the previous cell state, <span class="math inline">\(c_{t-1}\)</span>, and the candidate values, <span class="math inline">\(\tilde{c}\)</span>. As previously mentioned, <span class="math inline">\(f_t\)</span> controls how much irrelevant information to discard, while <span class="math inline">\(i_t\)</span> determines how much new information to incorporate when updating the cell state.</p></li>
+<li><p>Then, the output gate, <span class="math inline">\(o_t\)</span>, determines the extent to which the cell state, <span class="math inline">\(c_t\)</span>, is exposed to the hidden state, <span class="math inline">\(h_t\)</span>.</p></li>
+<li><p>The hidden state, <span class="math inline">\(h_t\)</span>, is updated by taking the cell state, <span class="math inline">\(c_t\)</span>, and scaling it with the output gate, <span class="math inline">\(o_t\)</span>. This resulting hidden state, <span class="math inline">\(h_t\)</span>, is the final output of the LSTM network at time <span class="math inline">\(t\)</span>.</p></li>
+</ol>
+<p>To produce the output, <span class="math inline">\(\hat{y}_t\)</span>, a fully connected layer, where every neuron is connected to every neuron in the previous layer, is applied to the hidden state, <span class="math inline">\(h_t\)</span>. This layer performs a linear transformation, effectively mapping the high-dimensional representation learned by the LSTM to the target output space. For regression tasks, the output is typically a single scalar representing the prediction, and no non-linear activation is applied, allowing the network to generate an unconstrained real value.</p>
+</section>
+</section>
+<section id="training-hyperparameter-tuning-and-metrics" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="training-hyperparameter-tuning-and-metrics"><span class="header-section-number">17.3</span> Training, Hyperparameter Tuning, and Metrics</h2>
+<p>During training, forward pass involves passing input data, <span class="math inline">\(x_t\)</span>, through the network to generate a predicted value, <span class="math inline">\(\hat{y}_{t}\)</span>, for each time step from <span class="math inline">\(t =1\)</span> to <span class="math inline">\(T\)</span>, as outlined in the steps above in <a href="#sec-ch3-background-lstm" class="quarto-xref"><span>Section 17.2.1</span></a>. The error is then calculated using a loss function, which measures the discrepancy between the predicted output, <span class="math inline">\(\hat{y}_t\)</span>, and the target value, <span class="math inline">\(y_t\)</span>. The total loss is computed by summing up the loss over time:</p>
+<span class="math display">\[\begin{equation}
+\begin{split}
+\mathcal{L}(\hat{y}, y) = \sum_{t=1}^T \ell(\hat{y}_t, y_t),
+\end{split}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\mathcal{L}\)</span> represents the overall loss accumulated over time and <span class="math inline">\(\ell_i\)</span> the loss at each time step <span class="math inline">\(t\)</span>.</p>
+<p>Backpropagation involves propagating the error backward through the network, from time step <span class="math inline">\(t = T\)</span> to <span class="math inline">\(1\)</span>, and computing the gradients of the objective function with respect to each parameter in the network. These gradients guide how the network parameters should be updated in order to minimize the loss. For sequence-based models, such as RNNs, LSTMs, and GRUs, the Backpropagation Through Time (BPTT) procedure <span class="citation" data-cites="werbos1988generalization werbos1990bptt">(<a href="../references.html#ref-werbos1988generalization" role="doc-biblioref">Paul J. Werbos 1988</a>; <a href="../references.html#ref-werbos1990bptt" role="doc-biblioref">P. J. Werbos 1990</a>)</span> is employed as an extension of the standard backpropagation algorithm. BPTT unfolds the network across time steps, allowing the computation of gradients for the entire sequence of inputs. For the specific derivation of LSTM gradients, we refer the reader to <span class="citation" data-cites="chen2016gentle">Chen (<a href="../references.html#ref-chen2016gentle" role="doc-biblioref">2016</a>)</span> and <span class="citation" data-cites="sherstinsky2020fundamentals">Sherstinsky (<a href="../references.html#ref-sherstinsky2020fundamentals" role="doc-biblioref">2020</a>)</span>.</p>
+<p>Once the gradients are computed using BPTT, standard gradient-based optimization techniques, such as Stochastic Gradient Descent (SGD) and Adaptive Moment Estimation (Adam) <span class="citation" data-cites="kingma2014adam">(<a href="../references.html#ref-kingma2014adam" role="doc-biblioref">Kingma and Ba 2014</a>)</span>, can be used to update the parameters in the direction that minimizes loss. The following update rule reflects the basic form of SGD, where parameters are adjusted using the gradient, scaled by the learning rate:</p>
+<span class="math display">\[\begin{equation}
+\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} - \alpha \, \nabla_{\boldsymbol{\theta}} \mathcal{L},
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\boldsymbol{\theta} = \{W_{fx}, W_{ix}, W_{\tilde{c}x}, W_{ox}, W_{fh}, W_{ih}, W_{\tilde{c}h}, W_{oh}, \boldsymbol{b}\}\)</span> in <span class="math inline">\(\eqref{eq:lstm}\)</span> denotes the set of network parameters, with <span class="math inline">\(\boldsymbol{b}\)</span> representing all bias vectors collectively, <span class="math inline">\(\alpha\)</span> the learning rate, and <span class="math inline">\(\nabla_{\boldsymbol{\theta}} \mathcal{L}\)</span> the gradient of the loss function with respect to <span class="math inline">\(\theta\)</span>.</p>
+<p>The process of forward pass, backpropagation, and parameter updates is repeated over multiple epochs until convergence. Convergence is typically determined by stopping criterion such as early stopping based on validation loss, reaching a predefined number of epochs, and when the improvement in loss between epochs falls below a specified threshold <span class="citation" data-cites="goodfellow2016deep">(<a href="../references.html#ref-goodfellow2016deep" role="doc-biblioref">Goodfellow et al. 2016</a>)</span>.</p>
+<p>Hyperparameter tuning plays a crucial role in improving model performance. Key hyperparameters include, for example:</p>
+<ol type="1">
+<li><p>Batch Size</p></li>
+<li><p>Number of Epochs</p></li>
+<li><p>Learning Rate</p></li>
+<li><p>Number of Hidden Units or Cell Dimension</p></li>
+<li><p>Number of Hidden Layers, etc.</p></li>
+</ol>
+<p>Batch size refers to the number of training samples or sequences processed simultaneously by the network in one forward and backward pass before updating its parameters. An epoch is one complete pass through the entire training dataset, during which the network processes all batches once, performing one forward and one backward pass per batch. The number of epochs refers the the number of passes the network iterates over the full dataset to achieve optimal training of the RNN.</p>
+<p>The learning rate controls how much the network’s parameters are adjusted during training in response to the gradients of the loss function. The effectiveness of the learning rate often depends on the optimizer used.</p>
+<p>The cell dimension and the number of hidden layers and are two additional hyperparameters that define the structure of the RNN architecture. The cell dimension refers to the size of the hidden state vector, which corresponds to the number of neurons or nodes inside each RNN cell. The number of hidden layers determines how many recurrent layers are stacked on top of each other.</p>
+<p>Hyperparameter tuning can be performed manually through hand tuning or automatically using methods such as grid search and random search <span class="citation" data-cites="bergstra2012random">(<a href="../references.html#ref-bergstra2012random" role="doc-biblioref">Bergstra and Bengio 2012</a>)</span>. Manual search, also known as manual hyperparameter tuning, involves adjusting hyperparameters based on commonly used defaults, insights from prior literature, and feedback from model performance, while automated tuning involves systematically searching the hyperparameter space. Grid search exhaustively evaluates all possible combinations within a predefined set of hyperparameter values, while random search samples hyperparameter values randomly from specified distributions for evaluation.</p>
+<p>Evaluation metrics are essential for assessing performance and guiding improvements. <span class="quarto-unresolved-ref">?tbl-metrics</span> presents a list of common metrics used for evaluating forecasting models.</p>
+<p>Root Mean Squared Error (RMSE), like Mean Squared Error (MSE), penalizes outliers, but is more interpretable, since it is expressed in the same units as the target value. Mean Absolute Error (MAE) treats all errors linearly, so it is less sensitive to outliers compared to MSE or RMSE.</p>
+<p>MSE, RMSE, and MAE are scale-dependent metrics. In contrast, Mean Absolute Percentage Error (MAPE), Symmetric MAPE (SMAPE), and Mean Absolute Scaled Error (MASE) are scale-independent, allowing for comparison across datasets with different units. Finally, Mean Absolute Scaled Error (MASE) addresses some of the limitations of MAPE and SMAPE by scaling errors relative to a naive forecast, serving as an additional metric for evaluating forecast accuracy.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-ahmed2023transformerstutorial" class="csl-entry" role="listitem">
+Ahmed, Sabeen, Ian E Nielsen, Aakash Tripathi, Shamoon Siddiqui, Ravi P Ramachandran, and Ghulam Rasool. 2023. <span>“Transformers in Time-Series Analysis: A Tutorial.”</span> <em>Circuits, Systems, and Signal Processing</em> 42 (12): 7433–66.
+</div>
+<div id="ref-ansari2024chronos" class="csl-entry" role="listitem">
+Ansari, Abdul Fatir, Lorenzo Stella, Caner Turkmen, Xiyuan Zhang, Pedro Mercado, Huibin Shen, Oleksandr Shchur, et al. 2024. <span>“Chronos: Learning the Language of Time Series.”</span> <a href="https://arxiv.org/abs/2403.07815">https://arxiv.org/abs/2403.07815</a>.
+</div>
+<div id="ref-bengio1994learning" class="csl-entry" role="listitem">
+Bengio, Yoshua, Patrice Simard, and Paolo Frasconi. 1994. <span>“Learning Long-Term Dependencies with Gradient Descent Is Difficult.”</span> <em>IEEE Transactions on Neural Networks</em> 5 (2): 157–66.
+</div>
+<div id="ref-bergmeir2024llms" class="csl-entry" role="listitem">
+Bergmeir, Christoph. 2024. <span>“LLMs and Foundational Models: Not (yet) as Good as Hoped.”</span> <em>Foresight: The International Journal of Applied Forecasting</em> 73.
+</div>
+<div id="ref-bergstra2012random" class="csl-entry" role="listitem">
+Bergstra, James, and Yoshua Bengio. 2012. <span>“Random Search for Hyper-Parameter Optimization.”</span> <em>The Journal of Machine Learning Research</em> 13 (1): 281–305.
+</div>
+<div id="ref-brown2020language" class="csl-entry" role="listitem">
+Brown, Tom, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, et al. 2020. <span>“Language Models Are Few-Shot Learners.”</span> <em>Advances in Neural Information Processing Systems</em> 33: 1877–1901.
+</div>
+<div id="ref-chen2016gentle" class="csl-entry" role="listitem">
+Chen, Gang. 2016. <span>“A Gentle Tutorial of Recurrent Neural Network with Error Backpropagation.”</span> <em>arXiv Preprint arXiv:1610.02583</em>.
+</div>
+<div id="ref-cho2014learning" class="csl-entry" role="listitem">
+Cho, Kyunghyun, Bart Van Merriënboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi Bougares, Holger Schwenk, and Yoshua Bengio. 2014. <span>“Learning Phrase Representations Using RNN Encoder-Decoder for Statistical Machine Translation.”</span> <em>arXiv Preprint arXiv:1406.1078</em>.
+</div>
+<div id="ref-das2024decoderonlyfoundationmodel" class="csl-entry" role="listitem">
+Das, Abhimanyu, Weihao Kong, Rajat Sen, and Yichen Zhou. 2024. <span>“A Decoder-Only Foundation Model for Time-Series Forecasting.”</span> <a href="https://arxiv.org/abs/2310.10688">https://arxiv.org/abs/2310.10688</a>.
+</div>
+<div id="ref-devlin2019bert" class="csl-entry" role="listitem">
+Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. <span>“Bert: Pre-Training of Deep Bidirectional Transformers for Language Understanding.”</span> In <em>Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)</em>, 4171–86.
+</div>
+<div id="ref-ekambaram2024tinytimemixersttms" class="csl-entry" role="listitem">
+Ekambaram, Vijay, Arindam Jati, Pankaj Dayama, Sumanta Mukherjee, Nam H. Nguyen, Wesley M. Gifford, Chandra Reddy, and Jayant Kalagnanam. 2024. <span>“Tiny Time Mixers (TTMs): Fast Pre-Trained Models for Enhanced Zero/Few-Shot Forecasting of Multivariate Time Series.”</span> <a href="https://arxiv.org/abs/2401.03955">https://arxiv.org/abs/2401.03955</a>.
+</div>
+<div id="ref-garza2024timegpt1" class="csl-entry" role="listitem">
+Garza, Azul, Cristian Challu, and Max Mergenthaler-Canseco. 2024. <span>“TimeGPT-1.”</span> <a href="https://arxiv.org/abs/2310.03589">https://arxiv.org/abs/2310.03589</a>.
+</div>
+<div id="ref-gers2000peephole" class="csl-entry" role="listitem">
+Gers, Felix A, and Jürgen Schmidhuber. 2000. <span>“Recurrent Nets That Time and Count.”</span> In <em>Proceedings of the IEEE-INNS-ENNS International Joint Conference on Neural Networks. IJCNN 2000. Neural Computing: New Challenges and Perspectives for the New Millennium</em>, 3:189–94. IEEE.
+</div>
+<div id="ref-gers2000lstmgate" class="csl-entry" role="listitem">
+Gers, Felix A, Jürgen Schmidhuber, and Fred Cummins. 2000. <span>“Learning to Forget: Continual Prediction with LSTM.”</span> <em>Neural Computation</em> 12 (10): 2451–71.
+</div>
+<div id="ref-goodfellow2016deep" class="csl-entry" role="listitem">
+Goodfellow, Ian, Yoshua Bengio, Aaron Courville, and Yoshua Bengio. 2016. <em>Deep Learning</em>. MIT Press.
+</div>
+<div id="ref-greff2016lstmcompare" class="csl-entry" role="listitem">
+Greff, Klaus, Rupesh K Srivastava, Jan Koutnı́k, Bas R Steunebrink, and Jürgen Schmidhuber. 2016. <span>“LSTM: A Search Space Odyssey.”</span> <em>IEEE Transactions on Neural Networks and Learning Systems</em> 28 (10): 2222–32.
+</div>
+<div id="ref-hewamalage2023forecast" class="csl-entry" role="listitem">
+Hewamalage, Hansika, Klaus Ackermann, and Christoph Bergmeir. 2023. <span>“Forecast Evaluation for Data Scientists: Common Pitfalls and Best Practices.”</span> <em>Data Mining and Knowledge Discovery</em> 37 (2): 788–832.
+</div>
+<div id="ref-hewamalage2021reviewrnn" class="csl-entry" role="listitem">
+Hewamalage, Hansika, Christoph Bergmeir, and Kasun Bandara. 2021. <span>“Recurrent Neural Networks for Time Series Forecasting: Current Status and Future Directions.”</span> <em>International Journal of Forecasting</em> 37 (1): 388–427.
+</div>
+<div id="ref-hochreiter1997long" class="csl-entry" role="listitem">
+Hochreiter, Sepp, and Jürgen Schmidhuber. 1997. <span>“Long Short-Term Memory.”</span> <em>Neural Computation</em> 9 (8): 1735–80.
+</div>
+<div id="ref-kingma2014adam" class="csl-entry" role="listitem">
+Kingma, Diederik P, and Jimmy Ba. 2014. <span>“Adam: A Method for Stochastic Optimization.”</span> <em>arXiv Preprint arXiv:1412.6980</em>.
+</div>
+<div id="ref-liang2024foundation" class="csl-entry" role="listitem">
+Liang, Yuxuan, Haomin Wen, Yuqi Nie, Yushan Jiang, Ming Jin, Dongjin Song, Shirui Pan, and Qingsong Wen. 2024. <span>“Foundation Models for Time Series Analysis: A Tutorial and Survey.”</span> In <em>Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining</em>, 6555–65.
+</div>
+<div id="ref-olah2015understandinglstm" class="csl-entry" role="listitem">
+Olah, Christopher. 2015. <span>“Understanding LSTM Networks.”</span> <a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/">https://colah.github.io/posts/2015-08-Understanding-LSTMs/</a>.
+</div>
+<div id="ref-rasul2024lagllama" class="csl-entry" role="listitem">
+Rasul, Kashif, Arjun Ashok, Andrew Robert Williams, Hena Ghonia, Rishika Bhagwatkar, Arian Khorasani, Mohammad Javad Darvishi Bayazi, et al. 2024. <span>“Lag-Llama: Towards Foundation Models for Probabilistic Time Series Forecasting.”</span> <a href="https://arxiv.org/abs/2310.08278">https://arxiv.org/abs/2310.08278</a>.
+</div>
+<div id="ref-sherstinsky2020fundamentals" class="csl-entry" role="listitem">
+Sherstinsky, Alex. 2020. <span>“Fundamentals of Recurrent Neural Network (RNN) and Long Short-Term Memory (LSTM) Network.”</span> <em>Physica D: Nonlinear Phenomena</em> 404: 132306.
+</div>
+<div id="ref-vaswani2017attention" class="csl-entry" role="listitem">
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+</div>
+<div id="ref-werbos1990bptt" class="csl-entry" role="listitem">
+Werbos, P. J. 1990. <span>“Backpropagation Through Time: What It Does and How to Do It.”</span> <em>Proceedings of the IEEE</em> 78 (10): 1550–60. <a href="https://doi.org/10.1109/5.58337">https://doi.org/10.1109/5.58337</a>.
+</div>
+<div id="ref-werbos1988generalization" class="csl-entry" role="listitem">
+Werbos, Paul J. 1988. <span>“Generalization of Backpropagation with Application to a Recurrent Gas Market Model.”</span> <em>Neural Networks</em> 1 (4): 339–56.
+</div>
+<div id="ref-woo2024moirai" class="csl-entry" role="listitem">
+Woo, Gerald, Chenghao Liu, Akshat Kumar, Caiming Xiong, Silvio Savarese, and Doyen Sahoo. 2024. <span>“Unified Training of Universal Time Series Forecasting Transformers.”</span> <a href="https://arxiv.org/abs/2402.02592">https://arxiv.org/abs/2402.02592</a>.
+</div>
+<div id="ref-yu2019reviewlstm" class="csl-entry" role="listitem">
+Yu, Yong, Xiaosheng Si, Changhua Hu, and Jianxun Zhang. 2019. <span>“A Review of Recurrent Neural Networks: LSTM Cells and Network Architectures.”</span> <em>Neural Computation</em> 31 (7): 1235–70.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapter3/intro.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapter3/simulation.html" class="pagination-link" aria-label="Simulation Studies">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Simulation Studies</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,171 @@
+# Simulations for Zero-Inflated Gamma MTD Models {#sec-appendix-ch2-simu}
+
+## Simulation Results 
+
+### Convergence Diagnostics {#sec-appendix-ch2-simu-res-convergence}
+
+#### Gelman-Rubin and ACF Plots
+
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $w$.](../../images/chapter2/res_mcmc_w_gelman_s1.png){#fig-w-gelman-zigamma}
+
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $\rho$.](../../images/chapter2/res_mcmc_rho_gelman_s1.png){#fig-rho-gelman-zigamma}
+
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $\mu, \beta, P, \epsilon$.](../../images/chapter2/res_mcmc_marg_gelman_s1.png){#fig-mar-gelman-zigamma}
+
+#### Trace and Density Plots 
+
+![(Left) Trace and (Right) density plot for Scenario 1's $w$.](../../images/chapter2/res_mcmc_w_s1.png){#fig-w-trace-zigamma}
+
+![(Left) Trace and (Right) density plot for Scenario 1's $\rho$.](../../images/chapter2/res_mcmc_rho_s1.png){#fig-rho-trace-zigamma}
+
+![(Left) Trace and (Right) density plot for Scenario 1's $\mu, \beta, P, \epsilon$.](../../images/chapter2/res_mcmc_marg_s1.png){#fig-mar-trace-zigamma}
+
+### Weight and Dependence Parameters for Copula {#sec-appendix-ch2-simu-res-w-rho}
+
+### Parameters for Marginal Distribution {#sec-appendix-ch2-simu-res-marginal}
+
+![Simulated data for Scenario 1. Grey bars are histogram of the data. Black bar is the zero-inflated probability.](../../images/chapter2/raw_zigamma_s1.png){#fig-zigamma-s1-raw}  
+
+![Results for Scenario 1. Grey bars are histogram of the data. Circles are the true gamma density evaluated at the support, i.e., $x > 0$. Solid lines are the posterior means. Dashed lines are $95\%$ credible intervals. Red bar is the zero-inflated probability.](../../images/chapter2/res_zigamma_marg_s1.png){#fig-zigamma-s1} 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$w_1 = 0.636$ & 0.6395 (0.0425) & 1 (1) & 0.0002 & 0.0003 \\ 
+  $w_2 = 0.234$ & 0.1905 (0.0636) & 1.01 (1.01) & 0.0004 & 0.0013 \\ 
+  $w_3 = 0.086$ & 0.1315 (0.0739) & 1 (1) & 0.0004 & 0.0021 \\ 
+  $w_4 = 0.032$ & 0.0346 (0.0529) & 1.01 (1.03) & 0.0003 & 0.0017 \\ 
+  $w_5 = 0.012$ & 0.0039 (0.0171) & 1 (1) & 0.0001 & 0.0004 \\ 
+   \hline 
+$\rho_1 = 0.700$ & 0.6847 (0.0274) & 1 (1) & 0.0002 & 0.0002 \\ 
+  $\rho_2 = 0.500$ & 0.606 (0.1426) & 1.01 (1.01) & 0.0008 & 0.0027 \\ 
+  $\rho_3 = 0.300$ & 0.1168 (0.2389) & 1 (1) & 0.0013 & 0.0018 \\ 
+  $\rho_4 = 0.100$ & 0.0147 (0.4675) & 1 (1) & 0.0026 & 0.0027 \\ 
+  $\rho_5 = 0.100$ & -0.0046 (0.5659) & 1 (1) & 0.0032 & 0.0032 \\ 
+   \hline 
+$\mu$ & 7.35 (0.1132) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0082 (0.0433) & 1 (1) & 0.0002 & 0.0002 \\ 
+  $P$ & 0.0769 (0.0085) & 1 (1) & 0.0000 & 0.0000 \\ 
+  $\epsilon$ & 0.1 (7e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman--Rubin Diagnostics for Scenario 1 ($P = 0.1$, $\epsilon = 0.1$) for parameters $w$, $\rho$, $\mu$, $\beta$, $P$, and $\epsilon$} 
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$w_1 = 0.200$ & 0.1682 (0.0686) & 1 (1) & 0.0004 & 0.0012 \\ 
+  $w_2 = 0.050$ & 0.0999 (0.0641) & 1 (1) & 0.0004 & 0.0012 \\ 
+  $w_3 = 0.450$ & 0.4418 (0.0377) & 1 (1) & 0.0002 & 0.0003 \\ 
+  $w_4 = 0.050$ & 0.0187 (0.0325) & 1 (1) & 0.0002 & 0.0007 \\ 
+  $w_5 = 0.250$ & 0.2715 (0.0529) & 1 (1) & 0.0003 & 0.0006 \\ 
+   \hline 
+$\rho_1 = 0.400$ & 0.3728 (0.1753) & 1 (1) & 0.0010 & 0.0026 \\ 
+  $\rho_2 = 0.100$ & -0.1457 (0.2685) & 1 (1) & 0.0015 & 0.0020 \\ 
+  $\rho_3 = 0.700$ & 0.7399 (0.0321) & 1 (1) & 0.0002 & 0.0002 \\ 
+  $\rho_4 = 0.100$ & 0.0687 (0.5259) & 1 (1) & 0.0029 & 0.0033 \\ 
+  $\rho_5 = 0.500$ & 0.5701 (0.0753) & 1 (1) & 0.0004 & 0.0008 \\ 
+   \hline 
+$\mu$ & 7.232 (0.1128) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0705 (0.0452) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.0812 (0.0087) & 1 (1) & 0.0000 & 0.0000 \\ 
+  $\epsilon$ & 0.1004 (7e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman--Rubin Diagnostics for Scenario 2 ($P = 0.1$, $\epsilon = 0.1$) for parameters $w$, $\rho$, $\mu$, $\beta$, $P$, and $\epsilon$} 
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\mu$ & 7.35 (0.1132) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0082 (0.0433) & 1 (1) & 0.0002 & 0.0002 \\ 
+  $P$ & 0.0769 (0.0085) & 1 (1) & 0.0000 & 0.0000 \\ 
+  $\epsilon$ & 0.1 (7e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 7.1454 (0.12) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 1.0994 (0.0472) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.1091 (0.0103) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4017 (0.0019) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.9447 (0.1207) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 1.0659 (0.0542) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.5248 (0.0172) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.1001 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.8454 (0.1154) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0086 (0.0512) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.5064 (0.0173) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4 (4e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.988 (0.1303) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 0.9593 (0.0594) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.6879 (0.016) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.0999 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.8482 (0.1373) & 1 (1) & 0.0008 & 0.0008 \\ 
+  $\beta$ & 1.0506 (0.0665) & 1 (1) & 0.0004 & 0.0004 \\ 
+  $P$ & 0.7048 (0.0154) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4002 (3e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman--Rubin Diagnostics for Scenario 1 (varying $P$, $\epsilon$) for parameters $\mu$, $\beta$, $P$, and $\epsilon$} 
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\mu$ & 7.232 (0.1128) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0705 (0.0452) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.0812 (0.0087) & 1 (1) & 0.0000 & 0.0000 \\ 
+  $\epsilon$ & 0.1004 (7e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 7.0911 (0.1046) & 1 (1) & 0.0006 & 0.0006 \\ 
+  $\beta$ & 1.0208 (0.0414) & 1 (1) & 0.0002 & 0.0002 \\ 
+  $P$ & 0.1028 (0.0094) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.401 (0.002) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 7.0274 (0.1177) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 1.0182 (0.0533) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.5334 (0.0172) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.1001 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.932 (0.1184) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 1.0968 (0.0557) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.5034 (0.0172) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.4002 (4e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 7.032 (0.1304) & 1 (1) & 0.0007 & 0.0007 \\ 
+  $\beta$ & 0.9507 (0.0605) & 1 (1) & 0.0003 & 0.0003 \\ 
+  $P$ & 0.6957 (0.0154) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.1001 (1e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline 
+$\mu$ & 6.9182 (0.1347) & 1 (1) & 0.0008 & 0.0008 \\ 
+  $\beta$ & 0.9858 (0.0654) & 1 (1) & 0.0004 & 0.0004 \\ 
+  $P$ & 0.7285 (0.0145) & 1 (1) & 0.0001 & 0.0001 \\ 
+  $\epsilon$ & 0.3999 (3e-04) & 1 (1) & 0.0000 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman--Rubin Diagnostics for Scenario 2 (varying $P$, $\epsilon$) for parameters $\mu$, $\beta$, $P$, and $\epsilon$} 
+\end{table}
+```   

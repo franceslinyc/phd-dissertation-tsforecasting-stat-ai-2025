@@ -1,0 +1,277 @@
+# Simulation Studies {#sec-ch1-simu}
+
+## Simulation Settings
+
+The goal of simulation studies is to assess accuracy and performance of the proposed model in @sec-ch1-prop. We examine a range of settings by varying the parameters for weight, dependence, and marginal distribution. 
+
+With weight parameters $\boldsymbol{w}$, dependence parameters for Gaussian copula $\boldsymbol{\rho}$, shape $\alpha$ and rate parameter $\beta$, we generate $n = 2000$ observations from the copula-based Gamma MTD model. For model fitting, we set the order $L = 5$ and consider the Gaussian copula with gamma marginals. 
+
+To be consistent with the original MTD studies, we run the Gibbs sampler for $165,000$ iterations, discard the first $5000$ iterations as burn-in, and collect samples every $20$ iterations, resulting in $8000$ iterations per MCMC chain. To ensure that we can assess MCMC convergence and obtain more precise estimates of parameters, we also run four MCMC chains with $8000$ iterations each for all of the following scenarios in Tables (@tbl-scenarios-description, @tbl-scenarios), which contain the description and the summary of scenarios, respectively. 
+
+```{=latex}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{13.85cm}|}    
+        \hline 
+        Section \ref{sec-ch1-simu-res-convergence}: Convergence Diagnostics \\         \hline 
+        - Focuses on convergence diagnostics using the Gelman-Rubin statistic and additional diagnostic tools. \\ 
+        - \textbf{Scenario 1}: Follows the same setup as the original studies. \\ 
+        \hline\hline
+        Section \ref{sec-ch1-simu-res-w-rho}: Weight, Dependence Parameters, $\boldsymbol{w}$, $\boldsymbol{\rho}$ \\
+        \hline
+        - Focuses on weight and dependence parameters for the copula. \\
+        - \textbf{Scenarios 1, 2}: Follow the same setup as the original studies. \\
+        - \textbf{Scenarios 1.3, 1.4}: Involve incompatible weight and dependence. \\
+        - \textbf{Scenarios 1.5, 1.6}: Involve compatible weight and dependence, but rarely observed patterns. \\
+        \hline\hline
+        Section \ref{sec-ch1-simu-res-marginal}: Shape, Rate Parameters, $\alpha$, $\beta$ \\
+        \hline
+        - Examines varying parameters for the marginal distribution. \\
+        - \textbf{Scenarios 3-6}: Present the usual cases. \\
+        - \textbf{Scenarios 7-9}: Focus on unusual cases with highly skewed distributions. \\        
+        \hline
+    \end{tabular}
+\caption{Description of Scenarios for Gamma Model}
+\label{tbl-scenarios-description}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Scenario} & $\boldsymbol{w}$ & $\boldsymbol{\rho}$ & $\alpha$ & $\beta$ \\
+        \hline
+        \textbf{1} & $w_i \propto \exp(-i), i = 1,..., 5$ & $(0.7, 0.5, 0.3, 0.1, 0.1)$ & $7$ & $1$ \\
+        \textbf{2} & $(0.2, 0.05, 0.45, 0.05, 0.25)$ & $(0.4, 0.1, 0.7, 0.1, 0.5)$ & &  \\
+        \hline        
+        \textbf{1.3} & $w_i = (0.2, 0.2, 0.2, 0.2, 0.2)$ & $(0.7, 0.5, 0.3, 0.1, 0.1)$ & $7$ & $1$ \\
+        \textbf{1.4} & $w_i \propto \exp(-i), i = 1,..., 5$ & $(0.1, 0.1, 0.3, 0.5, 0.7)$ &  &  \\
+        \hline        
+        \textbf{1.5} & $w_i \propto \exp(-i), i = 5, ..., 1$ & $(0.1, 0.1, 0.3, 0.5, 0.7)$ & $7$ & $1$ \\
+        \textbf{1.6} & $w_i = (0.2, 0.2, 0.2, 0.2, 0.2)$ & $(0.5, 0.5, 0.5, 0.5, 0.5)$ &  &  \\        
+        \hline
+        \textbf{3} & $w_i \propto \exp(-i), i = 1,..., 5$ & $(0.7, 0.5, 0.3, 0.1, 0.1)$ & $4$ & $1$ \\
+        \textbf{4} &  &  & $9$ & $1$ \\
+        \textbf{5} &  &  & $2$ & $1/2$ \\
+        \textbf{6} &  &  & $9$ & $2$ \\
+        \hline        
+        \textbf{7} & $w_i \propto \exp(-i), i = 1,..., 5$ & $(0.7, 0.5, 0.3, 0.1, 0.1)$ &  $2$ & $1$ \\
+        \textbf{8} &  &  & $2$ & $2$ \\
+        \textbf{9} &  &  & $2$ & $4$ \\
+        \hline
+    \end{tabular}
+\caption{Summary of Scenarios for Gamma Model}
+\label{tbl-scenarios}
+\end{table}
+```
+
+In all scenarios, we use the cdf-based Dirichlet process (CDP) prior on the weights. Other prior choices, such as the Dirichlet prior and the truncated stick-breaking (SB) prior are readily available, but the original MTD studies has shown that SB and CDP priors give more precise estimates. 
+
+All scenarios were initially analyzed using a single replicate. Scenarios 1 and 2 were further evaluated with multiple replicates to assess coverage and robustness. Each replicate consisted of a new synthetic dataset generated with the same underlying parameters but different random seeds. Specifically, we ran the models on $40$ independently generated replicates for Scenarios 1 and 2 to evaluate the consistency and robustness of the results, ensuring comparability across scenarios.
+
+## Simulation Results {#sec-ch1-simu-res}
+
+### Convergence Diagnostics {#sec-ch1-simu-res-convergence}
+
+Scenario 1 in @tbl-scenarios serves as an example to show and track convergence and has the same setup as Scenario 1 in the original MTD studies. 
+
+Tables (@tbl-w-table-s1, @tbl-rho-table-s1, @tbl-mar-table-s1) present the posterior estimates and convergence diagnostics for the parameters related to weight, dependence, and marginal distribution, respectively. We defer the discussion of the estimates of the posterior mean and standard deviation (mean and SD) until a later section. There is no evidence of lack of convergence for all parameters (Gelman-Rubin statistic $R$ and its upper CI $\leq 1.1$). The simulation error of the estimates is also negligible for all parameters  (Naive SE and Time-series SE are close to zero). 
+
+Gelman–Rubin convergence diagnostic and ACF plots (@fig-w-gelman, @fig-rho-gelman, @fig-mar-gelman) can be found in the @sec-appendix-ch1-simu @sec-appendix-ch1-simu-res-convergence. In Scenario 1, the chains converge more rapidly for the parameters related to the marginal distribution, achieving convergence at around $2000$ iterations. The chains converge more slowly for the parameters related to weight and dependence, especially at later lags. Nevertheless, all weight and dependence parameters reach convergence by $8000$ iterations. Similar patterns emerge across all other scenarios. Trace and density plots (@fig-w-trace, @fig-rho-trace, @fig-mar-trace) are also included in @sec-appendix-ch1-simu @sec-appendix-ch1-simu-res-convergence.
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$w_1 = 0.636$ & 0.6411 (0.0425) & 1 (1) & 0.0002 & 0.0003 \\ 
+  $w_2 = 0.234$ & 0.1908 (0.0642) & 1 (1) & 0.0004 & 0.0013 \\ 
+  $w_3 = 0.086$ & 0.1283 (0.0742) & 1 (1) & 0.0004 & 0.0022 \\ 
+  $w_4 = 0.032$ & 0.0341 (0.0532) & 1.01 (1.02) & 0.0003 & 0.0017 \\ 
+  $w_5 = 0.012$ & 0.0057 (0.0224) & 1.02 (1.02) & 0.0001 & 0.0008 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman-Rubin Diagnostics for Scenario 1's $w$ at Each Lag}
+\label{tbl-w-table-s1} 
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\rho_1 = 0.700$ & 0.6789 (0.0281) & 1 (1) & 0.0002 & 0.0002 \\ 
+  $\rho_2 = 0.500$ & 0.5991 (0.1442) & 1 (1) & 0.0008 & 0.0027 \\ 
+  $\rho_3 = 0.300$ & 0.1258 (0.2468) & 1 (1) & 0.0014 & 0.0020 \\ 
+  $\rho_4 = 0.100$ & 0.0103 (0.4721) & 1 (1) & 0.0026 & 0.0027 \\ 
+  $\rho_5 = 0.100$ & -0.0063 (0.5591) & 1 (1) & 0.0031 & 0.0032 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman-Rubin Diagnostics for Scenario 1's $\rho$ at Each Lag}
+\label{tbl-rho-table-s1} 
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\alpha = 7$ & 7.4402 (0.3447) & 1 (1) & 0.0019 & 0.0023 \\ 
+  $\beta = 1$ & 1.0058 (0.0477) & 1 (1) & 0.0003 & 0.0003 \\ 
+   \hline
+\end{tabular}
+\caption{Estimates and Gelman-Rubin Diagnostics for Scenario 1's $\alpha$, $\beta$}
+\label{tbl-mar-table-s1}
+\end{table}
+```
+
+### Weight and Dependence Parameters for Copula {#sec-ch1-simu-res-w-rho}
+
+Scenarios 1, 2, 1.3, 1.4, 1.5, 1.6 in @tbl-scenarios are employed to demonstrate the effectiveness of weight and dependence construction, as well as their interplay. 
+
+Scenario 1 and 2 share the same setup as the original MTD studies, where weight and dependence are compatible. In Scenario 1, we consider exponentially decreasing weights. In Scenario 2, we consider an uneven arrangement of the relevant lags. 
+
+We explore additional scenarios to investigate outcomes when weight and dependence are incompatible, as well as cases where they are compatible but follow rarely observed patterns. In Scenario 1.3, we assign equal weights while preserving a decreasing dependence structure. In Scenario 1.4, we retain exponentially decreasing weights but reverse the direction of dependence. In Scenario 1.5, both weights and dependence are set to increase. In Scenario 1.6, we set both weights and dependence to be equal. 
+
+We first examine two cases where the weight parameters and the dependence parameters are compatible. As shown in (a), (b) of @fig-w-rho-res-all, the results appear reasonable; that is, the estimates are consistent with the true values, with minor discrepancies. Nevertheless, the differences are minimal, and the $95\%$ posterior credible intervals cover the true value for both weight and dependence across all lags.
+
+We then explore additional scenarios to investigate the outcomes when they are not compatible. As shown in (c) and (d) of @fig-w-rho-res-all, the results appear unusual, with some noticeable discrepancies at later lags. The $95\%$ posterior credible intervals cover the true value for both weight and dependence for most lags.
+
+Moving on to the remaining cases where weights and dependence are compatible, though they follow patterns that are rarely observed in real-world settings. As shown in (e) and (f) of @fig-w-rho-res-all, the results appear reasonable, with minimal discrepancies. The $95\%$ posterior credible intervals cover the true value for both weight and dependence for most lags.
+
+In these scenarios, greater weight on a lag yields narrower $95\%$ posterior credible interval (CI) for that lag, while lesser weight results in wider CI. If more weight is placed on a lag, it contributes more to the current value. This increased contribution provides the model with more information to estimate its influence, resulting in narrower CI. Conversely, with less information available to estimate its influence, the CI widens and approaches the prior distribution.  
+
+![(a), (b) Results for Scenarios 1 and 1.2: default setup; (c), (d) Scenarios 1.3 and 1.4: incompatible weight and dependence; (e), (f) Scenarios 1.5 and 1.6: compatible, but rarely observed patterns. (Left) Dashed lines are true weights, dot-dashed lines are prior means, solid lines are posterior means, and polygons are $95\%$ posterior credible intervals. (Right) Dashed (black) lines are true dependence, dot-dashed (red) lines are prior means, solid (blue) lines are posterior means, and (purple) polygons are $95\%$ posterior credible intervals.](../images/chapter1/gamma_w_rho_res.jpeg){#fig-w-rho-res-all}
+
+### Parameters for Marginal Distributions {#sec-ch1-simu-res-marginal}
+
+Scenario 3 to 6 in @tbl-scenarios are used to evaluate the shape and the rate parameter for the gamma marginal distribution. Scenario 7 through 9 are used to evaluate these parameters in cases with high skewness. 
+
+In Scenario 3 to 9, we revert to the same settings for weight and dependence as used in Scenario 1. That is, we fix $w_i \propto \exp(-i), i = 1,..., 5$ and $\rho_l = (0.7, 0.5, 0.3, 0.1, 0.1)$.
+
+The slice sampler may encounter difficulties when the target distribution is not evaluable. In particular, skewness of the target distribution may reduce the efficiency of the slice sampler by inducing correlations between successive samples [@planas2024slice]. To investigate this effect, we explore additional scenarios to identify where the algorithm may fail, focusing on Scenarios 7 through 9, which exhibit increasing skewness and are highlighted in @fig-gamma. 
+
+As shown in @tbl-mar-table-s3456, the results appear reasonable; that is, convergence has been achieved and the estimates are consistent with the true values. As shown in @tbl-mar-table-s789, the results also appear reasonable. Additional plots (@fig-gamma-s3456, @fig-gamma-s789) can be found in the @sec-appendix-ch1-simu @sec-appendix-ch1-simu-res-marginal. 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\alpha = 4$ & 4.2837 (0.1972) & 1 (1) & 0.0011 & 0.0012 \\ 
+  $\beta = 1$ & 0.9969 (0.0479) & 1 (1) & 0.0003 & 0.0003 \\ 
+   \hline
+$\alpha = 9$ & 8.2139 (0.3833) & 1 (1) & 0.0021 & 0.0025 \\ 
+  $\beta = 1$ & 0.9033 (0.0433) & 1 (1) & 0.0002 & 0.0003 \\    \hline
+$\alpha = 2$ & 1.8826 (0.0863) & 1 (1) & 0.0005 & 0.0005 \\ 
+  $\beta = 1/2$ & 0.491 (0.0249) & 1 (1) & 0.0001 & 0.0001 \\ 
+   \hline 
+$\alpha = 9$ & 9.1979 (0.4195) & 1 (1) & 0.0023 & 0.0029 \\ 
+  $\beta = 2$ & 2.06 (0.0961) & 1 (1) & 0.0005 & 0.0007 \\ 
+   \hline   
+\end{tabular}
+\caption{Results for Scenario 3-6}
+\label{tbl-mar-table-s3456}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|r|r|r|r|}
+  \hline
+. & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
+  \hline
+$\alpha = 2$ & 2.1738 (0.0977) & 1 (1) & 0.0005 & 0.0006 \\ 
+  $\beta = 1$ & 0.9868 (0.0487) & 1 (1) & 0.0003 & 0.0003 \\ 
+   \hline
+$\alpha = 2$ & 1.8476 (0.0841) & 1 (1) & 0.0005 & 0.0005 \\ 
+  $\beta = 2$ & 1.7937 (0.091) & 1 (1) & 0.0005 & 0.0005 \\ 
+   \hline
+$\alpha = 2$ & 1.8825 (0.0859) & 1 (1) & 0.0005 & 0.0005 \\ 
+  $\beta = 4$ & 3.9277 (0.1976) & 1 (1) & 0.0011 & 0.0011 \\
+   \hline  
+\end{tabular}
+\caption{Results for Scenario 7-9}
+\label{tbl-mar-table-s789}
+\end{table}
+```
+
+### Sensitivity Analysis 
+
+For the prior sensitivity analysis, we re-run Scenario 1 using five different sets of priors. @tbl-prior-analysis presents the setups and descriptions of these prior specifications. @fig-prior-analysis illustrates some examlples. 
+
+Results appear reasonable, and the estimates are consistent with the true values, indicating that the model is robust to the choice of prior. 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Setups and Prior Specifications for Scenario 1: $\alpha$ and $\beta$.}
+\label{tbl-prior-analysis}
+\begin{tabular}{|c|l|l|l|}
+\hline
+. & \textbf{Prior for} $\alpha$ & \textbf{Prior for} $\beta$ & \textbf{Description} \\
+\hline
+1 & $Gamma(49, 7)$ & $Gamma(1, 1)$ & Informative prior for both $\alpha$ and $\beta$. \\
+2 & $Gamma(4.9, 0.7)$ & $Gamma(1, 1)$ & Diffuse prior for $\alpha$. Informative prior for $\beta$. \\
+3 & $Gamma(49, 7)$ & $Gamma(0.1, 0.1)$ & Informative prior for $\alpha$. Diffuse prior for $\beta$. \\
+4 & $Gamma(10, 1)$ & $Gamma(1, 1)$ & Shifted prior for $\alpha$. Informative prior for $\beta$. \\
+5 & $Gamma(49, 7)$ & $Gamma(4, 1)$ & Informative prior for $\alpha$. Shifted prior for $\beta$. \\
+\hline
+\end{tabular}
+\end{table}
+```
+
+![Examples of Prior Distributions for Scenario 1: (a) Priors for $\alpha$, with the true value equal to $7$, and (b) priors for $\beta$, with the true value equal to $1$.](../images/chapter1/p_priors_v2.png){#fig-prior-analysis}
+
+### Coverage Assessment
+
+To compute coverage rates, for each of the $40$ replicates, we first combine the four chains of $8000$ posterior samples per parameter, then calculate the $95\%$ credible interval from the combined samples, and record whether the true parameter value falls within this interval. The overall coverage is the proportion of replicates in which the true value is contained within the interval.
+
+As shown in Tables (@tbl-coverage-1 and @tbl-coverage-2), the $95\%$ credible intervals for all parameters successfully contain the true values in most replicates across both scenarios. Most parameters achieve full coverage, with a few slightly below $1$, indicating that the credible intervals reliably capture the true parameter values. Importantly, the lengths of the credible intervals vary across parameters, reflecting differences in estimation uncertainty. @fig-coverage-alp-be and @fig-coverage-w-rho show these intervals. 
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 1.}
+\label{tbl-coverage-1} 
+\begin{tabular}{cccccccccccc}
+  \hline
+$\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
+  \hline
+0.95 & 0.95 & 0.97 & 0.97 & 1.00 & 1.00 & 1.00 & 0.90 & 0.97 & 1.00 & 0.97 & 1.00 \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+```{=latex}
+\begin{table}[ht]
+\centering
+\caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 2.} 
+\label{tbl-coverage-2} 
+\begin{tabular}{cccccccccccc}
+  \hline
+$\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
+  \hline
+0.95 & 0.95 & 1.00 & 1.00 & 0.97 & 0.97 & 0.95 & 1.00 & 0.97 & 0.95 & 1.00 & 0.95 \\ 
+   \hline
+\end{tabular}
+\end{table}
+```
+
+![Coverage Rates for $\alpha$ and $\beta$ Across 40 Replicates for Scenario 1.](../images/chapter1/coverage_alp_be.png){#fig-coverage-alp-be}
+
+![Coverage Rates for $w$ and $\rho$ Across 40 Replicates for Scenario 1.](../images/chapter1/coverage_w_rho.png){#fig-coverage-w-rho}

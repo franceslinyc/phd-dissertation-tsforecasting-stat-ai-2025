@@ -1,0 +1,18 @@
+# Conclusion {#sec-conclusion}
+
+In this dissertation, we develop a novel copula-based MTD model that separates the dependence structure from the marginal distribution. This separation enables a choice of copula families that effectively capture dependence and allows the marginal distribution to take any continuous form, providing flexibility in model specification. While we illustrate the approach using the Gamma MTD model, the framework can accommodate a wide range of continuous marginals, such as the lognormal and beta distributions. 
+
+Extending this approach, we also propose a copula-based zero-inflated MTD model, which preserves the advantages of copula modeling for capturing dependence while allowing flexible choices of marginal distributions in zero-inflated continuous settings. This extension again demonstrates the framework’s generalizability to alternative marginals beyond the gamma distribution. Although we present the the Zero-Inflated Gamma MTD (ZIGamma MTD) model as an example, the same strategy can be applied to construct zero-inflated models with other alternative continuous marginals.
+
+Both the Gamma MTD and ZIGamma models developed in this dissertation utilize a Gaussian copula to capture dependence, though alternative copula families, such as Clayton and Gumbel, can also be employed to better model tail dependence and asymmetry. Future work should explore alternative copula families and assess their impact on model performance. Furthermore, although the current framework assumes stationarity and does not incorporate predictors, it can be readily extended to non-stationary time series and covariate-dependent models by introducing extra model terms to the conditional mean structure, further enhancing flexibility and realism in modeling complex temporal patterns.
+
+Through simulation studies and real-world applications, we illustrate how MTD and LSTM serve as complementary approaches for modeling complex, skewed, and zero-inflated time series. For gamma time series across various scenarios, Gamma MTD and LSTM perform comparably; however, using 10 replicates of Scenario 1, which features exponentially decreasing weights and a vector of compatible dependence parameters, Gamma MTD outperforms LSTM consistently. For zero-inflated gamma time series, ZIGamma MTD outperforms LSTM consistently, highlighting the advantage of specialized models for handling zero-inflated data. 
+
+In real-world datasets, including hourly wind speed measurements at three different heights, Gamma MTD consistently outperforms LSTM, underscoring the robustness and interpretability of probabilistic models. While LSTMs offer general-purpose modeling, computational efficiency, and simpler model design, their black-box nature can limit interpretability and, in some cases, reduce accuracy. In contrast, MTD models provide more robust and explainable temporal modeling but come at the cost of increased computational complexity and more involved model design. 
+
+Overall, the proposed copula-based MTD framework provides a flexible, robust, and interpretable approach for modeling complex skewed and zero-inflated time series, demonstrating superior performance compared to LSTM in the settings considered. 
+
+Given the growing prominence of transformer architectures in sequence modeling, future research should extend performance comparisons to include transformer-based models. It is equally important to ensure that evaluations are conducted using appropriate benchmarks and metrics. Finally, future work could explore integrated approaches that combine probabilistic models with neural architectures, aiming to leverage the strengths of both frameworks for more accurate, interpretable, and scalable time series modeling. 
+
+
+

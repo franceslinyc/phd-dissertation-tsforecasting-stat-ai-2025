@@ -1,0 +1,4 @@
+# Implementation Details for Gamma MTD Models {#sec-appendix-ch1-implementation} 
+
+This is chapter 1's implementation details.
+

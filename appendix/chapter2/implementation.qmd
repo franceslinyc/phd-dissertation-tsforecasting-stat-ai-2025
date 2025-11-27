@@ -1,0 +1,6 @@
+# Implementation Details for Zero-Inflated Gamma MTD Models {#sec-appendix-ch2-implementation} 
+
+This is chapter 2's implementation details.
+
+
+  

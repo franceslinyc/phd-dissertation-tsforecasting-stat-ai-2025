@@ -1,0 +1,21 @@
+# `mtd`: An `R` Package for Modeling Gamma and Zero-inflated Gamma Time Series {#sec-appendix-ch1-pkag}
+
+## Extension to the `mtd` Package
+
+The `mtd` package by @zheng2022construction includes the Gaussian, Poisson, Negative Binomial, and Lomax MTD regression models. We extend the package to include the copula-based Gamma and zero-inflated Gamma MTD models.
+
+The original `mtd` package can be installed and loaded from GitHub: 
+
+```{}
+devtools::install_github("xzheng42/mtd")
+library(mtd)
+```
+
+## Installation of the Extended `mtd` Package
+
+The extended `mtd` package can be installed and loaded from GitHub: 
+
+```{}
+devtools::install_github("franceslinyc/mtd")
+library(mtd)
+```

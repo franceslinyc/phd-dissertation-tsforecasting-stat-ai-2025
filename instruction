@@ -1,0 +1,36 @@
+Click Preview
+
+quarto render
+
+quarto render --to beav-pdf
+
+quarto preview index.qmd --to html
+
+conda deactivate
+
+git add .
+git commit -m ""            # git commit -m "Commit message here"
+git push origin main
+
+
+
+
+
+git status    # see which files are modified
+git diff      # see what’s changed (unstaged)
+git add .     # stage everything
+git diff --cached            # see what's staged and ready to commit
+git commit -m "Some message" # commit the staged changes
+git reset --soft HEAD~1      # keep changes but remove the last commit 
+git push origin main         # push changes to GitHub
+
+M modified 
+A added
+D deleted 
+R renamed 
+C copied
+U unmarged
+
+```{=latex}
+... your raw LaTeX ...
+```

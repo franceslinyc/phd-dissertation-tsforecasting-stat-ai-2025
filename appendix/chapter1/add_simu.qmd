@@ -1,0 +1,33 @@
+# Simulations for Gamma MTD Models {#sec-appendix-ch1-simu}
+
+## Simulation Results 
+
+### Convergence Diagnostics {#sec-appendix-ch1-simu-res-convergence}
+
+#### Gelman-Rubin and ACF Plots
+
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $w$.](../../images/chapter1/res_mcmc_w_gelman_s1.png){#fig-w-gelman}
+
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $\rho$.](../../images/chapter1/res_mcmc_rho_gelman_s1.png){#fig-rho-gelman}
+
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $\alpha, \beta$.](../../images/chapter1/res_mcmc_marg_gelman_s1.png){#fig-mar-gelman}
+
+#### Trace and Density Plots 
+
+![(Left) Trace and (Right) density plot for Scenario 1's $w$.](../../images/chapter1/res_mcmc_w_s1.png){#fig-w-trace}
+
+![(Left) Trace and (Right) density plot for Scenario 1's $\rho$.](../../images/chapter1/res_mcmc_rho_s1.png){#fig-rho-trace}
+
+![(Left) Trace and (Right) density plot for Scenario 1's $\alpha, \beta$.](../../images/chapter1/res_mcmc_marg_s1.png){#fig-mar-trace}
+
+### Weight and Dependence Parameters for Copula {#sec-appendix-ch1-simu-res-w-rho}
+
+
+### Parameters for Marginal Distribution {#sec-appendix-ch1-simu-res-marginal}
+
+![Results for Scenario 3-6. Grey bars are histogram of the data. Circles are the true gamma density evaluated at the support, i.e., $x > 0$. Solid lines are the posterior means. Dashed lines are $95\%$ credible intervals.](../../images/chapter1/res_gamma_marg_s3456_v2.png){#fig-gamma-s3456}
+
+![Results for Scenario 7-9. Grey bars are histogram of the data. Circles are the true gamma density evaluated at the support, i.e., $x > 0$. Solid lines are the posterior means. Dashed lines are $95\%$ credible intervals.](../../images/chapter1/res_gamma_marg_s789_v2.png){#fig-gamma-s789} 
+
+
+

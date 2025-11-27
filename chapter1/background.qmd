@@ -1,0 +1,195 @@
+# Background {#sec-ch1-background}
+
+The MTD model is a state space model. The MTD model was initially developed in 1985 to model high-order Markov chains [@raftery1985model; @raftery1985new]. On a finite state space, the model offers a parsimonious approximation of higher-order Markov chains. On a more general state space, the model can capture non-Gaussian and nonlinear features, such as flat stretches, bursts, outliers, and change points [@raftery1994change; @le1996modeling]. The class of MTD models and their generalizations have diverse applications, including wind power forecasting, social behavior analysis, DNA sequence modeling, and forecasting of stock prices and inflation rates. A complete review of the MTD model and its applications can be found in @berchtold2002mixture. Recent applications extend to the modeling of crime incidents and precipitation patterns [@zheng2022construction] and the network analysis of financial markets [@damico2023network]. Although the MTD model has primarily been used for modeling time series, its generalizations has also demonstrated success in modeling spatial data. Some applications within the spatial context can be found in @berchtold2001estimation, @zheng2023nnmp, and @zheng2023nnmpdiscrete. 
+
+## Mixture Transition Distribution Models for Time Series {#mixturetransitiondistributionmodels}
+
+In the general MTD model framework, the joint data distribution over a directed acyclic graph (DAG) is modeled as a weighted combination of first-order component densities or transition kernels. A DAG simplifies complex relationships in the data, enabling flexible and parsimonious  multivariate non-Gaussian modeling. Let $\{ X_t: t \in \mathbb{N} \}$ be a time series, represented by a sequence of random variables in an arbitrary state space and $f(\textbf{x})$, where $\textbf{x} = {(X_1,..., X_t)}^T$, be the joint distribution of $X_1$ to $X_t$. By applying the chain rule of probability theory and constructing the model on a DAG, the joint distribution of $X_1$ to $X_t$ can be factorized into a product of conditional distributions as
+```{=latex}
+\begin{equation}
+f(\textbf{x}) = f(x_1) \prod_{t=2}^t f(x_t | \textbf{x}^{t-1}). 
+\label{eq:joint_distribution}
+\end{equation}
+```
+
+$f(x_t | \textbf{x}^{t-1})$ is the conditional probability density function (pdf) of current value $X_t$ given all of its past values $\textbf{X}^{t-1} = \textbf{x}^{t-1}$, where $\textbf{X}^{t-1} = \{X_i: i \leq t - 1 \}$ and $\textbf{x}^{t-1} = \{x_i: i \leq t - 1 \}$. The joint distribution in \eqref{eq:joint_distribution} corresponds to a directed graphical model (@jordan2004graphical; also known as a Bayesian network), where the conditional independence structure among the random variables is encoded by a DAG. Figure \ref{Linear} and \ref{DAG} provide visual illustrations of the linear and directed relationships between $X_1$ through $X_t$ on a DAG, respectively. In Figure \ref{DAG}, let $X_1, ..., X_t$ be vertices or nodes in a graph. The set $\textbf{X}^{t-1}$, which consists of nodes that have directed edges pointed to $X_t$, is called the parent or conditioning set of $X_t$. 
+
+```{=latex}
+% Figure 1
+\begin{figure}[htbp]  % Figure environment for adding caption
+    \centering     % Center the diagram
+    \begin{tikzpicture}[
+    item/.style={circle, draw, thick, align=center},  % Style for the nodes (circles)
+    itemc/.style={item, on chain, join},             % Style for the nodes in the chain
+    start chain=going right,                         % Nodes arranged horizontally
+    every join/.style={very thick}           % Style for the arrows (very thick, with arrowheads)
+    ]
+
+    % Define the chain of nodes X1 to X4
+    \node[itemc] (X1) {$X_1$};
+    \node[itemc] (X2) {$X_2$};
+    \node[itemc] (X3) {$X_3$};
+    \node[itemc] (X4) {$X_4$};
+    \node[itemc] (X5) {$X_5$};
+
+    % Add nodes for ... X_t
+    \node[right=1em of X5] (dots) {$\dots$};
+    \node[item, right=1em of dots] (Xt) {$X_t$}; 
+
+    \end{tikzpicture}
+    \caption{Relationships between $X_1, X_2, X_3, X_4, X_5, ..., X_t$. The joint distribution is $f(\textbf{x}) = f(x_1, x_2, x_3, ..., x_t)$.}
+    \label{Linear}
+\end{figure}
+```
+
+```{=latex}
+% Figure 2
+\begin{figure}[htbp]  
+    \centering  
+    \begin{tikzpicture}[
+    item/.style={circle, draw, thick, align=center},  % Style for the nodes (circles)
+    itemc/.style={item, on chain, join},             % Style for the nodes in the chain
+    start chain=going right,                         % Nodes arranged horizontally
+    every join/.style={very thick},          % Style for the straight arrows
+    >={stealth}                                      % Arrowhead style
+    ]
+
+    % Define the chain of nodes X1 to X5
+    \node[itemc] (X1) {$X_1$};
+    \node[itemc] (X2) {$X_2$};
+    \node[itemc] (X3) {$X_3$};
+    \node[itemc] (X4) {$X_4$};
+    \node[itemc] (X5) {$X_5$};
+
+    % Add nodes for ... X_t
+    \node[right=1em of X5] (dots) {$\dots$};
+    \node[item, right=1em of dots] (Xt) {$X_t$}; 
+
+    % Add curved arrows for the directed relationships
+    % X5 has arrows from X1, X2, X3, and X4
+    \draw[->, bend left=20, very thick] (X1) to (X5);
+    \draw[->, bend left=30, very thick] (X2) to (X5);
+    \draw[->, bend left=40, very thick] (X3) to (X5);
+    \draw[->, bend left=50, very thick] (X4) to (X5);
+
+    % X4 has arrows from X1, X2, and X3
+    \draw[->, bend left=20, very thick] (X1) to (X4);
+    \draw[->, bend left=30, very thick] (X2) to (X4);
+    \draw[->, bend left=40, very thick] (X3) to (X4);
+
+    % X3 has arrows from X1 and X2
+    \draw[->, bend left=30, very thick] (X1) to (X3);
+    \draw[->, bend left=40, very thick] (X2) to (X3);
+
+    % X2 has an arrow from X1
+    \draw[->, bend left=40, very thick] (X1) to (X2);
+
+    \end{tikzpicture}
+    \caption{Directed relationships between $X_1, X_2, X_3, X_4, X_5, ..., X_t$ on a DAG. The joint distribution is factored as $f(\textbf{x}) = f(x_1) f(x_2 | x_1) f(x_3 | x_1, x_2) \cdots f(x_t | x_1, ..., x_{t-1})$.}
+    \label{DAG}
+\end{figure}
+```
+
+As $t$ increases, the size of the conditioning set of $X_t$ can become notably large. @zheng2022construction address the challenge of modeling a non-Gaussian conditional density with a high-dimensional conditioning set using the structured mixture model. When the order of the MTD model is set to $L \ll t$, the conditioning set of $x_t$ is reduced to $\{x_{t-L}, ..., x_{t-1} \} \subset \{x_1, ..., x_{t-1}\}$. Consequently, in Figure \ref{DAG}, the number of directed edges pointing to each $X_t$ is reduced to at most $L$. Each current value in the MTD model references only to the $L$ lagged values, rather than the entire history of the time series. 
+
+Each conditional in \eqref{eq:joint_distribution} is modeled as a mixture of $L$ transition kernels, with mixture weights. Transition kernels, similar to transition probabilities in discrete-valued time series, describe how a probability distribution moves from one state to another in a stochastic process, but applied to continuous or more general state spaces. Transition kernels represent the influence of the $l$th lag value on the current value. Mixture weights indicate the contribution of that influence. Let $\{ X_t: t \in \mathbb{N} \}$ be a time series, represented by a sequence of random variables in an arbitrary state space. For $t > L$, the MTD model specifies the conditional distribution of $X_t$ given $\textbf{X}^{t-1} = \textbf{x}^{t-1}$ as 
+```{=latex}
+\begin{equation}
+f(x_t | \textbf{x}^{t-1}) = \sum_{l=1}^L w_l f_l (x_t | x_{t-l}).
+\label{eq:cond_distribution}
+\end{equation}
+```
+
+$f_l (x_t | x_{t-l})$ is the conditional pdf of $X_t$ with respect to the $l$th transition kernel given that ${X}_{t-l} = {x}_{t-l}$. $w_l$ are weight parameters, where $w_l \geq 0$ such that $\sum_{l=1}^L w_l = 1$. Transition kernels in \eqref{eq:cond_distribution} capture dependence between the current value and its lag values. Weight parameters assign specific weights to the transition kernels, determining the relative contribution of the lagged values' influence. We will expand the discussion of transition kernels and mixture weights in the next section.
+
+## Model Construction {#modelconstruction}
+
+Earlier MTD models were built using frequentist approaches. Estimation and prediction in the MTD model by @zheng2022construction is constructed with a focus on Bayesian methodologies.
+
+### Mixture Weights {#mixtureweight}
+
+@zheng2022construction consider three weight types: weights with a uniform Dirichlet prior, a truncated version of the stick-breaking prior, and the cdf-based Dirichlet process prior. We use the weight with the cdf-based prior, which will be the focus of our discussion.
+
+Let $x_k \in [0, 1]$ with 
+$\sum_{k=1}^K x_k = 1$. The Dirichlet distribution, denoted as $Dirichlet(\boldsymbol{\alpha})$, is a discrete distribution on $[0, 1]^K$. It is characterized by a vector of concentration parameters $\boldsymbol{\alpha}$, where $\alpha_k > 0$, and the mean of $x_k$ is $\alpha_k / \sum_{k=1}^K \alpha_k$, for $k=1,...,K$. The Dirichlet process, denoted as $DP(\alpha, \boldsymbol{G})$, is a discrete distribution over probability distributions. The Dirichlet process generates a distribution that shrinks around a base distribution $\boldsymbol{G}$, with the degree of shrinkage controlled by a concentration parameter $\alpha$. The base distribution determines the form of the distribution generated by the Dirichlet process, and the concentration parameter controls the degree of shrinkage of the resulting distribution toward the base distribution. 
+
+The weight associated with a cdf-based Dirichlet process prior assumes that the weights are increments of a cdf $G$. This prior is denoted as $CDP(\cdot | \boldsymbol{1}_L / L)$, where $\boldsymbol{1}_L$ is a unit vector of length $L$. It is constructed as follows. First assume that the weights are increments of a cdf $G$ on the support $[0,1]$; that is,
+```{=latex} 
+\begin{equation}
+w_l = G(l/L) - G((l - 1)/L), \quad l = 1,..., L.   
+\end{equation}
+```
+
+Next place a Dirichlet process prior on $G$, denoted as $DP(\boldsymbol{\alpha}_0, \boldsymbol{G}_0)$, where $\alpha_0 > 0$ and $\boldsymbol{G}_0 = Beta(a_0, b_0)$. Then the vector of weights follows a Dirichlet distribution with parameter vector $\alpha_0 {(a_1, ..., a_L)}^T$, where $\alpha_0 > 0$ and $a_l = G_0(l/L) - G_0((l - 1)/L)$, for $l = 1,..., L$. Together, these parameters determine how the data is allocated across the $l$ intervals on the support of the weight distribution and the initial shape of the distribution. Using the Dirichlet process as a nonparametric prior for $G$ allows for general distributional shapes and thus provides flexibility in estimating the mixture weights.
+
+### Transition Kernels {#transitionkernels}
+
+Each transition kernel in \eqref{eq:cond_distribution} corresponds to the distribution for a random pair
+$(U_l, V_l)$, for $l = 1,..., L$. That is, $f_l \equiv f_{U_l | V_l}$, where $f_l$ denotes the transition kernel and $f_{U_l | V_l}$ is the associated conditional density. Necessary and sufficient conditions for constant first and second moments are difficult to establish. @zheng2022construction offer an alternative condition on the marginal densities of bivariate distributions that define the transition kernels, simplifying implementation while avoiding restrictive constraints on the parameter space. Proposition \ref{prop:proposition1} states that if a stationary marginal density $f_X$ that corresponds to the marginal densities of a bivariate random vector $(U_l, V_l)$, for all $l$, can be identified, then the resulting time series is first-order strictly stationary [@zheng2022construction]. 
+
+```{=latex}
+\begin{proposition}
+\label{prop:proposition1}
+Consider a set of bivariate random vectors $(U_l, V_l)$ that takes values in $S \times S \subset \mathbb{R}$, with conditional densities $f_{U_l | V_l}, f_{V_l | U_l}$ and marginal densities $f_U$, $f_V$, for $l = 1,..., L$. Let $w_l \geq 0$, for $l = 1,..., L$, such that $\sum_{l=1}^L w_l = 1$. Consider a time series $\{ X_t: t \in \mathbb{N} \}$, where $X_t \in S$, generated from
+\begin{equation}
+f(x_t | \textbf{x}^{t-1}) = \sum_{l=1}^L w_l f_{U_l|V_l} (x_t | x_{t-l}), t > L, 
+\label{eq:proposition1}
+\end{equation}
+and from 
+\begin{equation} %\begin{align}
+f(x_t | \textbf{x}^{t-1}) = \sum_{l=1}^{t-2} w_l f_{U_l|V_l} (x_t | x_{t-l}) + 
+\left( 1 - \sum_{k=1}^{t-2} w_k \right) f_{U_{t-1} | V_{t-1}} (x_t|x_1), 2 \leq t \leq L.
+\end{equation}   %\end{align}
+If a time series satisfies the invariant condition: $X_1 \sim f_X$, and $f_{U_l}(x) = f_{V_l}(x) = f_X(x)$, for all $x \in S$, and for all $l$, then this time time series is first-order strictly stationary with invariant marginal density $f_X$.
+\end{proposition}
+```
+
+In addition, Proposition \ref{prop:proposition1} applies to continuous, discrete, or mixed distributions. 
+
+Building on Proposition \ref{prop:proposition1}, @zheng2022construction outline two general methods for constructing transition kernels: the bivariate distribution method and the conditional distribution method. The bivariate distribution method identifies a bivariate distribution of $(U_l, V_l)$ such that the marginal densities $f_{U_l}$ and $f_{V_l}$ are equal to a pre-specified stationary marginal density $f_X$ for $l$th transition kernel. The conditional distribution method finds compatible conditional densities, $f_{U_l|V_l}$ and $f_{V_l|U_l}$, to specify the bivariate density of $(U_l, V_l)$ for the $l$th transition kernel.
+
+The Gaussian MTD model, for example, is constructed via the bivariate distribution method. Under marginal $f_x(x) = N(x | \mu, \sigma^2)$, the Gaussian MTD model can be constructed as
+```{=latex}
+\begin{equation}
+f(x_t | \textbf{x}^{t-1}) = \sum_{l=1}^L w_l N(x_t | (1 - \rho_l) \mu + \rho_l x_{t-l}, \sigma^2 (1 - \rho_l^2)). 
+\end{equation}
+```
+
+## Bayesian Implementation {#bayesianimplementation}
+
+### Hierarchical Model Formulation {#hierarchicalmodelformulation}
+
+Inference is facilitated through a set of latent variables, which identify kernels within the structured mixture model. Let ${\{Z_t\}}_{t=L+1}^n$ be the set of latent variables, where each $Z_t$ has a discrete distribution with support $\{1,...,L\}$. $Z_t = l$ selects the $l$th kernel through a random mechanism that is not directly observable. In addition, $p(z_t | \boldsymbol{w}) = \sum_{l=1}^L w_l \delta_l(z_t)$, where $w = {(w_1,..., w_L)}^T$, and $\delta_l(z_t) = 1$ if $z_t = l$ and $0$ otherwise. Based on the specific value of $z_t$, $\delta_l(z_t)$ selects the corresponding $w_l$.
+
+The full Bayesian model is completed by the specification of prior distributions for the parameters $\boldsymbol{\theta}$. The priors for $\boldsymbol{\theta}$ depend on the form of the kernels $f_l$. For the cdf-based weights, the priors for $\boldsymbol{w}$ is $CDP(\boldsymbol{w} | \alpha_0, a_0, b_0)$.
+
+### Model Estimation and Prediction {#estimationvalidationprediction}
+
+The posterior distribution of the parameters, based on the conditional likelihood, is
+```{=latex} 
+\begin{equation}
+\begin{split}
+p(\boldsymbol{w}, \boldsymbol{\theta}, {\{z_t\}}_{t=L+1}^n | D_n) \propto \pi_w(\boldsymbol{w}) \prod_{l=1}^L \pi_l(\boldsymbol{\theta}_l) 
+\prod_{t=L+1}^n \Biggl\{ f_{z_t} (x_t | x_{t-z_t}, \boldsymbol{\theta}_{z_t}) \sum_{l=1}^L w_l \delta_l(z_t) \Biggl\}.
+\end{split}
+\end{equation}
+```
+
+$D_n = {\{x_t\}}_{t=L+1}^n$ is the data. In this general framework, full simulation-based Bayesian estimation and prediction can be achieved using Markov chain Monte Carlo (MCMC) algorithms. 
+
+Conditioning on ${\{z_t\}}_{t=L+1}^n$ and $\boldsymbol{w}$, the posterior full condition for each $\boldsymbol{\theta}_l$ depends on the specific form of the kernel $f_l$, which will be presented in @sec-ch1-comp. Conditioning on $\boldsymbol{\theta}$ and $\boldsymbol{w}$, the posterior full condition of each latent variable $Z_t$ is a discrete distribution on $\{1, ..., L\}$ with probabilities proportional to $w_l f_l(x_t | x_{t-l}, \boldsymbol{\theta})$. Conditioning on ${\{z_t\}}_{t=L+1}^n$ and $\boldsymbol{\theta}$, the posterior full condition for $\boldsymbol{w}$ depends only on $M_l = |\{ t: z_t = l \}|$, for $l = 1,..., L$, where $|\{ \cdot \}|$ is the carnality or the size of the set $\{ \cdot \}$.
+
+Turning to predictions for future values, the one-step-ahead posterior predictive density is
+```{=latex} 
+\begin{equation}
+\begin{split}
+\label{eq:posteriorpredictive}
+p(x_{n+1} | D_n) = \int \int \Biggl\{ \sum_{l=1}^L w_l f_l (x_{n+1} | x_{n + 1 - l}, \boldsymbol{\theta}_l) \Biggl\} 
+p(\boldsymbol{\theta} , \boldsymbol{w} | D_n) d \boldsymbol{\theta} d \boldsymbol{w}.
+\end{split}
+\end{equation}
+```
+
+The $k$-step-ahead posterior predictive density, which incorporates the uncertainty from the parameter estimation and the predictions of the previous $(k-1)$ out-of-sample values, can be obtained by extending the posterior predictive density in \eqref{eq:posteriorpredictive}. 
+
+Our work builds upon the MTD time series model by @zheng2022construction and draws inspiration from the nearest-neighbor mixture processes (NNMP) and the discrete nearest-neighbor mixture processes (DNNMP) spatial models developed by the same authors [@zheng2023nnmp; @zheng2023nnmpdiscrete]. The MTD model by @zheng2022construction includes Gaussian, Poisson, negative binomial MTD, and Lomax MTD regression models, with applications to simulated data, crime incidents and precipitation prediction. Their flexibility offers potential for broader applications. However, to satisfy Proposition \ref{prop:proposition1}, for certain invariant marginal distributions, the transition kernel may either require careful construction or can result in a form that is not explicitly defined or too complex. The NNMP and DNNMP models effectively use copula to model dependence and marginals separately. Building onto the class of MTD models and motivated by the class of NNMP and DNNMP models, we propose to incorporate copula-based transition kernels. The proposed model is presented in the next chapter.
