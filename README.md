@@ -5,7 +5,7 @@ Dissertation for PhD in statistics at OSU
 
 Copula-Based Mixture Transition Distribution Models for Forecasting Skewed and Zero-Inflated Time Series: Methodology and Comparisons with Deep Learning LSTM Networks
 
-[dissertation]() (source) 
+[dissertation](https://github.com/franceslinyc/phd-dissertation-tsforecasting-stat-ai-2025/blob/main/_book/LinFrances2025.pdf) (source) 
 
 ## Acknowlegements
 
