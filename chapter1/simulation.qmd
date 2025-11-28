@@ -151,7 +151,7 @@ Moving on to the remaining cases where weights and dependence are compatible, th
 
 In these scenarios, greater weight on a lag yields narrower $95\%$ posterior credible interval (CI) for that lag, while lesser weight results in wider CI. If more weight is placed on a lag, it contributes more to the current value. This increased contribution provides the model with more information to estimate its influence, resulting in narrower CI. Conversely, with less information available to estimate its influence, the CI widens and approaches the prior distribution.  
 
-![(a), (b) Results for Scenarios 1 and 1.2: default setup; (c), (d) Scenarios 1.3 and 1.4: incompatible weight and dependence; (e), (f) Scenarios 1.5 and 1.6: compatible, but rarely observed patterns. (Left) Dashed lines are true weights, dot-dashed lines are prior means, solid lines are posterior means, and polygons are $95\%$ posterior credible intervals. (Right) Dashed (black) lines are true dependence, dot-dashed (red) lines are prior means, solid (blue) lines are posterior means, and (purple) polygons are $95\%$ posterior credible intervals.](../images/chapter1/gamma_w_rho_res.jpeg){#fig-w-rho-res-all}
+![(a), (b) Results for Scenarios 1 and 1.2: default setup; (c), (d) Scenarios 1.3 and 1.4: incompatible weight and dependence; (e), (f) Scenarios 1.5 and 1.6: compatible, but rarely observed patterns. (Left) Dashed lines are true weights, dot-dashed lines are prior means, solid lines are posterior means, and polygons are $95\%$ posterior credible intervals. (Right) Dashed (black) lines are true dependence, dot-dashed (red) lines are prior means, solid (blue) lines are posterior means, and (purple) polygons are $95\%$ posterior credible intervals.](../images/chapter1/gamma_w_rho_res.jpeg){#fig-w-rho-res-all fig-alt="Inference results for weights and dependence parameters for six scenarios"}
 
 ### Parameters for Marginal Distributions {#sec-ch1-simu-res-marginal}
 
@@ -234,7 +234,7 @@ Results appear reasonable, and the estimates are consistent with the true values
 \end{table}
 ```
 
-![Examples of Prior Distributions for Scenario 1: (a) Priors for $\alpha$, with the true value equal to $7$, and (b) priors for $\beta$, with the true value equal to $1$.](../images/chapter1/p_priors_v2.png){#fig-prior-analysis}
+![Examples of Prior Distributions for Scenario 1: (a) Priors for $\alpha$, with the true value equal to $7$, and (b) priors for $\beta$, with the true value equal to $1$.](../images/chapter1/p_priors_v2.png){#fig-prior-analysis fig-alt="Curves representing the prior distributions for shape and rate parameters"}
 
 ### Coverage Assessment
 
@@ -272,6 +272,6 @@ $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$
 \end{table}
 ```
 
-![Coverage Rates for $\alpha$ and $\beta$ Across 40 Replicates for Scenario 1.](../images/chapter1/coverage_alp_be.png){#fig-coverage-alp-be}
+![Coverage Rates for $\alpha$ and $\beta$ Across 40 Replicates for Scenario 1.](../images/chapter1/coverage_alp_be.png){#fig-coverage-alp-be fig-alt="Visual representation of coverage rates for shape and rate parameters"}
 
-![Coverage Rates for $w$ and $\rho$ Across 40 Replicates for Scenario 1.](../images/chapter1/coverage_w_rho.png){#fig-coverage-w-rho}
+![Coverage Rates for $w$ and $\rho$ Across 40 Replicates for Scenario 1.](../images/chapter1/coverage_w_rho.png){#fig-coverage-w-rho fig-alt="Visual representation of coverage rates for weight and dependence parameters"}

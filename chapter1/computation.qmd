@@ -9,6 +9,6 @@ $q_l$, is proportional to $w_l c_l (x_t, x_{t-l})$, for $l = 1,..., L$. The post
 
 The MCMC algorithm, adapted from Zheng's source code for the MTD model [@zheng2022construction], is written in $\texttt{R}$, with certain functions written in $\texttt{C++}$. Algorithm 1 (@fig-alg) requires data, mtd order, hyperparameters of the priors for $\alpha$, $\beta$, $\boldsymbol{w}$, and starting values for $\alpha$, $\beta$, $\boldsymbol{\rho}$. It also requires tuning parameters for the slice sampler, including step size and upper bounds for $\alpha$ and $\beta$, along with the general MCMC settings such as number of iterations, burn-in period, and thinning interval. The algorithm outputs posterior samples of $\alpha$, $\beta$, $\boldsymbol{\rho}$ and $\boldsymbol{w}$. Asterisk (*) denotes steps that differ from of the algorithm by @zheng2022construction.
 
-![MCMC Algorithm for Parameter Estimation for Gamma MTD Models](../images/chapter1/alg-1-3.png){#fig-alg}
+![MCMC Algorithm for Parameter Estimation for Gamma MTD Models](../images/chapter1/alg-1-3.png){#fig-alg fig-alt="MCMC steps used to estimate parameters in Gamma MTD models"}
 
   

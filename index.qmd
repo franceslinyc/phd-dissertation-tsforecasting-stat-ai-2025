@@ -20,9 +20,9 @@ The ZIGamma MTD model further extends the copula-based Gamma MTD to handle zero-
 
 By developing and evaluating the Gamma MTD and ZIGamma MTD models, this work aims to provide a robust and flexible framework for modeling complex time series, addressing both skewness and zero-inflation while preserving interpretability and effectiveness.
 
-![Time series plot of observed hourly wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level at the Limon Wind Energy Center, Colorado, for the year 2024. Data sourced from MERRA-2 via the NASA GES DISC Earthdata API.](images/chapter1/windspeed.png){#fig-windspeed} 
+![Time series plot of observed hourly wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level at the Limon Wind Energy Center, Colorado, for the year 2024. Data sourced from MERRA-2 via the NASA GES DISC Earthdata API.](images/chapter1/windspeed.png){#fig-windspeed fig-alt=Time series of wind speeds for the Gamma MTD model.} 
 
-![Time series plot of observed values for varying zero-inflated probability (a) $P = 0.1$, (b) $P = 0.5$ , and (c) $P = 0.7$. Data generated from a ZIGamma MTD model with mean, scale, and threshold parameters $\mu = 7$, $\beta = 1$, and $\epsilon = 0.1$.](images/chapter1/zigamma.png){#fig-simu-zigamma} 
+![Time series plot of observed values for varying zero-inflated probability (a) $P = 0.1$, (b) $P = 0.5$ , and (c) $P = 0.7$. Data generated from a ZIGamma MTD model with mean, scale, and threshold parameters $\mu = 7$, $\beta = 1$, and $\epsilon = 0.1$.](images/chapter1/zigamma.png){#fig-simu-zigamma fig-alt=Time series of simulated values for the ZIGamma MTD model.} 
 
 ## Modeling Approaches
 

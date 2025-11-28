@@ -9,4 +9,4 @@ $q_l$, is proportional to $w_l c_l (x_t, x_{t-l})$, for $l = 1,..., L$. The post
 
 Algorithm 2 (@fig-alg-2) requires data, mtd order, hyperparameters of the priors for $\mu$, $\beta$, $\epsilon$, $\boldsymbol{w}$, and starting values for $\mu$, $\beta$, $P$, $\epsilon$, $\boldsymbol{\rho}$. It also requires tuning parameters for the slice sampler, including step size and upper bounds for $\mu$, $\beta$, and $\epsilon$, along with the general MCMC settings such as number of iterations, burn-in period, and thinning interval. The algorithm outputs posterior samples of $\mu$, $\beta$, $P$, $\epsilon$, $\boldsymbol{\rho}$ and $\boldsymbol{w}$. Asterisk (**) denotes steps that differ from Algorithm 1 (@fig-alg). 
 
-![MCMC Algorithm for Parameter Estimation for Zero-Inflated Gamma MTD Models](../images/chapter2/alg-2-3.png){#fig-alg-2}  
+![MCMC Algorithm for Parameter Estimation for Zero-Inflated Gamma MTD Models](../images/chapter2/alg-2-3.png){#fig-alg-2 fig-alt="MCMC steps used to estimate parameters in Zero-Inflated Gamma MTD models"}  

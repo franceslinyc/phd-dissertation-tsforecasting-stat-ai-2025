@@ -17,7 +17,7 @@ Coverage & 0.9539 & 0.9524 & 0.9514 & 0.9474 & 0.9539 & 0.9479 & 0.9534 & 0.9459
 \end{table}
 ```
 
-![$95\%$ one-step ahead posterior predictive intervals for (a) Gamma Scenario 1 and (b) Scenario 2.](../images/chapter1/pred_gamma_s12.png){#fig-pred-gamma-s12}
+![$95\%$ one-step ahead posterior predictive intervals for (a) Gamma Scenario 1 and (b) Scenario 2.](../images/chapter1/pred_gamma_s12.png){#fig-pred-gamma-s12 fig-alt="Prediction retuls for two scenarios"}
 
 
 
