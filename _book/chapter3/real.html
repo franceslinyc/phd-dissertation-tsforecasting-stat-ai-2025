@@ -452,10 +452,10 @@ window.Quarto = {
 <li><p>wind speeds (m/s) at heights of 10 m above ground level</p></li>
 <li><p>wind speeds (m/s) at heights of 2 m above ground level</p></li>
 </ol>
-<div id="fig-windspeed-ch3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-windspeed-ch3" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Time series of wind speeds at various heights">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-windspeed-ch3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter1/windspeed.png" class="img-fluid figure-img">
+<img src="../images/chapter1/windspeed.png" class="img-fluid figure-img" alt="Time series of wind speeds at various heights">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-windspeed-ch3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;19.1: Time series plot of observed hourly wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level at the Limon Wind Energy Center, Colorado, for the year 2024. Data sourced from MERRA-2 via the NASA GES DISC Earthdata API.
@@ -489,40 +489,40 @@ Figure&nbsp;19.1: Time series plot of observed hourly wind speeds (m/s) at heigh
 <p>As shown in Tables (<span class="quarto-unresolved-ref">?tbl-real-uv50-L15</span>, <span class="quarto-unresolved-ref">?tbl-real-uv10-L15</span>, <span class="quarto-unresolved-ref">?tbl-real-uv2-L15</span>), the performance of the LSTM network shows slight improvement with a larger window size, though the gains are minimal. In contrast, the MTD model shows no performance gain, but still consistently outperform the LSTM across all metrics.</p>
 <p>Given that batch size appears to be an important hyperparameter for LSTM, we further test values of <span class="math inline">\(8\)</span>, <span class="math inline">\(16\)</span>, <span class="math inline">\(64\)</span>, <span class="math inline">\(128\)</span>, and <span class="math inline">\(256\)</span>, compared to the baseline of <span class="math inline">\(32\)</span>. Nevertheless, none of these settings yield better performance than the MTD model. Corresponding training and validation loss plots are provided in the <a href="../appendix/chapter3/add_pred.html#sec-appendix-ch3-add-pred-real" class="quarto-xref"><span>Section F.3</span></a>.</p>
 <p><a href="#fig-pred-real" class="quarto-xref">Figure&nbsp;<span>19.2</span></a> illustrates the one-step-ahead predicted mean wind speeds (in m/s) between LSTM and MTD models at heights of 50 m, 10 m, and 2 m above ground level. <a href="#fig-pred-real-zoom" class="quarto-xref">Figure&nbsp;<span>19.3</span></a> presents a zoomed-in view of the same plot, focusing on a subset of the test data (<span class="math inline">\(n = 200\)</span>). Prediction error plots (<a href="#fig-pred-real-diff" class="quarto-xref">Figure&nbsp;<span>19.4</span></a>, <a href="#fig-pred-real-zoom-diff" class="quarto-xref">Figure&nbsp;<span>19.5</span></a>) are also provided to highlight the differences between model predictions and actual values.</p>
-<div id="fig-pred-real" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pred-real" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Visual representation of prediction results for real data">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pred-real-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter3/lstm_vs_mtd_real_n1756.png" class="img-fluid figure-img">
+<img src="../images/chapter3/lstm_vs_mtd_real_n1756.png" class="img-fluid figure-img" alt="Visual representation of prediction results for real data">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pred-real-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;19.2: One-step ahead predicted means for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means.
 </figcaption>
 </figure>
 </div>
-<div id="fig-pred-real-zoom" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pred-real-zoom" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Visual representation of prediction results for real data with a zoomed-in view">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pred-real-zoom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter3/lstm_vs_mtd_real_n200.png" class="img-fluid figure-img">
+<img src="../images/chapter3/lstm_vs_mtd_real_n200.png" class="img-fluid figure-img" alt="Visual representation of prediction results for real data with a zoomed-in view">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pred-real-zoom-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;19.3: Zoomed-in view of one-step ahead predicted means for wind speeds (m/s) at (a) 50 m, (b) 10 m, and (c) 2 m above ground level for <span class="math inline">\(n = 200\)</span>. Solid (black) lines represent true values. Dashed (red) lines are LSTM predictions; dashed (blue) lines are MTD predictions.
 </figcaption>
 </figure>
 </div>
-<div id="fig-pred-real-diff" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pred-real-diff" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Alternative visual representation of prediction errors for real data">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pred-real-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter3/lstm_vs_mtd_real_diff_n1756.png" class="img-fluid figure-img">
+<img src="../images/chapter3/lstm_vs_mtd_real_diff_n1756.png" class="img-fluid figure-img" alt="Alternative visual representation of prediction errors for real data">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pred-real-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;19.4: One-step ahead prediction errors for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Dashed (red) lines show differences between LSTM predicted means and observed values and dashed (blue) lines show differences between MTD predicted means and observed values.
 </figcaption>
 </figure>
 </div>
-<div id="fig-pred-real-zoom-diff" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pred-real-zoom-diff" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Alternative visual representation of prediction errors for real data with a zoomed-in view">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pred-real-zoom-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter3/lstm_vs_mtd_real_diff_n200.png" class="img-fluid figure-img">
+<img src="../images/chapter3/lstm_vs_mtd_real_diff_n200.png" class="img-fluid figure-img" alt="Alternative visual representation of prediction errors for real data with a zoomed-in view">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pred-real-zoom-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;19.5: Zoomed-in view of one-step ahead prediction errors for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Dashed (red) lines show differences between LSTM predicted means and observed values and dashed (blue) lines show differences between MTD predicted means and observed values.
@@ -534,20 +534,20 @@ Figure&nbsp;19.5: Zoomed-in view of one-step ahead prediction errors for wind sp
 <h3 data-number="19.2.2" class="anchored" data-anchor-id="empirical-coverage-of-the-mtd-model"><span class="header-section-number">19.2.2</span> Empirical Coverage of the MTD Model</h3>
 <p>Empirical coverage is particularly relevant for probabilistic forecasting methods such as MTD, where uncertainty estimation is an integral part of the model output. Therefore, in addition to standard evaluation metrics, MTD is also assessed using this technique to evaluate the reliability of its predictive intervals.</p>
 <p><span class="quarto-unresolved-ref">?tbl-pred-mtd-real</span> summaries the <span class="math inline">\(95\%\)</span> one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of 50 m, 10 m, and 2 m above ground level. As shown in the table, the model appropriately captures the predictive uncertainty across wind speeds at all heights. <a href="#fig-pred-mtd-real" class="quarto-xref">Figure&nbsp;<span>19.6</span></a> and <a href="#fig-pred-mtd-real-L15" class="quarto-xref">Figure&nbsp;<span>19.7</span></a> illustrate these intervals.</p>
-<div id="fig-pred-mtd-real" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pred-mtd-real" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Visual representation of prediction results for real data with look-back steps 5">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pred-mtd-real-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter3/mtd_real_n1756.png" class="img-fluid figure-img">
+<img src="../images/chapter3/mtd_real_n1756.png" class="img-fluid figure-img" alt="Visual representation of prediction results for real data with look-back steps 5">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pred-mtd-real-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;19.6: <span class="math inline">\(95\%\)</span> one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level for look-back steps <span class="math inline">\(L = 5\)</span>.
 </figcaption>
 </figure>
 </div>
-<div id="fig-pred-mtd-real-L15" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-pred-mtd-real-L15" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Visual representation of prediction results for real data with look-back steps 15">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pred-mtd-real-L15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter3/mtd_real_n1754_L15.png" class="img-fluid figure-img">
+<img src="../images/chapter3/mtd_real_n1754_L15.png" class="img-fluid figure-img" alt="Visual representation of prediction results for real data with look-back steps 15">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pred-mtd-real-L15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;19.7: <span class="math inline">\(95\%\)</span> one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level for look-back steps <span class="math inline">\(L = 15\)</span>.

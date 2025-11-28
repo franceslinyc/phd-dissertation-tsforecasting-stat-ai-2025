@@ -14,7 +14,7 @@ The datasets used for the experiments are:
 
 3. wind speeds (m/s) at heights of 2 m above ground level
 
-![Time series plot of observed hourly wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level at the Limon Wind Energy Center, Colorado, for the year 2024. Data sourced from MERRA-2 via the NASA GES DISC Earthdata API.](../images/chapter1/windspeed.png){#fig-windspeed-ch3}
+![Time series plot of observed hourly wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level at the Limon Wind Energy Center, Colorado, for the year 2024. Data sourced from MERRA-2 via the NASA GES DISC Earthdata API.](../images/chapter1/windspeed.png){#fig-windspeed-ch3 fig-alt="Time series of wind speeds at various heights"}
 
 ### Model Configuration and Implementation
 
@@ -168,13 +168,13 @@ Given that batch size appears to be an important hyperparameter for LSTM, we fur
 
 @fig-pred-real illustrates the one-step-ahead predicted mean wind speeds (in m/s) between LSTM and MTD models at heights of 50 m, 10 m, and 2 m above ground level. @fig-pred-real-zoom presents a zoomed-in view of the same plot, focusing on a subset of the test data ($n = 200$). Prediction error plots (@fig-pred-real-diff, @fig-pred-real-zoom-diff) are also provided to highlight the differences between model predictions and actual values. 
 
-![One-step ahead predicted means for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means.](../images/chapter3/lstm_vs_mtd_real_n1756.png){#fig-pred-real}
+![One-step ahead predicted means for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means.](../images/chapter3/lstm_vs_mtd_real_n1756.png){#fig-pred-real fig-alt="Visual representation of prediction results for real data"}
 
-![Zoomed-in view of one-step ahead predicted means for wind speeds (m/s) at (a) 50 m, (b) 10 m, and (c) 2 m above ground level for $n = 200$. Solid (black) lines represent true values. Dashed (red) lines are LSTM predictions; dashed (blue) lines are MTD predictions.](../images/chapter3/lstm_vs_mtd_real_n200.png){#fig-pred-real-zoom}
+![Zoomed-in view of one-step ahead predicted means for wind speeds (m/s) at (a) 50 m, (b) 10 m, and (c) 2 m above ground level for $n = 200$. Solid (black) lines represent true values. Dashed (red) lines are LSTM predictions; dashed (blue) lines are MTD predictions.](../images/chapter3/lstm_vs_mtd_real_n200.png){#fig-pred-real-zoom fig-alt="Visual representation of prediction results for real data with a zoomed-in view"}
 
-![One-step ahead prediction errors for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Dashed (red) lines show differences between LSTM predicted means and observed values and dashed (blue) lines show differences between MTD predicted means and observed values.](../images/chapter3/lstm_vs_mtd_real_diff_n1756.png){#fig-pred-real-diff}
+![One-step ahead prediction errors for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Dashed (red) lines show differences between LSTM predicted means and observed values and dashed (blue) lines show differences between MTD predicted means and observed values.](../images/chapter3/lstm_vs_mtd_real_diff_n1756.png){#fig-pred-real-diff fig-alt="Alternative visual representation of prediction errors for real data"}
 
-![Zoomed-in view of one-step ahead prediction errors for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Dashed (red) lines show differences between LSTM predicted means and observed values and dashed (blue) lines show differences between MTD predicted means and observed values.](../images/chapter3/lstm_vs_mtd_real_diff_n200.png){#fig-pred-real-zoom-diff}
+![Zoomed-in view of one-step ahead prediction errors for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level: Dashed (red) lines show differences between LSTM predicted means and observed values and dashed (blue) lines show differences between MTD predicted means and observed values.](../images/chapter3/lstm_vs_mtd_real_diff_n200.png){#fig-pred-real-zoom-diff fig-alt="Alternative visual representation of prediction errors for real data with a zoomed-in view"}
 
 ### Empirical Coverage of the MTD Model
 
@@ -199,7 +199,7 @@ Empirical coverage is particularly relevant for probabilistic forecasting method
 \end{table}
 ```
 
-![$95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level for look-back steps $L = 5$.](../images/chapter3/mtd_real_n1756.png){#fig-pred-mtd-real} 
+![$95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level for look-back steps $L = 5$.](../images/chapter3/mtd_real_n1756.png){#fig-pred-mtd-real fig-alt="Visual representation of prediction results for real data with look-back steps 5"} 
 
-![$95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level for look-back steps $L = 15$.](../images/chapter3/mtd_real_n1754_L15.png){#fig-pred-mtd-real-L15} 
+![$95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level for look-back steps $L = 15$.](../images/chapter3/mtd_real_n1754_L15.png){#fig-pred-mtd-real-L15 fig-alt="Visual representation of prediction results for real data with look-back steps 15"} 
 

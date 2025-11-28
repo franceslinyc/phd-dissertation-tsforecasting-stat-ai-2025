@@ -6,7 +6,7 @@
 
 An Recurrent Neural Network (RNN) is composed of repeating cells or units that unfold or unroll over time, where each unit passes recurrent information stored in the hidden state from one time step to the next. @fig-rnn presents a visual representation of an RNN unit. 
 
-![Architecture of an RNN unit, reproduced from @olah2015understandinglstm. $x_t$ is the input, $h_t$ is the hidden state, and $o_t$ is the output. $tanh$ is the activation function, squashing values to $(-1, 1)$ for stability and zero-centered output.](../images/chapter3/rnn.png){#fig-rnn width=50%}
+![Architecture of an RNN unit, reproduced from @olah2015understandinglstm. $x_t$ is the input, $h_t$ is the hidden state, and $o_t$ is the output. $tanh$ is the activation function, squashing values to $(-1, 1)$ for stability and zero-centered output.](../images/chapter3/rnn.png){#fig-rnn width=50% fig-alt="Visual representation of an RNN unit"}
 
 An RNN unit computes a weighted combination of input data, $x_t$, and the previous hidden state, $h_{t-1}$, applies an activation function, and updates the hidden state to $h_t$. Let $x_t$, $h_t$, and $o_t$ denote the input data, the hidden state, and the output at time $t$, respectively. Then, an RNN unit can be expressed as: 
 ```{=latex} 
@@ -48,7 +48,7 @@ Second, we choose LSTMs over transformer-based architectures because LSTMs are b
 
 An Long Short-Term Memory (LSTM) unit extends an RNN by introducing a cell state and three gates: the forget gate, the input gate, and the output gate. The cell state carries long-term dependence, while the hidden state encodes short-term patterns. The gates regulate the flow of information by determining how much of the previous cell state should be forgotten, how much new information should be added, and how much of the updated cell state should be passed to the hidden state at each time step. @fig-lstm presents a visual representation of an LSTM unit. 
 
-![Architecture of an LSTM unit with a forget gate, reproduced from @olah2015understandinglstm. $x_t$ is the input, $h_t$ the hidden state, and $c_t$ the cell state. $f_t$, $i_t$, and $o_t$ are the forget, input, and output gates, respectively. $\sigma$ is used to squash values to $(0, 1)$ for gating, while $tanh$ squashes values to $(-1, 1)$ for stability and zero-centered output.](../images/chapter3/lstm.png){#fig-lstm width=50%}
+![Architecture of an LSTM unit with a forget gate, reproduced from @olah2015understandinglstm. $x_t$ is the input, $h_t$ the hidden state, and $c_t$ the cell state. $f_t$, $i_t$, and $o_t$ are the forget, input, and output gates, respectively. $\sigma$ is used to squash values to $(0, 1)$ for gating, while $tanh$ squashes values to $(-1, 1)$ for stability and zero-centered output.](../images/chapter3/lstm.png){#fig-lstm width=50% fig-alt="Visual representation of an LSTM unit"}
 
 An LSTM unit process the input data, $x_t$, and the previous hidden state, $h_{t-1}$, and the cell state, $c_{t-1}$, through several gating mechanisms, updates the cell state to $c_t$ and the hidden state to $h_t$. Let $c_t$ and $h_t$ denote the cell and the hidden state vector. Let $f_t$, $i_t$, and $o_t$ represent the forget, the input, and the output gate vector at time $t$, respectively. Then, an LSTM unit can be expressed as: 
 ```{=latex} 

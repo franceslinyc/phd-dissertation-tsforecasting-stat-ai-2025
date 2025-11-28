@@ -44,7 +44,7 @@ P01Eps01 & 0.9479 & 0.6382 & \textbf{0.9734} \\
 \end{table}
 ```
 
-![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 1 (varying $P$ and $\epsilon$). Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../images/chapter2/pred_zigamma_s1.png){#fig-pred-zigamma-s1 fig-alt="Prediction retuls for Scenario 1"}
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 1 (varying $P$ and $\epsilon$). Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../images/chapter2/pred_zigamma_s1.png){#fig-pred-zigamma-s1 fig-alt="Visual representation of prediction results for zero-inflated gamma scenario 1"}
 
-![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 2 (varying $P$ and $\epsilon$). Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../images/chapter2/pred_zigamma_s12.png){#fig-pred-zigamma-s2 fig-alt="Prediction retuls for Scenario 2"}
+![$95\%$ one-step ahead posterior predictive intervals for ZIGamma Scenario 2 (varying $P$ and $\epsilon$). Reported values show overall empirical coverage, with decomposed coverage below and above the threshold shown in parentheses: coverage (coverage for data $\leq \epsilon$, coverage for data $> \epsilon$).](../images/chapter2/pred_zigamma_s12.png){#fig-pred-zigamma-s2 fig-alt="Visual representation of prediction results for zero-inflated gamma scenario 2"}
 

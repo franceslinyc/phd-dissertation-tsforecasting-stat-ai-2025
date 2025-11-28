@@ -456,10 +456,10 @@ f(x_t | \textbf{x}^{t-1}) = \sum_{l=1}^L w_l c_l (x_t, x_{t-l}) f_X(x_t)
 <section id="marginal-distribution" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="marginal-distribution"><span class="header-section-number">4.2</span> Marginal Distribution</h2>
 <p>We choose Gamma with the shape, <span class="math inline">\(\alpha\)</span>, and the rate parameter, <span class="math inline">\(\beta\)</span>, as the marginal distribution, i.e., <span class="math inline">\(Gamma (\alpha, \beta)\)</span> with mean <span class="math inline">\(\alpha / \beta\)</span> and variance <span class="math inline">\(\alpha / \beta^2\)</span>. <a href="#fig-gamma" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> illustrates gamma distributions with varying shape and rate parameters, which are subsequently used in the simulation studies. The Gamma distribution is useful for modeling positively-skewed, non-negative data, such as failure times, runoff amounts, and insurance claims. <a href="../index.html#fig-windspeed" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> illustrates a positively-skewed time series dataset of wind speeds, motivating the model design.</p>
-<div id="fig-gamma" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-gamma" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Curves representing the gamma distributions with changing shape and rate parameters">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gamma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter1/gamma.jpg" class="img-fluid figure-img">
+<img src="../images/chapter1/gamma.jpg" class="img-fluid figure-img" alt="Curves representing the gamma distributions with changing shape and rate parameters">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gamma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4.1: Probability density function (PDF) of the gamma distribution with varying shape and rate parameters

@@ -447,10 +447,10 @@ window.Quarto = {
 <section id="recurrent-unit" class="level3" data-number="17.1.1">
 <h3 data-number="17.1.1" class="anchored" data-anchor-id="recurrent-unit"><span class="header-section-number">17.1.1</span> Recurrent Unit</h3>
 <p>An Recurrent Neural Network (RNN) is composed of repeating cells or units that unfold or unroll over time, where each unit passes recurrent information stored in the hidden state from one time step to the next. <a href="#fig-rnn" class="quarto-xref">Figure&nbsp;<span>17.1</span></a> presents a visual representation of an RNN unit.</p>
-<div id="fig-rnn" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-rnn" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Visual representation of an RNN unit">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rnn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter3/rnn.png" class="img-fluid figure-img" style="width:50.0%">
+<img src="../images/chapter3/rnn.png" class="img-fluid figure-img" style="width:50.0%" alt="Visual representation of an RNN unit">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rnn-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;17.1: Architecture of an RNN unit, reproduced from <span class="citation" data-cites="olah2015understandinglstm">Olah (<a href="../references.html#ref-olah2015understandinglstm" role="doc-biblioref">2015</a>)</span>. <span class="math inline">\(x_t\)</span> is the input, <span class="math inline">\(h_t\)</span> is the hidden state, and <span class="math inline">\(o_t\)</span> is the output. <span class="math inline">\(tanh\)</span> is the activation function, squashing values to <span class="math inline">\((-1, 1)\)</span> for stability and zero-centered output.
@@ -488,10 +488,10 @@ o_t &amp;= g(W_{oh} \cdot h_t + b_o),
 <section id="sec-ch3-background-lstm" class="level3" data-number="17.2.1">
 <h3 data-number="17.2.1" class="anchored" data-anchor-id="sec-ch3-background-lstm"><span class="header-section-number">17.2.1</span> LSTM Units</h3>
 <p>An Long Short-Term Memory (LSTM) unit extends an RNN by introducing a cell state and three gates: the forget gate, the input gate, and the output gate. The cell state carries long-term dependence, while the hidden state encodes short-term patterns. The gates regulate the flow of information by determining how much of the previous cell state should be forgotten, how much new information should be added, and how much of the updated cell state should be passed to the hidden state at each time step. <a href="#fig-lstm" class="quarto-xref">Figure&nbsp;<span>17.2</span></a> presents a visual representation of an LSTM unit.</p>
-<div id="fig-lstm" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-lstm" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Visual representation of an LSTM unit">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-lstm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter3/lstm.png" class="img-fluid figure-img" style="width:50.0%">
+<img src="../images/chapter3/lstm.png" class="img-fluid figure-img" style="width:50.0%" alt="Visual representation of an LSTM unit">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lstm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;17.2: Architecture of an LSTM unit with a forget gate, reproduced from <span class="citation" data-cites="olah2015understandinglstm">Olah (<a href="../references.html#ref-olah2015understandinglstm" role="doc-biblioref">2015</a>)</span>. <span class="math inline">\(x_t\)</span> is the input, <span class="math inline">\(h_t\)</span> the hidden state, and <span class="math inline">\(c_t\)</span> the cell state. <span class="math inline">\(f_t\)</span>, <span class="math inline">\(i_t\)</span>, and <span class="math inline">\(o_t\)</span> are the forget, input, and output gates, respectively. <span class="math inline">\(\sigma\)</span> is used to squash values to <span class="math inline">\((0, 1)\)</span> for gating, while <span class="math inline">\(tanh\)</span> squashes values to <span class="math inline">\((-1, 1)\)</span> for stability and zero-centered output.

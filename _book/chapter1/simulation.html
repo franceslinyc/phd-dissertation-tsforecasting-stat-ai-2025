@@ -465,10 +465,10 @@ window.Quarto = {
 <p>We then explore additional scenarios to investigate the outcomes when they are not compatible. As shown in (c) and (d) of <a href="#fig-w-rho-res-all" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>, the results appear unusual, with some noticeable discrepancies at later lags. The <span class="math inline">\(95\%\)</span> posterior credible intervals cover the true value for both weight and dependence for most lags.</p>
 <p>Moving on to the remaining cases where weights and dependence are compatible, though they follow patterns that are rarely observed in real-world settings. As shown in (e) and (f) of <a href="#fig-w-rho-res-all" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>, the results appear reasonable, with minimal discrepancies. The <span class="math inline">\(95\%\)</span> posterior credible intervals cover the true value for both weight and dependence for most lags.</p>
 <p>In these scenarios, greater weight on a lag yields narrower <span class="math inline">\(95\%\)</span> posterior credible interval (CI) for that lag, while lesser weight results in wider CI. If more weight is placed on a lag, it contributes more to the current value. This increased contribution provides the model with more information to estimate its influence, resulting in narrower CI. Conversely, with less information available to estimate its influence, the CI widens and approaches the prior distribution.</p>
-<div id="fig-w-rho-res-all" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-w-rho-res-all" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Inference results for weights and dependence parameters for six scenarios">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-w-rho-res-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter1/gamma_w_rho_res.jpeg" class="img-fluid figure-img">
+<img src="../images/chapter1/gamma_w_rho_res.jpeg" class="img-fluid figure-img" alt="Inference results for weights and dependence parameters for six scenarios">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-w-rho-res-all-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.1: (a), (b) Results for Scenarios 1 and 1.2: default setup; (c), (d) Scenarios 1.3 and 1.4: incompatible weight and dependence; (e), (f) Scenarios 1.5 and 1.6: compatible, but rarely observed patterns. (Left) Dashed lines are true weights, dot-dashed lines are prior means, solid lines are posterior means, and polygons are <span class="math inline">\(95\%\)</span> posterior credible intervals. (Right) Dashed (black) lines are true dependence, dot-dashed (red) lines are prior means, solid (blue) lines are posterior means, and (purple) polygons are <span class="math inline">\(95\%\)</span> posterior credible intervals.
@@ -487,10 +487,10 @@ Figure&nbsp;6.1: (a), (b) Results for Scenarios 1 and 1.2: default setup; (c), (
 <h3 data-number="6.2.4" class="anchored" data-anchor-id="sensitivity-analysis"><span class="header-section-number">6.2.4</span> Sensitivity Analysis</h3>
 <p>For the prior sensitivity analysis, we re-run Scenario 1 using five different sets of priors. <span class="quarto-unresolved-ref">?tbl-prior-analysis</span> presents the setups and descriptions of these prior specifications. <a href="#fig-prior-analysis" class="quarto-xref">Figure&nbsp;<span>6.2</span></a> illustrates some examlples.</p>
 <p>Results appear reasonable, and the estimates are consistent with the true values, indicating that the model is robust to the choice of prior.</p>
-<div id="fig-prior-analysis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-prior-analysis" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Curves representing the prior distributions for shape and rate parameters">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-prior-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter1/p_priors_v2.png" class="img-fluid figure-img">
+<img src="../images/chapter1/p_priors_v2.png" class="img-fluid figure-img" alt="Curves representing the prior distributions for shape and rate parameters">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-prior-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.2: Examples of Prior Distributions for Scenario 1: (a) Priors for <span class="math inline">\(\alpha\)</span>, with the true value equal to <span class="math inline">\(7\)</span>, and (b) priors for <span class="math inline">\(\beta\)</span>, with the true value equal to <span class="math inline">\(1\)</span>.
@@ -502,20 +502,20 @@ Figure&nbsp;6.2: Examples of Prior Distributions for Scenario 1: (a) Priors for 
 <h3 data-number="6.2.5" class="anchored" data-anchor-id="coverage-assessment"><span class="header-section-number">6.2.5</span> Coverage Assessment</h3>
 <p>To compute coverage rates, for each of the <span class="math inline">\(40\)</span> replicates, we first combine the four chains of <span class="math inline">\(8000\)</span> posterior samples per parameter, then calculate the <span class="math inline">\(95\%\)</span> credible interval from the combined samples, and record whether the true parameter value falls within this interval. The overall coverage is the proportion of replicates in which the true value is contained within the interval.</p>
 <p>As shown in Tables (<span class="quarto-unresolved-ref">?tbl-coverage-1</span> and <span class="quarto-unresolved-ref">?tbl-coverage-2</span>), the <span class="math inline">\(95\%\)</span> credible intervals for all parameters successfully contain the true values in most replicates across both scenarios. Most parameters achieve full coverage, with a few slightly below <span class="math inline">\(1\)</span>, indicating that the credible intervals reliably capture the true parameter values. Importantly, the lengths of the credible intervals vary across parameters, reflecting differences in estimation uncertainty. <a href="#fig-coverage-alp-be" class="quarto-xref">Figure&nbsp;<span>6.3</span></a> and <a href="#fig-coverage-w-rho" class="quarto-xref">Figure&nbsp;<span>6.4</span></a> show these intervals.</p>
-<div id="fig-coverage-alp-be" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-coverage-alp-be" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Visual representation of coverage rates for shape and rate parameters">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-coverage-alp-be-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter1/coverage_alp_be.png" class="img-fluid figure-img">
+<img src="../images/chapter1/coverage_alp_be.png" class="img-fluid figure-img" alt="Visual representation of coverage rates for shape and rate parameters">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coverage-alp-be-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.3: Coverage Rates for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> Across 40 Replicates for Scenario 1.
 </figcaption>
 </figure>
 </div>
-<div id="fig-coverage-w-rho" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-coverage-w-rho" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Visual representation of coverage rates for weight and dependence parameters">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-coverage-w-rho-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../images/chapter1/coverage_w_rho.png" class="img-fluid figure-img">
+<img src="../images/chapter1/coverage_w_rho.png" class="img-fluid figure-img" alt="Visual representation of coverage rates for weight and dependence parameters">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coverage-w-rho-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6.4: Coverage Rates for <span class="math inline">\(w\)</span> and <span class="math inline">\(\rho\)</span> Across 40 Replicates for Scenario 1.
