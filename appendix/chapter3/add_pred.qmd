@@ -2,9 +2,9 @@
 
 ## Gamma {#sec-appendix-ch3-add-pred-gamma}
 
-![One-step ahead predicted means for Gamma Scenario 3, 4, 5, 6: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means.](../../images/chapter3/lstm_vs_mtd_gamma_s3456_rmse.png){#fig-lstm-vs-mtd-gamma-s3456} 
+![One-step ahead predicted means for Gamma Scenario 3, 4, 5, 6: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means.](../../images/chapter3/lstm_vs_mtd_gamma_s3456_rmse.png){#fig-lstm-vs-mtd-gamma-s3456 fig-alt="Predicted means for four gamma scenarios"} 
 
-![One-step ahead predicted means for Gamma Scenario 7, 8, 9: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means.](../../images/chapter3/lstm_vs_mtd_gamma_s789_rmse.png){#fig-lstm-vs-mtd-gamma-s789} 
+![One-step ahead predicted means for Gamma Scenario 7, 8, 9: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means.](../../images/chapter3/lstm_vs_mtd_gamma_s789_rmse.png){#fig-lstm-vs-mtd-gamma-s789 fig-alt="Predicted means for three gamma scenarios"} 
 
 ## Zero-Inflated Gamma {#sec-appendix-ch3-add-pred-zigamma}
 
@@ -88,12 +88,12 @@ P01Eps01 & 6.7605 & 6.3816 & \textbf{-0.0121} & -0.4202 \\
 \end{table}
 ```
 
-![One-step ahead predicted means for Gamma Scenario 2: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means. Reported values show overall RMSE, with decomposed RMSE below and above the threshold shown in parentheses: RMSE (RMSE for data $\leq \epsilon$, RMSE for data $> \epsilon$).](../../images/chapter3/lstm_vs_mtd_zigamma_s2_rmse.png){#fig-lstm-vs-mtd-zigamma-s2} 
+![One-step ahead predicted means for Gamma Scenario 2: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means. Reported values show overall RMSE, with decomposed RMSE below and above the threshold shown in parentheses: RMSE (RMSE for data $\leq \epsilon$, RMSE for data $> \epsilon$).](../../images/chapter3/lstm_vs_mtd_zigamma_s2_rmse.png){#fig-lstm-vs-mtd-zigamma-s2 fig-alt="Predicted means for zero-inflated gamma scenario 2"} 
 
-![Zoomed-in view of one-step ahead predicted means for ZIGamma Scenario 2: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means. Reported values show overall RMSE, with decomposed RMSE below and above the threshold shown in parentheses: RMSE (RMSE for data $\leq \epsilon$, RMSE for data $> \epsilon$).](../../images/chapter3/lstm_vs_mtd_zigamma_s2_rmse_n200.png){#fig-lstm-vs-mtd-zigamma-s2-zoom}
+![Zoomed-in view of one-step ahead predicted means for ZIGamma Scenario 2: Solid (black) lines are true values. Dashed (red) lines are LSTM predicted means and dashed (blue) lines are MTD predicted means. Reported values show overall RMSE, with decomposed RMSE below and above the threshold shown in parentheses: RMSE (RMSE for data $\leq \epsilon$, RMSE for data $> \epsilon$).](../../images/chapter3/lstm_vs_mtd_zigamma_s2_rmse_n200.png){#fig-lstm-vs-mtd-zigamma-s2-zoom fig-alt="Predicted means for zero-inflated gamma scenario 2 with a zoomed-in view"}
 
 ## Data Applications {#sec-appendix-ch3-add-pred-real}
 
-![Training and validation loss curves for the LSTM model. Columns (left to right) correspond to wind speeds at 50 m, 10 m, and 2 m above ground level, respectively. Rows (top to bottom) correspond to batch sizes 8, 16, and 32, respectively.](../../images/chapter3/p_loss_real_bs81632_v2.png){#fig-loss_real_bs81632}
+![Training and validation loss curves for the LSTM model. Columns (left to right) correspond to wind speeds at 50 m, 10 m, and 2 m above ground level, respectively. Rows (top to bottom) correspond to batch sizes 8, 16, and 32, respectively.](../../images/chapter3/p_loss_real_bs81632_v2.png){#fig-loss_real_bs81632 fig-alt="Loss curves for real data with varying hyperparameter values"}
 
-![Training and validation loss curves for the LSTM model. Columns (left to right) correspond to wind speeds at 50 m, 10 m, and 2 m above ground level, respectively. Rows (top to bottom) correspond to batch sizes 64, 128, and 256, respectively.](../../images/chapter3/p_loss_real_bs64128256_v2.png){#fig-loss_real_bs64128256}
+![Training and validation loss curves for the LSTM model. Columns (left to right) correspond to wind speeds at 50 m, 10 m, and 2 m above ground level, respectively. Rows (top to bottom) correspond to batch sizes 64, 128, and 256, respectively.](../../images/chapter3/p_loss_real_bs64128256_v2.png){#fig-loss_real_bs64128256 fig-alt="Loss curves for real data with varying hyperparameter values continued"}

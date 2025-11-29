@@ -1,4 +1,4 @@
 # PDF and CDF Plots for Zero-Inflated Gamma MTD Models  {#sec-appendix-ch2-add-dzig-pzig}
 
-![(a), (b): $ZIGamma(\mu = 7, \beta = 1, P = 0.1, \epsilon = 0.1, 0.4)$; (c), (d): $ZIGamma(\mu = 7, \beta = 1, P = 0.5, \epsilon = 0.1, 0.4)$; (e), (f): $ZIGamma(\mu = 7, \beta = 1, P = 0.7, \epsilon = 0.1, 0.4)$. (Left) Probability density function (PDF) and (Right) cumulative distribution function (CDF) of the zero-inflated gamma distribution with varying parameters.](../../images/chapter2/fig_zigamma_rotated.png){#fig-zigamma-rotated} 
+![(a), (b): $ZIGamma(\mu = 7, \beta = 1, P = 0.1, \epsilon = 0.1, 0.4)$; (c), (d): $ZIGamma(\mu = 7, \beta = 1, P = 0.5, \epsilon = 0.1, 0.4)$; (e), (f): $ZIGamma(\mu = 7, \beta = 1, P = 0.7, \epsilon = 0.1, 0.4)$. (Left) Probability density function (PDF) and (Right) cumulative distribution function (CDF) of the zero-inflated gamma distribution with varying parameters.](../../images/chapter2/fig_zigamma_rotated.png){#fig-zigamma-rotated fig-alt="Curves representing the zero-inflated gamma distributions with changing zero-inflated probability and threshold parameters with a rotated view"} 
 

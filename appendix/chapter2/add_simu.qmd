@@ -6,27 +6,27 @@
 
 #### Gelman-Rubin and ACF Plots
 
-![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $w$.](../../images/chapter2/res_mcmc_w_gelman_s1.png){#fig-w-gelman-zigamma}
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $w$.](../../images/chapter2/res_mcmc_w_gelman_s1.png){#fig-w-gelman-zigamma fig-alt="Diagnostics for weight parameters for zero-inflated gamma one scenario"}
 
-![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $\rho$.](../../images/chapter2/res_mcmc_rho_gelman_s1.png){#fig-rho-gelman-zigamma}
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $\rho$.](../../images/chapter2/res_mcmc_rho_gelman_s1.png){#fig-rho-gelman-zigamma fig-alt="Diagnostics for dependence parameters for zero-inflated gamma one scenario"}
 
-![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $\mu, \beta, P, \epsilon$.](../../images/chapter2/res_mcmc_marg_gelman_s1.png){#fig-mar-gelman-zigamma}
+![(Left) Gelman-Rubin and (Right) ACF plot for Scenario 1's $\mu, \beta, P, \epsilon$.](../../images/chapter2/res_mcmc_marg_gelman_s1.png){#fig-mar-gelman-zigamma fig-alt="Diagnostics for marginal parameters for zero-inflated gamma one scenario"}
 
 #### Trace and Density Plots 
 
-![(Left) Trace and (Right) density plot for Scenario 1's $w$.](../../images/chapter2/res_mcmc_w_s1.png){#fig-w-trace-zigamma}
+![(Left) Trace and (Right) density plot for Scenario 1's $w$.](../../images/chapter2/res_mcmc_w_s1.png){#fig-w-trace-zigamma fig-alt="Additional diagnostics for weight parameters for zero-inflated gamma one scenario"}
 
-![(Left) Trace and (Right) density plot for Scenario 1's $\rho$.](../../images/chapter2/res_mcmc_rho_s1.png){#fig-rho-trace-zigamma}
+![(Left) Trace and (Right) density plot for Scenario 1's $\rho$.](../../images/chapter2/res_mcmc_rho_s1.png){#fig-rho-trace-zigamma fig-alt="Additional diagnostics for dependence parameters for zero-inflated gamma one scenario"}
 
-![(Left) Trace and (Right) density plot for Scenario 1's $\mu, \beta, P, \epsilon$.](../../images/chapter2/res_mcmc_marg_s1.png){#fig-mar-trace-zigamma}
+![(Left) Trace and (Right) density plot for Scenario 1's $\mu, \beta, P, \epsilon$.](../../images/chapter2/res_mcmc_marg_s1.png){#fig-mar-trace-zigamma fig-alt="Additional diagnostics for marginal parameters for zero-inflated gamma one scenario"}
 
 ### Weight and Dependence Parameters for Copula {#sec-appendix-ch2-simu-res-w-rho}
 
 ### Parameters for Marginal Distribution {#sec-appendix-ch2-simu-res-marginal}
 
-![Simulated data for Scenario 1. Grey bars are histogram of the data. Black bar is the zero-inflated probability.](../../images/chapter2/raw_zigamma_s1.png){#fig-zigamma-s1-raw}  
+![Simulated data for Scenario 1. Grey bars are histogram of the data. Black bar is the zero-inflated probability.](../../images/chapter2/raw_zigamma_s1.png){#fig-zigamma-s1-raw fig-alt="Histogram of simulated data for one scenario"}  
 
-![Results for Scenario 1. Grey bars are histogram of the data. Circles are the true gamma density evaluated at the support, i.e., $x > 0$. Solid lines are the posterior means. Dashed lines are $95\%$ credible intervals. Red bar is the zero-inflated probability.](../../images/chapter2/res_zigamma_marg_s1.png){#fig-zigamma-s1} 
+![Results for Scenario 1. Grey bars are histogram of the data. Circles are the true gamma density evaluated at the support, i.e., $x > 0$. Solid lines are the posterior means. Dashed lines are $95\%$ credible intervals. Red bar is the zero-inflated probability.](../../images/chapter2/res_zigamma_marg_s1.png){#fig-zigamma-s1 fig-alt="Histogram of inference resulrs for one scenario"} 
 
 ```{=latex}
 \begin{table}[ht]
