@@ -1,17 +1,17 @@
 # phd-dissertation-tsforecasting-stat-ai-2025
 Dissertation for PhD in statistics at OSU
 
-## Title
-
-Copula-Based Mixture Transition Distribution Models for Forecasting Skewed and Zero-Inflated Time Series: Methodology and Comparisons with Deep Learning LSTM Networks
-
 Co-Advisors: Lisa Madsen, Charlotte Wickham
 
 Committee Members: James Molyneux, Claudio Fuentes, Prasad Tadepalli
 
+## Documentation
+
+Copula-Based Mixture Transition Distribution Models for Forecasting Skewed and Zero-Inflated Time Series: Methodology and Comparisons with Deep Learning LSTM Networks
+
 [Link to PDF](https://github.com/franceslinyc/phd-dissertation-tsforecasting-stat-ai-2025/blob/main/_book/LinFrances2025.pdf) 
 
-Link to PDF via ScholarsArchive@OSU
+Link to PDF via ScholarsArchive@OSU (Coming soon)
 
 ## Using the Template
 
