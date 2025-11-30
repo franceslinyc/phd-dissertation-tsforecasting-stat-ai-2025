@@ -166,7 +166,6 @@ $\mu$ & 6.8482 (0.1373) & 1 (1) & 0.0008 & 0.0008 \\
    \hline
 \end{tabular}
 \caption{Estimates and Gelman–Rubin Diagnostics for Scenario 1 (varying $P$ and $\epsilon$), with true parameter values fixed at $\mu = 7$ and $\beta = 1$. The table includes all combinations of $P = 0.1, 0.5, 0.7$ and $\epsilon = 0.1, 0.4$. Specifically, the top two rows correspond to $P = 0.1$ with $\epsilon = 0.1$ and $0.4$; the middle two rows to $P = 0.5$ with $\epsilon = 0.1$ and $0.4$; and the final two rows to $P = 0.7$ with $\epsilon = 0.1$ and $0.4$.}
-
 \label{tbl-mar-table-s1-zigamma}
 \end{table}
 ```

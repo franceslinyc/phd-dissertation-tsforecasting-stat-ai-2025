@@ -14,6 +14,7 @@ Coverage & 0.9411 & 0.9469 & 0.9471 \\
    \hline
 \end{tabular}
 \caption{Empirical coverage of the $95\%$ predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b) 10 m, and (c) 2 m above ground level} 
+\label{tbl-pred-mtd-real-v2}
 \end{table}
 ```
 
