@@ -3,6 +3,7 @@
 ## Results
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
