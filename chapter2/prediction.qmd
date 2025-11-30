@@ -5,6 +5,7 @@
 When $P$ is small, a large proportion of observations fall above $\epsilon$, providing more information to estimate coverage in the upper range. As $P$ increases, more observations concentrate below $\epsilon$, making the coverage in the near-zero range the primary indicator of the overall performance. This shift reflects the change in the underlying data distribution, where increasing $P$ results in a higher proportion of near-zero values. Similiar patterns are observed across all scenarios considered in the simulation study. @fig-pred-zigamma-s1 and @fig-pred-zigamma-s2 convey the same findings but present the empirical coverage as time series for Scenario 1 and 2, respectively. Additional plots for Scenario 3 through 9 are provided in the @sec-appendix-ch2-add-pred. 
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -25,6 +26,7 @@ P01Eps01 & 0.9549 & 0.6944 & \textbf{0.9751} \\
 ```
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}

@@ -45,6 +45,7 @@ As discussed in @tbl-scenarios-description of Part I, Scenarios 1 and 2 follow
 @fig-lstm-vs-mtd-gamma-s12 illustrates these means for Scenario 1 and 2. @fig-lstm-vs-mtd-gamma-s12-zoom presents a zoomed-in view of the same plot, focusing on a subset of the test data ($n = 200$). As shown in Plot (a), both models predict well, with LSTM performing comparably to MTD. However, as shown in Plot (b), both models appear to struggle more in Scenario 2 compared to their performance in Scenario 1. Additional plots illustrating the predicted means for Scenarios 3 through 9 (@fig-lstm-vs-mtd-gamma-s3456, @fig-lstm-vs-mtd-gamma-s789) are provided in the @sec-appendix-ch3-add-pred @sec-appendix-ch3-add-pred-gamma. 
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{RMSE Comparison of LSTM and MTD for Gamma Scenarios 1–9 (s1–s9).} 
@@ -68,6 +69,7 @@ s1 & \textbf{1.3326} & 1.3569 \\
 ```
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Bias Comparison of LSTM and MTD for Gamma Scenarios 1–9 (s1–s9).} 
@@ -121,6 +123,7 @@ However, patterns similar to those in @sec-ch2-pred of Part II reappear. The ove
 @fig-lstm-vs-mtd-zigamma-s1 illustrates these patterns for Scenario 1. @fig-lstm-vs-mtd-zigamma-s1-zoom presents a zoomed-in view of the same plot, focusing on a subset of the test data ($n = 200$). Results for Scenario 2 (@tbl-pred-zigamma-lstm-vs-mtd-s2, @tbl-pred-zigamma-lstm-vs-mtd-s2-lu, @tbl-pred-zigamma-lstm-vs-mtd-s2-bias, @tbl-pred-zigamma-lstm-vs-mtd-s2-lu-bias, @fig-lstm-vs-mtd-zigamma-s2, @fig-lstm-vs-mtd-zigamma-s2-zoom) are provided in @sec-appendix-ch3-add-pred @sec-appendix-ch3-add-pred-zigamma and are similar to those in Scenario 1. 
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{RMSE Comparison of LSTM and MTD for ZIGamma Scenarios 1. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation.} 
@@ -141,6 +144,7 @@ P01Eps01 & \textbf{1.7221} & 1.7302 \\
 ```
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{RMSE Comparison of LSTM and MTD for ZIGamma Scenarios 1 Above and Below. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation. Reported values show decomposed RMSE below and above the threshold.}
@@ -161,6 +165,7 @@ P01Eps01 & 3.6285 & 4.2964 & 1.4910 & \textbf{1.3668} \\
 ```
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Bias Comparison of LSTM and MTD for ZIGamma Scenarios 1. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation.}
@@ -181,6 +186,7 @@ P01Eps01 & \textbf{-0.0958} & 0.1713 \\
 ```
 
 ```{=latex}
+\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Bias Comparison of LSTM and MTD for ZIGamma Scenarios 1 Above and Below. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation. Reported values show overall RMSE, with decomposed RMSE below and above the threshold.}
