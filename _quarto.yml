@@ -131,3 +131,6 @@ format:
     include-in-header: preamble.tex
     classoption: [seploa]
 
+filters:
+  - at: post-render
+    path: alt-text.lua
