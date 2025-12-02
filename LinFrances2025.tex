@@ -3,6 +3,14 @@
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\DocumentMetadata{%
+  lang = en-us,
+  pdfversion = 2.0,
+  pdfstandard = ua-2,
+  tagging = on,
+  tagging-setup = {math/setup=mathml-SE}
+}
+\tagpdfsetup{activate, tabsorder=structure}
 %
 \documentclass[
   letterpaper,
@@ -389,7 +397,7 @@ preserving interpretability and effectiveness.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{images/chapter1/windspeed.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Time series of wind speeds for the Gamma MTD model}]{images/chapter1/windspeed.png}}
 
 }
 
@@ -404,7 +412,7 @@ ground level at the Limon Wind Energy Center, Colorado, for the year
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{images/chapter1/zigamma.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Time series of simulated values for the ZIGamma MTD model}]{images/chapter1/zigamma.png}}
 
 }
 
@@ -488,7 +496,7 @@ The first MTD model was developed in 1985 to model high-order Markov
 chains (\citeproc{ref-raftery1985model}{Raftery 1985a},
 \citeproc{ref-raftery1985new}{1985b}), followed by several variant
 models over the years. Our work builds upon the architecture of the MTD
-model introduced in 2022 by Zheng, Kottas, and Sansó
+model introduced in 2022 by Zheng et al.
 (\citeproc{ref-zheng2022construction}{2022}). This model includes
 various applications, such as the Gaussian MTD, Poisson MTD, negative
 binomial MTD, and Lomax MTD regression models, extending beyond linear,
@@ -507,9 +515,8 @@ enables flexible dependence modeling and accommodates any continuous
 marginals, thereby enhancing modeling capabilities and flexibility.
 
 The rest of the chapter is organized as follows. We review the MTD model
-developed by Zheng, Kottas, and Sansó
-(\citeproc{ref-zheng2022construction}{2022}) in
-Chapter~\ref{sec-ch1-background}. We present the proposed model in
+developed by Zheng et al. (\citeproc{ref-zheng2022construction}{2022})
+in Chapter~\ref{sec-ch1-background}. We present the proposed model in
 Chapter~\ref{sec-ch1-prop} and provide an overview of the MCMC algorithm
 for parameter estimation in Chapter~\ref{sec-ch1-comp}. We present the
 results of various simulations conducted to assess the accuracy and
@@ -530,22 +537,22 @@ model offers a parsimonious approximation of higher-order Markov chains.
 On a more general state space, the model can capture non-Gaussian and
 nonlinear features, such as flat stretches, bursts, outliers, and change
 points (\citeproc{ref-raftery1994change}{Raftery 1994};
-\citeproc{ref-le1996modeling}{Le, Martin, and Raftery 1996}). The class
-of MTD models and their generalizations have diverse applications,
-including wind power forecasting, social behavior analysis, DNA sequence
-modeling, and forecasting of stock prices and inflation rates. A
-complete review of the MTD model and its applications can be found in
-Berchtold and Raftery (\citeproc{ref-berchtold2002mixture}{2002}).
-Recent applications extend to the modeling of crime incidents and
-precipitation patterns (\citeproc{ref-zheng2022construction}{Zheng,
-Kottas, and Sansó 2022}) and the network analysis of financial markets
-(\citeproc{ref-damico2023network}{D'Amico, De Blasis, and Petroni
-2023}). Although the MTD model has primarily been used for modeling time
-series, its generalizations has also demonstrated success in modeling
-spatial data. Some applications within the spatial context can be found
-in Berchtold (\citeproc{ref-berchtold2001estimation}{2001}), Zheng,
-Kottas, and Sansó (\citeproc{ref-zheng2023nnmp}{2023b}), and Zheng,
-Kottas, and Sansó (\citeproc{ref-zheng2023nnmpdiscrete}{2023a}).
+\citeproc{ref-le1996modeling}{Le et al. 1996}). The class of MTD models
+and their generalizations have diverse applications, including wind
+power forecasting, social behavior analysis, DNA sequence modeling, and
+forecasting of stock prices and inflation rates. A complete review of
+the MTD model and its applications can be found in Berchtold and Raftery
+(\citeproc{ref-berchtold2002mixture}{2002}). Recent applications extend
+to the modeling of crime incidents and precipitation patterns
+(\citeproc{ref-zheng2022construction}{Zheng et al. 2022}) and the
+network analysis of financial markets
+(\citeproc{ref-damico2023network}{D'Amico et al. 2023}). Although the
+MTD model has primarily been used for modeling time series, its
+generalizations has also demonstrated success in modeling spatial data.
+Some applications within the spatial context can be found in Berchtold
+(\citeproc{ref-berchtold2001estimation}{2001}), Zheng et al.
+(\citeproc{ref-zheng2023nnmp}{2023b}), and Zheng et al.
+(\citeproc{ref-zheng2023nnmpdiscrete}{2023a}).
 
 \section{Mixture Transition Distribution Models for Time
 Series}\label{mixturetransitiondistributionmodels}
@@ -656,7 +663,7 @@ edges pointed to \(X_t\), is called the parent or conditioning set of
 \end{figure}
 
 As \(t\) increases, the size of the conditioning set of \(X_t\) can
-become notably large. Zheng, Kottas, and Sansó
+become notably large. Zheng et al.
 (\citeproc{ref-zheng2022construction}{2022}) address the challenge of
 modeling a non-Gaussian conditional density with a high-dimensional
 conditioning set using the structured mixture model. When the order of
@@ -698,17 +705,17 @@ kernels and mixture weights in the next section.
 \section{Model Construction}\label{modelconstruction}
 
 Earlier MTD models were built using frequentist approaches. Estimation
-and prediction in the MTD model by Zheng, Kottas, and Sansó
+and prediction in the MTD model by Zheng et al.
 (\citeproc{ref-zheng2022construction}{2022}) is constructed with a focus
 on Bayesian methodologies.
 
 \subsection{Mixture Weights}\label{mixtureweight}
 
-Zheng, Kottas, and Sansó (\citeproc{ref-zheng2022construction}{2022})
-consider three weight types: weights with a uniform Dirichlet prior, a
-truncated version of the stick-breaking prior, and the cdf-based
-Dirichlet process prior. We use the weight with the cdf-based prior,
-which will be the focus of our discussion.
+Zheng et al. (\citeproc{ref-zheng2022construction}{2022}) consider three
+weight types: weights with a uniform Dirichlet prior, a truncated
+version of the stick-breaking prior, and the cdf-based Dirichlet process
+prior. We use the weight with the cdf-based prior, which will be the
+focus of our discussion.
 
 Let \(x_k \in [0, 1]\) with \(\sum_{k=1}^K x_k = 1\). The Dirichlet
 distribution, denoted as \(Dirichlet(\boldsymbol{\alpha})\), is a
@@ -755,7 +762,7 @@ the distribution for a random pair \((U_l, V_l)\), for \(l = 1,..., L\).
 That is, \(f_l \equiv f_{U_l | V_l}\), where \(f_l\) denotes the
 transition kernel and \(f_{U_l | V_l}\) is the associated conditional
 density. Necessary and sufficient conditions for constant first and
-second moments are difficult to establish. Zheng, Kottas, and Sansó
+second moments are difficult to establish. Zheng et al.
 (\citeproc{ref-zheng2022construction}{2022}) offer an alternative
 condition on the marginal densities of bivariate distributions that
 define the transition kernels, simplifying implementation while avoiding
@@ -764,7 +771,7 @@ restrictive constraints on the parameter space. Proposition
 \(f_X\) that corresponds to the marginal densities of a bivariate random
 vector \((U_l, V_l)\), for all \(l\), can be identified, then the
 resulting time series is first-order strictly stationary
-(\citeproc{ref-zheng2022construction}{Zheng, Kottas, and Sansó 2022}).
+(\citeproc{ref-zheng2022construction}{Zheng et al. 2022}).
 
 \begin{proposition}
 \label{prop:proposition1}
@@ -784,17 +791,16 @@ If a time series satisfies the invariant condition: $X_1 \sim f_X$, and $f_{U_l}
 In addition, Proposition \ref{prop:proposition1} applies to continuous,
 discrete, or mixed distributions.
 
-Building on Proposition \ref{prop:proposition1}, Zheng, Kottas, and
-Sansó (\citeproc{ref-zheng2022construction}{2022}) outline two general
-methods for constructing transition kernels: the bivariate distribution
-method and the conditional distribution method. The bivariate
-distribution method identifies a bivariate distribution of
-\((U_l, V_l)\) such that the marginal densities \(f_{U_l}\) and
-\(f_{V_l}\) are equal to a pre-specified stationary marginal density
-\(f_X\) for \(l\)th transition kernel. The conditional distribution
-method finds compatible conditional densities, \(f_{U_l|V_l}\) and
-\(f_{V_l|U_l}\), to specify the bivariate density of \((U_l, V_l)\) for
-the \(l\)th transition kernel.
+Building on Proposition \ref{prop:proposition1}, Zheng et al.
+(\citeproc{ref-zheng2022construction}{2022}) outline two general methods
+for constructing transition kernels: the bivariate distribution method
+and the conditional distribution method. The bivariate distribution
+method identifies a bivariate distribution of \((U_l, V_l)\) such that
+the marginal densities \(f_{U_l}\) and \(f_{V_l}\) are equal to a
+pre-specified stationary marginal density \(f_X\) for \(l\)th transition
+kernel. The conditional distribution method finds compatible conditional
+densities, \(f_{U_l|V_l}\) and \(f_{V_l|U_l}\), to specify the bivariate
+density of \((U_l, V_l)\) for the \(l\)th transition kernel.
 
 The Gaussian MTD model, for example, is constructed via the bivariate
 distribution method. Under marginal \(f_x(x) = N(x | \mu, \sigma^2)\),
@@ -873,25 +879,24 @@ the uncertainty from the parameter estimation and the predictions of the
 previous \((k-1)\) out-of-sample values, can be obtained by extending
 the posterior predictive density in \eqref{eq:posteriorpredictive}.
 
-Our work builds upon the MTD time series model by Zheng, Kottas, and
-Sansó (\citeproc{ref-zheng2022construction}{2022}) and draws inspiration
-from the nearest-neighbor mixture processes (NNMP) and the discrete
+Our work builds upon the MTD time series model by Zheng et al.
+(\citeproc{ref-zheng2022construction}{2022}) and draws inspiration from
+the nearest-neighbor mixture processes (NNMP) and the discrete
 nearest-neighbor mixture processes (DNNMP) spatial models developed by
-the same authors (\citeproc{ref-zheng2023nnmp}{Zheng, Kottas, and Sansó
-2023b}, \citeproc{ref-zheng2023nnmpdiscrete}{2023a}). The MTD model by
-Zheng, Kottas, and Sansó (\citeproc{ref-zheng2022construction}{2022})
-includes Gaussian, Poisson, negative binomial MTD, and Lomax MTD
-regression models, with applications to simulated data, crime incidents
-and precipitation prediction. Their flexibility offers potential for
-broader applications. However, to satisfy Proposition
-\ref{prop:proposition1}, for certain invariant marginal distributions,
-the transition kernel may either require careful construction or can
-result in a form that is not explicitly defined or too complex. The NNMP
-and DNNMP models effectively use copula to model dependence and
-marginals separately. Building onto the class of MTD models and
-motivated by the class of NNMP and DNNMP models, we propose to
-incorporate copula-based transition kernels. The proposed model is
-presented in the next chapter.
+the same authors (\citeproc{ref-zheng2023nnmp}{Zheng et al. 2023b},
+\citeproc{ref-zheng2023nnmpdiscrete}{2023a}). The MTD model by Zheng et
+al. (\citeproc{ref-zheng2022construction}{2022}) includes Gaussian,
+Poisson, negative binomial MTD, and Lomax MTD regression models, with
+applications to simulated data, crime incidents and precipitation
+prediction. Their flexibility offers potential for broader applications.
+However, to satisfy Proposition \ref{prop:proposition1}, for certain
+invariant marginal distributions, the transition kernel may either
+require careful construction or can result in a form that is not
+explicitly defined or too complex. The NNMP and DNNMP models effectively
+use copula to model dependence and marginals separately. Building onto
+the class of MTD models and motivated by the class of NNMP and DNNMP
+models, we propose to incorporate copula-based transition kernels. The
+proposed model is presented in the next chapter.
 
 \chapter{Proposed Method: Copula-Based Gamma MTD
 Models}\label{sec-ch1-prop}
@@ -990,7 +995,7 @@ model design.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter1/../images/chapter1/gamma.jpg}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Curves representing the gamma distributions with changing shape and rate parameters}]{chapter1/../images/chapter1/gamma.jpg}}
 
 }
 
@@ -1047,10 +1052,10 @@ parameters \(\boldsymbol{w}\), under the cdf-based prior, is
 \(\boldsymbol{\alpha} = (\alpha_0 a_1 + M_1, ..., \alpha_0 a_L + M_L)\).
 
 The MCMC algorithm, adapted from Zheng's source code for the MTD model
-(\citeproc{ref-zheng2022construction}{Zheng, Kottas, and Sansó 2022}),
-is written in \(\texttt{R}\), with certain functions written in
-\(\texttt{C++}\). Algorithm 1 (Figure~\ref{fig-alg}) requires data, mtd
-order, hyperparameters of the priors for \(\alpha\), \(\beta\),
+(\citeproc{ref-zheng2022construction}{Zheng et al. 2022}), is written in
+\(\texttt{R}\), with certain functions written in \(\texttt{C++}\).
+Algorithm 1 (Figure~\ref{fig-alg}) requires data, mtd order,
+hyperparameters of the priors for \(\alpha\), \(\beta\),
 \(\boldsymbol{w}\), and starting values for \(\alpha\), \(\beta\),
 \(\boldsymbol{\rho}\). It also requires tuning parameters for the slice
 sampler, including step size and upper bounds for \(\alpha\) and
@@ -1058,14 +1063,13 @@ sampler, including step size and upper bounds for \(\alpha\) and
 iterations, burn-in period, and thinning interval. The algorithm outputs
 posterior samples of \(\alpha\), \(\beta\), \(\boldsymbol{\rho}\) and
 \(\boldsymbol{w}\). Asterisk (*) denotes steps that differ from of the
-algorithm by Zheng, Kottas, and Sansó
-(\citeproc{ref-zheng2022construction}{2022}).
+algorithm by Zheng et al. (\citeproc{ref-zheng2022construction}{2022}).
 
 \begin{figure}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter1/../images/chapter1/alg-1-3.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={MCMC steps used to estimate parameters in Gamma MTD models}]{chapter1/../images/chapter1/alg-1-3.png}}
 
 }
 
@@ -1106,6 +1110,7 @@ summary of scenarios, respectively.
 \centering{
 
     \centering
+    \tagpdfsetup{table/header-rows={1}}
     \begin{tabular}{|p{13.85cm}|}    
         \hline 
         Section \ref{sec-ch1-simu-res-convergence}: Convergence Diagnostics \\         \hline 
@@ -1138,6 +1143,7 @@ summary of scenarios, respectively.
 \centering{
 
     \centering
+    \tagpdfsetup{table/header-rows={1}}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         \textbf{Scenario} & $\boldsymbol{w}$ & $\boldsymbol{\rho}$ & $\alpha$ & $\beta$ \\
@@ -1223,6 +1229,7 @@ Section~\ref{sec-appendix-ch1-simu-res-convergence}.
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -1248,6 +1255,7 @@ $w_1 = 0.636$ & 0.6411 (0.0425) & 1 (1) & 0.0002 & 0.0003 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -1273,6 +1281,7 @@ $\rho_1 = 0.700$ & 0.6789 (0.0281) & 1 (1) & 0.0002 & 0.0002 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -1341,7 +1350,7 @@ influence, the CI widens and approaches the prior distribution.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter1/../images/chapter1/gamma_w_rho_res.jpeg}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Inference results for weights and dependence parameters for six scenarios}]{chapter1/../images/chapter1/gamma_w_rho_res.jpeg}}
 
 }
 
@@ -1395,6 +1404,7 @@ Section~\ref{sec-appendix-ch1-simu-res-marginal}.
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -1423,6 +1433,7 @@ $\alpha = 9$ & 9.1979 (0.4195) & 1 (1) & 0.0023 & 0.0029 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -1461,6 +1472,7 @@ true values, indicating that the model is robust to the choice of prior.
 \centering
 
 
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|c|l|l|l|}
 \hline
 . & \textbf{Prior for} $\alpha$ & \textbf{Prior for} $\beta$ & \textbf{Description} \\
@@ -1481,7 +1493,7 @@ true values, indicating that the model is robust to the choice of prior.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter1/../images/chapter1/p_priors_v2.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Curves representing the prior distributions for shape and rate parameters}]{chapter1/../images/chapter1/p_priors_v2.png}}
 
 }
 
@@ -1519,7 +1531,8 @@ Figure~\ref{fig-coverage-w-rho} show these intervals.
 
 \centering
 
- 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{cccccccccccc}
   \hline
 $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
@@ -1539,8 +1552,9 @@ $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$
 \centering{
 
 \centering
- 
- 
+
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{cccccccccccc}
   \hline
 $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
@@ -1557,7 +1571,7 @@ $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter1/../images/chapter1/coverage_alp_be.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of coverage rates for shape and rate parameters}]{chapter1/../images/chapter1/coverage_alp_be.png}}
 
 }
 
@@ -1570,7 +1584,7 @@ $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter1/../images/chapter1/coverage_w_rho.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of coverage rates for weight and dependence parameters}]{chapter1/../images/chapter1/coverage_w_rho.png}}
 
 }
 
@@ -1601,8 +1615,9 @@ Appendix~\ref{sec-appendix-ch1-add-pred}.
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{rrrrrrrrrr}
   \hline
  & s1 & s2 & s3 & s4 & s5 & s6 & s7 & s8 & s9 \\ 
@@ -1619,7 +1634,7 @@ Coverage & 0.9539 & 0.9524 & 0.9514 & 0.9474 & 0.9539 & 0.9479 & 0.9534 & 0.9459
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter1/../images/chapter1/pred_gamma_s12.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for two scenarios}]{chapter1/../images/chapter1/pred_gamma_s12.png}}
 
 }
 
@@ -1674,19 +1689,19 @@ have been studied extensively, zero-inflated continuous, or
 semicontinuous, data also arise frequently in practice. Examples of
 semicontinuous data are medical expenditures
 (\citeproc{ref-duan1983comparison}{Duan et al. 1983};
-\citeproc{ref-neelon2015bayesian}{Neelon, Zhu, and Neelon 2015};
-\citeproc{ref-neelon2016modeling}{Neelon, O'Malley, and Smith 2016a},
+\citeproc{ref-neelon2015bayesian}{Neelon et al. 2015},
+\citeproc{ref-neelon2016modeling}{2016a},
 \citeproc{ref-neelon2016modelingpart2}{2016b};
-\citeproc{ref-liu2019statistical}{L. Liu et al. 2019}), insurance claims
+\citeproc{ref-liu2019statistical}{Liu et al. 2019}), insurance claims
 (\citeproc{ref-shi2018pair}{Shi and Yang 2018};
-\citeproc{ref-yang2022nonparametric}{L. Yang 2022}), precipitation
-amounts (\citeproc{ref-hyndman2000applications}{Hyndman and Grunwald
-2000}; \citeproc{ref-abraham2009semi}{Abraham and Tan 2009};
-\citeproc{ref-dzupire2018poisson}{Dzupire, Ngare, and Odongo 2018};
-\citeproc{ref-kaewprasert2024bayesian}{Kaewprasert, Niwitpong, and
-Niwitpong 2024}), lane departure severity scores
-(\citeproc{ref-mills2013zigamma}{Mills 2013}), and vehicle deceleration
-during braking (\citeproc{ref-feng2020zero}{Feng 2020}).
+\citeproc{ref-yang2022nonparametric}{Yang 2022}), precipitation amounts
+(\citeproc{ref-hyndman2000applications}{Hyndman and Grunwald 2000};
+\citeproc{ref-abraham2009semi}{Abraham and Tan 2009};
+\citeproc{ref-dzupire2018poisson}{Dzupire et al. 2018};
+\citeproc{ref-kaewprasert2024bayesian}{Kaewprasert et al. 2024}), lane
+departure severity scores (\citeproc{ref-mills2013zigamma}{Mills 2013}),
+and vehicle deceleration during braking
+(\citeproc{ref-feng2020zero}{Feng 2020}).
 
 There are two classes of models designed to handle data with excessive
 zeros: two-component, zero-inflated (ZI) models
@@ -1700,14 +1715,14 @@ whereas in hurdle models, zeros occur exclusively in the binary
 component, with the non-zero component restricted to non-zero values.
 
 Building upon the architecture of the MTD model introduced in 2022 by
-Zheng, Kottas, and Sansó (\citeproc{ref-zheng2022construction}{2022}),
-in Part I we proposed the copula-based Gamma MTD model, which enables
-flexible dependence modeling and accommodates arbitrary continuous
-marginals, thereby enhancing modeling capabilities and flexibility.
-However, while this framework addresses the challenge of constructing a
-flexible transition kernel for non-Gaussian marginal distributions, it
-remains limited in handling excessive zeros commonly observed in
-real-world continuous data.
+Zheng et al. (\citeproc{ref-zheng2022construction}{2022}), in Part I we
+proposed the copula-based Gamma MTD model, which enables flexible
+dependence modeling and accommodates arbitrary continuous marginals,
+thereby enhancing modeling capabilities and flexibility. However, while
+this framework addresses the challenge of constructing a flexible
+transition kernel for non-Gaussian marginal distributions, it remains
+limited in handling excessive zeros commonly observed in real-world
+continuous data.
 
 To address this limitation, we propose reconstructing the marginal
 distribution to account for zero-inflation. Our approach is similar to
@@ -1757,7 +1772,7 @@ Zero-inflated count data are prevalent across diverse domains such as
 finance, economics, healthcare, transportation, and ecology. Examples
 include claim frequencies in automobile insurance
 (\citeproc{ref-chowdhury2019group}{Chowdhury et al. 2019};
-\citeproc{ref-zhang2022new}{Zhang, Pitt, and Wu 2022};
+\citeproc{ref-zhang2022new}{Zhang et al. 2022};
 \citeproc{ref-bermudez2022copula}{Bermúdez and Karlis 2022};
 \citeproc{ref-simmachan2024comparison}{Simmachan and Boonkrong 2024};
 \citeproc{ref-slime2025optimizing}{Slime et al. 2025}), the number of
@@ -1767,8 +1782,8 @@ of medical service use (\citeproc{ref-pizer2011time}{Pizer and Prentice
 2011}; \citeproc{ref-chatterjee2018group}{Chatterjee et al. 2018}),
 crash counts or accident frequencies
 (\citeproc{ref-dong2014examining}{Dong et al. 2014};
-\citeproc{ref-hao2016research}{Hao, Ya-dong, and Yong 2016};
-\citeproc{ref-liu2018multivariate}{C. Liu et al. 2018};
+\citeproc{ref-hao2016research}{Hao et al. 2016};
+\citeproc{ref-liu2018multivariate}{Liu et al. 2018};
 \citeproc{ref-mathew2021highway}{Mathew and Benekohal 2021}), and
 species abundances (\citeproc{ref-martin2005zero}{Martin et al. 2005}).
 
@@ -1788,10 +1803,10 @@ Data}\label{sec-ch2-background-zi-count-dependent}
 
 \subsection{State Space Models}\label{state-space-models}
 
-M. Yang, Cavanaugh, and Zamba (\citeproc{ref-yang2015statespace}{2015})
-propose a state space or dynamic model for zero-inflated count time
-series. Feng (\citeproc{ref-feng2020zero}{2020}) extends this framework
-to continuous-valued zero-inflated time series, resulting in the
+Yang et al. (\citeproc{ref-yang2015statespace}{2015}) propose a state
+space or dynamic model for zero-inflated count time series. Feng
+(\citeproc{ref-feng2020zero}{2020}) extends this framework to
+continuous-valued zero-inflated time series, resulting in the
 development of the dynamic semi-continuous zero-inflated (DSCZI) model.
 
 Both the dynamic model and the MTD model include a latent state and can
@@ -1817,7 +1832,7 @@ example, Bartolucci and Farcomeni
 discrete latent variables follow a hidden Markov chain and note that
 further generalizations, though possible, often result in models with a
 large number of parameters and require computationally intensive
-algorithms for fitting. In addition, M. Yang, Cavanaugh, and Zamba
+algorithms for fitting. In addition, Yang et al.
 (\citeproc{ref-yang2015statespace}{2015}) relies on an expectation
 maximization (EM) algorithm for estimation, but with the advancement of
 modern computing, they suggest a full Bayesian framework using a MCMC
@@ -1828,36 +1843,35 @@ inference.
 \subsection{Copula-Based Markov
 Models}\label{copula-based-markov-models}
 
-Alqawba, Diawara, and Rao Chaganty
-(\citeproc{ref-alqawba2019copula}{2019}) and Alqawba and Diawara
-(\citeproc{ref-alqawba2021copula}{2021}) propose the copula-based Markov
-zero-inflated count time series model, utilizing marginal distributions
-such as the zero-inflated Poisson (ZIP), zero-inflated negative binomial
-(ZINB), and zero-inflated Conway-Maxwell-Poisson (ZICMP).
+Alqawba et al. (\citeproc{ref-alqawba2019copula}{2019}) and Alqawba and
+Diawara (\citeproc{ref-alqawba2021copula}{2021}) propose the
+copula-based Markov zero-inflated count time series model, utilizing
+marginal distributions such as the zero-inflated Poisson (ZIP),
+zero-inflated negative binomial (ZINB), and zero-inflated
+Conway-Maxwell-Poisson (ZICMP).
 
 Similarly, the MTD and NNMP models, discussed in
 Chapter~\ref{sec-ch1-background}, belong to the class of first-order
 Markov models. However, copulas were not incorporated into these
-frameworks until the later work of Zheng, Kottas, and Sansó
-(\citeproc{ref-zheng2023nnmp}{2023b}) and Zheng, Kottas, and Sansó
+frameworks until the later work of Zheng et al.
+(\citeproc{ref-zheng2023nnmp}{2023b}) and Zheng et al.
 (\citeproc{ref-zheng2023nnmpdiscrete}{2023a}). Even then, in the
-discrete spatial NNMP models, Zheng, Kottas, and Sansó
+discrete spatial NNMP models, Zheng et al.
 (\citeproc{ref-zheng2023nnmpdiscrete}{2023a}) utilize copulas in a
-different manner. More specifically, Alqawba, Diawara, and Rao Chaganty
+different manner. More specifically, Alqawba et al.
 (\citeproc{ref-alqawba2019copula}{2019}) and Alqawba and Diawara
 (\citeproc{ref-alqawba2021copula}{2021}) directly compute the joint PMF
 of \((X_t, X_{t-1})\) and express it using a copula function adapted for
 discrete variables, from which the conditional probability is obtained
-by dividing by the marginal of \(x_{t-1}\). In contrast, Zheng, Kottas,
-and Sansó (\citeproc{ref-zheng2023nnmpdiscrete}{2023a}) adopt the
-continuous extension approach, associating each discrete variable with a
-continuous variable. This enables the direct use of copulas in a
-continuous setting to construct the transition kernel in a structured
-mixture. Once the continuous variables are introduced, the conditional
-probability is specified as a mixture over \(L\) transition kernels,
-each constructed from the bivariate random vector \((U_l, V_l)\), with
-the dependence between \(U_l\) and \(V_l\) captured by a copula
-function.
+by dividing by the marginal of \(x_{t-1}\). In contrast, Zheng et al.
+(\citeproc{ref-zheng2023nnmpdiscrete}{2023a}) adopt the continuous
+extension approach, associating each discrete variable with a continuous
+variable. This enables the direct use of copulas in a continuous setting
+to construct the transition kernel in a structured mixture. Once the
+continuous variables are introduced, the conditional probability is
+specified as a mixture over \(L\) transition kernels, each constructed
+from the bivariate random vector \((U_l, V_l)\), with the dependence
+between \(U_l\) and \(V_l\) captured by a copula function.
 
 Although copula-based Markov models have been widely applied to count
 and zero-inflated count data in both time series and spatial contexts,
@@ -1875,7 +1889,7 @@ Nevertheless, these studies suggest promising potential for broader
 applications. For example, Mills (\citeproc{ref-mills2013zigamma}{2013})
 conducts two-part tests for zero-inflated Gamma (ZIG) and zero-inflated
 log-normal (ZILN) models and applies them to assess driving risk in
-individuals with neurological conditions. Zhou, Kang, and Song
+individuals with neurological conditions. Zhou et al.
 (\citeproc{ref-zhou2020two}{2020}) develope a two-part hidden Markov
 model and apply it to analyze data from the Alzheimer's Disease
 Neuroimaging Initiative (ADNI) to enhance prognosis and support early
@@ -1886,25 +1900,24 @@ informing the in-vehicle assistance design. Sun
 (\citeproc{ref-sun2020zispatial}{2020}) compares the spatial Gaussian
 copula model with the kriging and the spatial random forests for
 zero-inflated forestry inventory prediction, crucial for ecosystem
-management. More recently, Kaewprasert, Niwitpong, and Niwitpong
-(\citeproc{ref-kaewprasert2022simultaneous}{2022}) and Kaewprasert,
-Niwitpong, and Niwitpong (\citeproc{ref-kaewprasert2024bayesian}{2024})
-construct Bayesian and fiducial intervals and apply them to rainfall
-data from northern Thailand, informing the design of disaster warning
-systems. Zou and Young (\citeproc{ref-zou2024fiducial}{2024}) construct
-fiducial-based intervals for the ZIG distribution and apply them to
-lipid profiles in a lung cancer study, enhancing screening and staging
-accuracy.
+management. More recently, Kaewprasert et al.
+(\citeproc{ref-kaewprasert2022simultaneous}{2022}) and Kaewprasert et
+al. (\citeproc{ref-kaewprasert2024bayesian}{2024}) construct Bayesian
+and fiducial intervals and apply them to rainfall data from northern
+Thailand, informing the design of disaster warning systems. Zou and
+Young (\citeproc{ref-zou2024fiducial}{2024}) construct fiducial-based
+intervals for the ZIG distribution and apply them to lipid profiles in a
+lung cancer study, enhancing screening and staging accuracy.
 
 The DSCZI model by Feng (\citeproc{ref-feng2020zero}{2020}) is built
-based on the dynamic framework by M. Yang, Cavanaugh, and Zamba
+based on the dynamic framework by Yang et al.
 (\citeproc{ref-yang2015statespace}{2015}), as discussed in
 Section~\ref{sec-ch2-background-zi-count-dependent}. Conditioning on the
 latent state, the model uses logistic regression to model the zero
 values and a Gamma distribution for the positive responses. For
 parameter estimation, the DSCZI model utilizes the data cloning method
-(\citeproc{ref-lele2007data}{Lele, Dennis, and Lutscher 2007};
-\citeproc{ref-lele2010estimability}{Lele, Nadeem, and Schmuland 2010};
+(\citeproc{ref-lele2007data}{Lele et al. 2007},
+\citeproc{ref-lele2010estimability}{2010};
 \citeproc{ref-al2019estimation}{Al-Wahsh and Hussein 2019}), which
 leverages Markov chain Monte Carlo (MCMC) sampling to approximate
 maximum likelihood estimates, avoiding gradient-based methods due to the
@@ -1913,12 +1926,12 @@ intractable marginal likelihood and latent variable complexity.
 Although data cloning provides a practical approach for intractable
 likelihoods and is robust to the choice of prior distributions, it can
 be computationally expensive and sensitive to the choice of the number
-of clones (\citeproc{ref-lele2007data}{Lele, Dennis, and Lutscher
-2007}). Moreover, convergence diagnostics can be challenging, and
-identifiability issues may persist even after cloning
-(\citeproc{ref-lele2007data}{Lele, Dennis, and Lutscher 2007}). In
-contrast, MCMC draws samples from the full posterior distribution,
-providing a more comprehensive quantification of parameter uncertainty.
+of clones (\citeproc{ref-lele2007data}{Lele et al. 2007}). Moreover,
+convergence diagnostics can be challenging, and identifiability issues
+may persist even after cloning (\citeproc{ref-lele2007data}{Lele et al.
+2007}). In contrast, MCMC draws samples from the full posterior
+distribution, providing a more comprehensive quantification of parameter
+uncertainty.
 
 \section{The Continuous Extension
 Approach}\label{the-continuous-extension-approach}
@@ -1927,7 +1940,7 @@ The continuous extension (CE) approach was first proposed by Denuit and
 Lambert (\citeproc{ref-denuit2005constraints}{2005}). Under the CE
 framework, Madsen (\citeproc{ref-madsen2009spatial}{2009}) introduces a
 discrete spatial Gaussian copula regresion model and applies it to the
-Japanese beetle grub data, while Zheng, Kottas, and Sansó
+Japanese beetle grub data, while Zheng et al.
 (\citeproc{ref-zheng2023nnmpdiscrete}{2023a}) develop a discrete spatial
 copula NNMP regression model to study North American Breeding Bird
 Survey data. Using this approach, each discrete random variable,
@@ -1945,12 +1958,12 @@ extension of \(Y_i\) preserves all information, but \(Y^*_i\) and
 as shown by Denuit and Lambert
 (\citeproc{ref-denuit2005constraints}{2005}).
 
-Our work once again builds upon the MTD time series model by Zheng,
-Kottas, and Sansó (\citeproc{ref-zheng2022construction}{2022}) and draws
-inspiration from the NNMP and the discrete NNMP spatial models developed
-by the same authors (\citeproc{ref-zheng2023nnmp}{Zheng, Kottas, and
-Sansó 2023b}, \citeproc{ref-zheng2023nnmpdiscrete}{2023a}). Additional
-motivation comes from the work of Monleon, Madsen, and Wilson
+Our work once again builds upon the MTD time series model by Zheng et
+al. (\citeproc{ref-zheng2022construction}{2022}) and draws inspiration
+from the NNMP and the discrete NNMP spatial models developed by the same
+authors (\citeproc{ref-zheng2023nnmp}{Zheng et al. 2023b},
+\citeproc{ref-zheng2023nnmpdiscrete}{2023a}). Additional motivation
+comes from the work of Monleon et al.
 (\citeproc{ref-monleon2019small}{2019}) and Sun
 (\citeproc{ref-sun2020zispatial}{2020}), which extend the spatial
 Gaussian copula model of Madsen (\citeproc{ref-madsen2009spatial}{2009})
@@ -2090,7 +2103,7 @@ plots are provided in the Appendix~\ref{sec-appendix-ch2-add-dzig-pzig}.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter2/../images/chapter2/fig_zigamma.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Curves representing the zero-inflated gamma distributions with changing zero-inflated probability and threshold parameters}]{chapter2/../images/chapter2/fig_zigamma.png}}
 
 }
 
@@ -2171,7 +2184,7 @@ algorithm outputs posterior samples of \(\mu\), \(\beta\), \(P\),
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter2/../images/chapter2/alg-2-3.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={MCMC steps used to estimate parameters in Zero-Inflated Gamma MTD models}]{chapter2/../images/chapter2/alg-2-3.png}}
 
 }
 
@@ -2214,6 +2227,7 @@ the summary of scenarios, respectively.
 \centering{
 
     \centering
+    \tagpdfsetup{table/header-rows={1}}
     \begin{tabular}{|p{13.85cm}|}    
         \hline 
         Section \ref{sec-ch2-simu-res-convergence}: Convergence Diagnostics \\         \hline 
@@ -2246,6 +2260,7 @@ the summary of scenarios, respectively.
 \centering{
 
     \centering
+    \tagpdfsetup{table/header-rows={1}}
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
         \textbf{Scenario} & $\boldsymbol{w}$ & $\boldsymbol{\rho}$ & $\mu$ & $\beta$ & $P$ & $\epsilon$ \\
@@ -2339,6 +2354,7 @@ Section~\ref{sec-appendix-ch2-simu-res-convergence}.
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -2364,6 +2380,7 @@ $w_1 = 0.636$ & 0.6395 (0.0425) & 1 (1) & 0.0002 & 0.0003 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -2389,6 +2406,7 @@ $\rho_1 = 0.700$ & 0.6847 (0.0274) & 1 (1) & 0.0002 & 0.0002 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -2456,7 +2474,7 @@ influence, the CI widens and approaches the prior distribution.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter2/../images/chapter2/zigamma_w_rho_res.jpeg}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Inference results for weights and dependence parameters for two scenarios.}]{chapter2/../images/chapter2/zigamma_w_rho_res.jpeg}}
 
 }
 
@@ -2517,6 +2535,7 @@ simulated data in Figure~\ref{fig-zigamma-s1}.
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -2566,6 +2585,7 @@ $\mu$ & 4.2017 (0.1022) & 1 (1) & 0.0006 & 0.0006 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -2635,6 +2655,7 @@ estimation uncertainty.
 \centering
 
   
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{cccccccccccccc}
   \hline
 $\mu$ & $\beta$ & $P$ & $\epsilon$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
@@ -2661,6 +2682,7 @@ $\mu$ & $\beta$ & $P$ & $\epsilon$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\r
 \centering
  
  
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{cccccccccccccc}
   \hline
 $\mu$ & $\beta$ & $P$ & $\epsilon$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
@@ -2714,6 +2736,7 @@ Appendix~\ref{sec-appendix-ch2-add-pred}.
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{rrrr}
   \hline
  & Coverage & Below & Above \\ 
@@ -2740,6 +2763,7 @@ P01Eps01 & 0.9549 & 0.6944 & \textbf{0.9751} \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{rrrr}
   \hline
  & Coverage & Below & Above \\ 
@@ -2763,7 +2787,7 @@ P01Eps01 & 0.9479 & 0.6382 & \textbf{0.9734} \\
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter2/../images/chapter2/pred_zigamma_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 1}]{chapter2/../images/chapter2/pred_zigamma_s1.png}}
 
 }
 
@@ -2780,7 +2804,7 @@ coverage (coverage for data \(\leq \epsilon\), coverage for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter2/../images/chapter2/pred_zigamma_s12.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 2}]{chapter2/../images/chapter2/pred_zigamma_s12.png}}
 
 }
 
@@ -2822,8 +2846,8 @@ capture complex dependence patterns in empirical data.
 
 Although the framework can be readily extended to handle non-stationary
 time series and incorporate predictors
-(\citeproc{ref-zheng2022construction}{Zheng, Kottas, and Sansó 2022}),
-these features are not currently implemented. Consequently, it cannot
+(\citeproc{ref-zheng2022construction}{Zheng et al. 2022}), these
+features are not currently implemented. Consequently, it cannot
 adequately model non-stationary data with trends and seasonality,
 limiting its practical effectiveness. In addition, the lack of support
 for covariate prevents the model from jointly capturing the effects of
@@ -2845,26 +2869,26 @@ sampling strategy impacts model performance.
 \chapter{Introduction}\label{sec-ch3-intro}
 
 Recurrent Neural Networks (RNNs)
-(\citeproc{ref-rumelhart1986learning}{Rumelhart, Hinton, and Williams
-1986}), and their variants, Long Short-Term Memory (LSTMs), are widely
-used for modeling sequence data because of their ability to capture both
-short- and long-term dependencies. In natural language processing, they
-have been successfully applied to tasks such as handwriting recognition
+(\citeproc{ref-rumelhart1986learning}{Rumelhart et al. 1986}), and their
+variants, Long Short-Term Memory (LSTMs), are widely used for modeling
+sequence data because of their ability to capture both short- and
+long-term dependencies. In natural language processing, they have been
+successfully applied to tasks such as handwriting recognition
 (\citeproc{ref-graves2008novel}{Graves et al. 2008}), language modeling
 (\citeproc{ref-mikolov2012statistical}{Mikolov 2012}), speech
 recognition (\citeproc{ref-chan2015speech}{Chan et al. 2015};
 \citeproc{ref-chiu2017speech}{Chiu et al. 2017}), and machine
-translation (\citeproc{ref-sutskever2014neural}{Sutskever, Vinyals, and
-Le 2014}; \citeproc{ref-bahdanau2014neural}{Bahdanau, Cho, and Bengio
-2014}). Beyond language, RNNs and LSTMs have also shown effective in
-complex time series forecasting and have been employed for applications
-including financial market prediction
-(\citeproc{ref-siami2019comparing}{Siami-Namini, Tavakoli, and Namin
-2019}; \citeproc{ref-muncharaz2020comparing}{Muncharaz 2020};
+translation (\citeproc{ref-sutskever2014neural}{Sutskever et al. 2014};
+\citeproc{ref-bahdanau2014neural}{Bahdanau et al. 2014}). Beyond
+language, RNNs and LSTMs have also shown effective in complex time
+series forecasting and have been employed for applications including
+financial market prediction
+(\citeproc{ref-siami2019comparing}{Siami-Namini et al. 2019};
+\citeproc{ref-muncharaz2020comparing}{Muncharaz 2020};
 \citeproc{ref-pirani2022comparing}{Pirani et al. 2022}), energy
-forecasting (\citeproc{ref-manero2018energy}{Manero, Béjar, and Cortés
-2018}; \citeproc{ref-sandhu2019energy}{Sandhu, Nair, et al. 2019};
-\citeproc{ref-yu2019energy}{Yunjun Yu, Cao, and Zhu 2019};
+forecasting (\citeproc{ref-manero2018energy}{Manero et al. 2018};
+\citeproc{ref-sandhu2019energy}{{Sandhu et al.} 2019};
+\citeproc{ref-yu2019energy}{Yunjun Yu et al. 2019};
 \citeproc{ref-paramasivan2021energy}{Paramasivan 2021}), weather and
 climate modeling (\citeproc{ref-salman2018weather}{Salman et al. 2018};
 \citeproc{ref-haq2022climate}{Haq 2022}), and epidemiological trend
@@ -2877,14 +2901,13 @@ benchmarks chosen are inappropriate. For example, LSTMs are frequently
 compared to autoregressive integrated moving average (ARIMA) models,
 even when the assumptions underlying ARIMA models such as stationarity
 and normally distributed errors are not satisfied
-(\citeproc{ref-hewamalage2023critique}{Hewamalage, Ackermann, and
-Bergmeir 2023a}). An early survey also reported mixed results, showing
-that RNNs including LSTMs outperform classical benchmarks on some
-datasets and metrics, but not consistently
-(\citeproc{ref-hewamalage2021reviewrnn}{Hewamalage, Bergmeir, and
-Bandara 2021}). Similar concerns have also been raised in discussions of
+(\citeproc{ref-hewamalage2023critique}{Hewamalage et al. 2023a}). An
+early survey also reported mixed results, showing that RNNs including
+LSTMs outperform classical benchmarks on some datasets and metrics, but
+not consistently (\citeproc{ref-hewamalage2021reviewrnn}{Hewamalage et
+al. 2021}). Similar concerns have also been raised in discussions of
 newer foundation-model approaches
-(\citeproc{ref-bergmeir2024critiquellms}{Bergmeir 2024a}). These
+(\citeproc{ref-bergmeir2024critiquellms}{Bergmeir 2024b}). These
 observations highlight the need to evaluate deep learning models against
 more flexible probabilistic alternatives.
 
@@ -2938,7 +2961,7 @@ Figure~\ref{fig-rnn} presents a visual representation of an RNN unit.
 
 \centering{
 
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{chapter3/../images/chapter3/rnn.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio,alt={Visual representation of an RNN unit}]{chapter3/../images/chapter3/rnn.png}
 
 }
 
@@ -2980,22 +3003,22 @@ generate output in a stable, zero-centered range.
 Dependence}\label{problems-with-long-term-dependence}
 
 When trained on long sequences, RNNs are prone to the well-documented
-vanishing gradient issue (\citeproc{ref-bengio1994learning}{Bengio,
-Simard, and Frasconi 1994}). Both vanishing and exploding issues can
-introduce instability during training and hinder the ability of standard
-RNNs to capture long-term dependence in sequence data. In the vanishing
-case, gradients become too small to effectively update network weights,
-while in the exploding case, gradients grow excessively large, leading
-to unstable weight updates.
+vanishing gradient issue (\citeproc{ref-bengio1994learning}{Bengio et
+al. 1994}). Both vanishing and exploding issues can introduce
+instability during training and hinder the ability of standard RNNs to
+capture long-term dependence in sequence data. In the vanishing case,
+gradients become too small to effectively update network weights, while
+in the exploding case, gradients grow excessively large, leading to
+unstable weight updates.
 
 To capture long-term dependence in sequence data while alleviating the
 vanishing gradient problem, Hochreiter and Schmidhuber
 (\citeproc{ref-hochreiter1997long}{1997}) introduce the Long Short-Term
 Memory (LSTM) unit. Since this introduction, several LSTM variants have
 been developed. Notable variants include LSTM with a forget gate
-(\citeproc{ref-gers2000lstmgate}{Gers, Schmidhuber, and Cummins 2000}),
-LSTM with peephole connections (\citeproc{ref-gers2000peephole}{Gers and
-Schmidhuber 2000}), and gated recurrent unit (GRU)
+(\citeproc{ref-gers2000lstmgate}{Gers et al. 2000}), LSTM with peephole
+connections (\citeproc{ref-gers2000peephole}{Gers and Schmidhuber
+2000}), and gated recurrent unit (GRU)
 (\citeproc{ref-cho2014learning}{Cho et al. 2014}).
 
 While LSTMs effectively address the vanishing gradient problem and
@@ -3012,18 +3035,18 @@ before fine-tuning on specific tasks. This pretraining framework has
 enabled their widespread adoption across domains. Their rise followed
 the success of large language models like BERT
 (\citeproc{ref-devlin2019bert}{Devlin et al. 2019}) and GPT-3
-(\citeproc{ref-brown2020language}{Brown et al. 2020}). Typically built
+(\citeproc{ref-brown2020language}{{Brown et al.} 2020}). Typically built
 on the transformer architecture
 (\citeproc{ref-vaswani2017attention}{Vaswani et al. 2017}), these models
 have excelled in natural language processing (NLP) and computer vision,
 with extensions to multi-modal and reinforcement learning. Recently,
 foundation models have been increasingly applied to forecasting tasks,
 particularly in time series analysis. Notable domain-specific models
-include TimeGPT-1 by Nixtla (\citeproc{ref-garza2024timegpt1}{Garza,
-Challu, and Mergenthaler-Canseco 2024}), Lag-Llama
-(\citeproc{ref-rasul2024lagllama}{Rasul et al. 2024}), TimesFM by Google
-Research (\citeproc{ref-das2024decoderonlyfoundationmodel}{Das et al.
-2024}), Tiny Time Mixers by IBM Research
+include TimeGPT-1 by Nixtla (\citeproc{ref-garza2024timegpt1}{Garza et
+al. 2024}), Lag-Llama (\citeproc{ref-rasul2024lagllama}{Rasul et al.
+2024}), TimesFM by Google Research
+(\citeproc{ref-das2024decoderonlyfoundationmodel}{Das et al. 2024}),
+Tiny Time Mixers by IBM Research
 (\citeproc{ref-ekambaram2024tinytimemixersttms}{Ekambaram et al. 2024}),
 Moirai by Salesforce (\citeproc{ref-woo2024moirai}{Woo et al. 2024}),
 and Chronos by Amazon Web
@@ -3048,17 +3071,17 @@ overfitting, whereas simpler architectures like LSTMs often perform well
 on smaller datasets, offering easier training and tuning for practical
 forecasting tasks. Developing robust and interpretable transformer
 architectures remains a challenge, and benchmarking issues persist
-(\citeproc{ref-hewamalage2023forecast}{Hewamalage, Ackermann, and
-Bergmeir 2023b}; \citeproc{ref-bergmeir2024llms}{Bergmeir 2024b}).
-Nonetheless, transformers hold strong potential for advancing areas of
-ML, including time series forecasting.
+(\citeproc{ref-hewamalage2023forecast}{Hewamalage et al. 2023b};
+\citeproc{ref-bergmeir2024llms}{Bergmeir 2024a}). Nonetheless,
+transformers hold strong potential for advancing areas of ML, including
+time series forecasting.
 
 Despite the emergence of transformer-based models, LSTMs remain a
 practical and effective choice for our experiments, and our discussion
 focus on the LSTM architecture with a forget gate
-(\citeproc{ref-gers2000lstmgate}{Gers, Schmidhuber, and Cummins 2000}).
-We distinguish between two related decisions: the choice of LSTM variant
-and the choice of network architecture.
+(\citeproc{ref-gers2000lstmgate}{Gers et al. 2000}). We distinguish
+between two related decisions: the choice of LSTM variant and the choice
+of network architecture.
 
 First, we select the LSTM with a forget gate because it is the version
 that is implemented in \texttt{PyTorch}, a widely used framework for
@@ -3070,8 +3093,8 @@ al. 2014}), a comprehensive study has shown that these variants
 generally offer comparable performance
 (\citeproc{ref-greff2016lstmcompare}{Greff et al. 2016}). For a
 comprehensive list of vanilla LSTM variants, we refer the reader to Yong
-Yu et al. (\citeproc{ref-yu2019reviewlstm}{2019}) and Hewamalage,
-Bergmeir, and Bandara (\citeproc{ref-hewamalage2021reviewrnn}{2021}).
+Yu et al. (\citeproc{ref-yu2019reviewlstm}{2019}) and Hewamalage et al.
+(\citeproc{ref-hewamalage2021reviewrnn}{2021}).
 
 Second, we choose LSTMs over transformer-based architectures because
 LSTMs are better suited for smaller datasets, require fewer
@@ -3103,7 +3126,7 @@ unit.
 
 \centering{
 
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{chapter3/../images/chapter3/lstm.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio,alt={Visual representation of an LSTM unit}]{chapter3/../images/chapter3/lstm.png}
 
 }
 
@@ -3213,14 +3236,13 @@ of the objective function with respect to each parameter in the network.
 These gradients guide how the network parameters should be updated in
 order to minimize the loss. For sequence-based models, such as RNNs,
 LSTMs, and GRUs, the Backpropagation Through Time (BPTT) procedure
-(\citeproc{ref-werbos1988generalization}{Paul J. Werbos 1988};
-\citeproc{ref-werbos1990bptt}{P. J. Werbos 1990}) is employed as an
-extension of the standard backpropagation algorithm. BPTT unfolds the
-network across time steps, allowing the computation of gradients for the
-entire sequence of inputs. For the specific derivation of LSTM
-gradients, we refer the reader to Chen
-(\citeproc{ref-chen2016gentle}{2016}) and Sherstinsky
-(\citeproc{ref-sherstinsky2020fundamentals}{2020}).
+(\citeproc{ref-werbos1988generalization}{Werbos 1988};
+\citeproc{ref-werbos1990bptt}{Werbos 1990}) is employed as an extension
+of the standard backpropagation algorithm. BPTT unfolds the network
+across time steps, allowing the computation of gradients for the entire
+sequence of inputs. For the specific derivation of LSTM gradients, we
+refer the reader to Chen (\citeproc{ref-chen2016gentle}{2016}) and
+Sherstinsky (\citeproc{ref-sherstinsky2020fundamentals}{2020}).
 
 Once the gradients are computed using BPTT, standard gradient-based
 optimization techniques, such as Stochastic Gradient Descent (SGD) and
@@ -3310,6 +3332,7 @@ used for evaluating forecasting models.
 \centering
 
 
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lll}
 \hline
 \textbf{Metric} & \textbf{Definition} & \textbf{Formula} \\
@@ -3347,17 +3370,17 @@ In this section, we provide an overview of network architecture,
 training process, hyperparameter tuning, and evaluation metrics for the
 LSTM network used in our study.
 
-Our design choices are informed by the findings of Hewamalage, Bergmeir,
-and Bandara (\citeproc{ref-hewamalage2021reviewrnn}{2021}), which guide
-the appropriate settings for the LSTM network. The architecture consists
-of an input layer, followed by one to two LSTM layers, and concludes
-with a dense layer to balance model complexity and performance.
+Our design choices are informed by the findings of Hewamalage et al.
+(\citeproc{ref-hewamalage2021reviewrnn}{2021}), which guide the
+appropriate settings for the LSTM network. The architecture consists of
+an input layer, followed by one to two LSTM layers, and concludes with a
+dense layer to balance model complexity and performance.
 
 The network is trained using Backpropagation Through Time (BPTT)
 (\citeproc{ref-mozer2013focused}{Mozer 2013};
 \citeproc{ref-robinson1987utility}{Robinson and Fallside 1987};
-\citeproc{ref-werbos1988generalization}{Paul J. Werbos 1988}). Although
-the open-source Cocob (COntinuous COin Betting) optimizer is reported to
+\citeproc{ref-werbos1988generalization}{Werbos 1988}). Although the
+open-source Cocob (COntinuous COin Betting) optimizer is reported to
 perform the best, we use the built-in Adam optimizer for its practical
 convenience and competitive performance. The learning rate is initially
 set to \(0.001\), consistent with recommended ranges for Adam. The batch
@@ -3489,8 +3512,9 @@ Section~\ref{sec-appendix-ch3-add-pred-gamma}.
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrr}
   \hline
 . & LSTM & MTD \\ 
@@ -3518,8 +3542,9 @@ s1 & \textbf{1.3326} & 1.3569 \\
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -3544,7 +3569,7 @@ s1 & \textbf{0.0347} & 0.0749 \\
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_gamma_s12_rmse.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Predicted means for two gamma scenarios}]{chapter3/../images/chapter3/lstm_vs_mtd_gamma_s12_rmse.png}}
 
 }
 
@@ -3559,7 +3584,7 @@ true values. Dashed (red) lines are LSTM predicted means and dashed
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_gamma_s12_rmse_n200.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Predicted means for two gamma scenarios with a zoomed-in view}]{chapter3/../images/chapter3/lstm_vs_mtd_gamma_s12_rmse_n200.png}}
 
 }
 
@@ -3585,7 +3610,7 @@ illustrates these findings.
 
 \centering{
 
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_table_2.png}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio,alt={RMSE results using 10 replicates}]{chapter3/../images/chapter3/lstm_vs_mtd_table_2.png}
 
 }
 
@@ -3632,7 +3657,7 @@ dimension = \(64\).
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_table_2.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={RMSE results using 10 replicates with varying hyperparameter configurations}]{chapter3/../images/chapter3/lstm_table_2.png}}
 
 }
 
@@ -3696,8 +3721,9 @@ in Scenario 1.
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -3723,7 +3749,8 @@ P01Eps01 & \textbf{1.7221} & 1.7302 \\
 
 \centering
 
- 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM Below & MTD Below & LSTM Above & MTD Above \\ 
@@ -3749,7 +3776,8 @@ P01Eps01 & 3.6285 & 4.2964 & 1.4910 & \textbf{1.3668} \\
 
 \centering
 
- 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -3775,7 +3803,8 @@ P01Eps01 & \textbf{-0.0958} & 0.1713 \\
 
 \centering
 
-  
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM Below & MTD Below & LSTM Above & MTD Above \\ 
@@ -3797,7 +3826,7 @@ P01Eps01 & 3.6105 & 4.2598 & -0.3655 & \textbf{-0.1262} \\
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_zigamma_s1_rmse.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Predicted means for zero-inflated gamma scenario 1}]{chapter3/../images/chapter3/lstm_vs_mtd_zigamma_s1_rmse.png}}
 
 }
 
@@ -3814,7 +3843,7 @@ data \(\leq \epsilon\), RMSE for data \(> \epsilon\)).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_zigamma_s1_rmse_n200.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Predicted means for zero-inflated gamma scenario 1 with a zoomed-in view}]{chapter3/../images/chapter3/lstm_vs_mtd_zigamma_s1_rmse_n200.png}}
 
 }
 
@@ -3865,7 +3894,7 @@ The datasets used for the experiments are:
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter1/windspeed.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Time series of wind speeds at various heights}]{chapter3/../images/chapter1/windspeed.png}}
 
 }
 
@@ -3944,8 +3973,9 @@ that both models outperform the naïve forecasting benchmark on average.
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -3969,8 +3999,9 @@ RMSE & 0.6359 & \textbf{0.3508} \\
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -3994,8 +4025,9 @@ RMSE & 0.4607 & \textbf{0.2376} \\
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -4032,7 +4064,8 @@ across all metrics.
 
 \centering
 
- 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
@@ -4056,8 +4089,9 @@ RMSE & 0.6359 & 0.3508 & 0.6185 & 0.3568 \\
 \centering{
 
 \centering
- 
- 
+
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
@@ -4081,8 +4115,9 @@ RMSE & 0.4607 & 0.2376 & 0.4740 & 0.2407 \\
 \centering{
 
 \centering
- 
- 
+
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
@@ -4119,7 +4154,7 @@ and actual values.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_real_n1756.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for real data}]{chapter3/../images/chapter3/lstm_vs_mtd_real_n1756.png}}
 
 }
 
@@ -4135,7 +4170,7 @@ means.}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_real_n200.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for real data with a zoomed-in view}]{chapter3/../images/chapter3/lstm_vs_mtd_real_n200.png}}
 
 }
 
@@ -4151,7 +4186,7 @@ lines are MTD predictions.}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_real_diff_n1756.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Alternative visual representation of prediction errors for real data}]{chapter3/../images/chapter3/lstm_vs_mtd_real_diff_n1756.png}}
 
 }
 
@@ -4167,7 +4202,7 @@ between MTD predicted means and observed values.}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/lstm_vs_mtd_real_diff_n200.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Alternative visual representation of prediction errors for real data with a zoomed-in view}]{chapter3/../images/chapter3/lstm_vs_mtd_real_diff_n200.png}}
 
 }
 
@@ -4202,8 +4237,9 @@ Figure~\ref{fig-pred-mtd-real-L15} illustrate these intervals.
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
  . & L = 5 & L = 15 \\ 
@@ -4222,7 +4258,7 @@ Figure~\ref{fig-pred-mtd-real-L15} illustrate these intervals.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/mtd_real_n1756.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for real data with look-back steps 5}]{chapter3/../images/chapter3/mtd_real_n1756.png}}
 
 }
 
@@ -4236,7 +4272,7 @@ predictive intervals for wind speeds (m/s) at heights of (a) 50 m, (b)
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{chapter3/../images/chapter3/mtd_real_n1754_L15.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for real data with look-back steps 15}]{chapter3/../images/chapter3/mtd_real_n1754_L15.png}}
 
 }
 
@@ -4267,15 +4303,15 @@ of 50\,m, 10\,m, and 2\,m above ground level.
 Although the MTD framework can, in principle, be extended to handle
 non-stationary time series and incorporate predictors incorporating
 additional model elements into the conditional mean structure
-(\citeproc{ref-zheng2022construction}{Zheng, Kottas, and Sansó 2022}),
-these extensions have not yet been implemented. In addition, it is
-currently limited to a univariate setting. Consequently, it cannot
-effectively model non-stationary data, simultaneously capture the
-effects of past observations and relevant predictors, or account for
-multivariate dependence. Future research directions include extending
-the model to handle non-stationary features, account for variability in
-wind speed due to factors such as air density, and incorporate the
-dependence of wind speed across different heights.
+(\citeproc{ref-zheng2022construction}{Zheng et al. 2022}), these
+extensions have not yet been implemented. In addition, it is currently
+limited to a univariate setting. Consequently, it cannot effectively
+model non-stationary data, simultaneously capture the effects of past
+observations and relevant predictors, or account for multivariate
+dependence. Future research directions include extending the model to
+handle non-stationary features, account for variability in wind speed
+due to factors such as air density, and incorporate the dependence of
+wind speed across different heights.
 
 Probabilistic models like MTDs offer greater robustness and
 interpretability due to their probabilistic nature, allowing uncertainty
@@ -4385,14 +4421,13 @@ scalable time series modeling.
 
 \markboth{Bibliography}{Bibliography}
 
-\phantomsection\label{refs}
-\begin{CSLReferences}{1}{0}
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{1}
 \bibitem[\citeproctext]{ref-abraham2009semi}
 Abraham, Zubin, and Pang-Ning Tan. 2009. {``A Semi-Supervised Framework
 for Simultaneous Classification and Regression of Zero-Inflated Time
-Series Data with Application to Precipitation Prediction.''} In
-\emph{2009 IEEE International Conference on Data Mining Workshops},
-644--49. IEEE.
+Series Data with Application to Precipitation Prediction.''} \emph{2009
+IEEE International Conference on Data Mining Workshops}, 644--49.
 
 \bibitem[\citeproctext]{ref-ahmed2023transformerstutorial}
 Ahmed, Sabeen, Ian E Nielsen, Aakash Tripathi, Shamoon Siddiqui, Ravi P
@@ -4416,9 +4451,8 @@ Parameter-Driven Models via Data Cloning.''} \emph{Journal of
 Statistical Computation and Simulation} 89 (6): 951--65.
 
 \bibitem[\citeproctext]{ref-ansari2024chronos}
-Ansari, Abdul Fatir, Lorenzo Stella, Caner Turkmen, Xiyuan Zhang, Pedro
-Mercado, Huibin Shen, Oleksandr Shchur, et al. 2024. {``Chronos:
-Learning the Language of Time Series.''}
+Ansari, Abdul Fatir, Lorenzo Stella, Caner Turkmen, et al. 2024.
+\emph{Chronos: Learning the Language of Time Series}.
 \url{https://arxiv.org/abs/2403.07815}.
 
 \bibitem[\citeproctext]{ref-bahdanau2014neural}
@@ -4452,15 +4486,15 @@ Berchtold, André, and Adrian Raftery. 2002. {``The Mixture Transition
 Distribution Model for High-Order Markov Chains and Non-Gaussian Time
 Series.''} \emph{Statistical Science} 17 (3): 328--56.
 
-\bibitem[\citeproctext]{ref-bergmeir2024critiquellms}
+\bibitem[\citeproctext]{ref-bergmeir2024llms}
 Bergmeir, Christoph. 2024a. {``LLMs and Foundational Models: Not (yet)
 as Good as Hoped.''} \emph{Foresight: The International Journal of
-Applied Forecasting} 73: 33--38.
+Applied Forecasting} 73.
 
-\bibitem[\citeproctext]{ref-bergmeir2024llms}
----------. 2024b. {``LLMs and Foundational Models: Not (yet) as Good as
-Hoped.''} \emph{Foresight: The International Journal of Applied
-Forecasting} 73.
+\bibitem[\citeproctext]{ref-bergmeir2024critiquellms}
+Bergmeir, Christoph. 2024b. {``LLMs and Foundational Models: Not (yet)
+as Good as Hoped.''} \emph{Foresight: The International Journal of
+Applied Forecasting} 73: 33--38.
 
 \bibitem[\citeproctext]{ref-bergstra2012random}
 Bergstra, James, and Yoshua Bengio. 2012. {``Random Search for
@@ -4473,10 +4507,9 @@ Finite Mixture Regression Models with an Application for Insurance Claim
 Count Data.''} \emph{TEST} 31 (4): 1082--99.
 
 \bibitem[\citeproctext]{ref-brown2020language}
-Brown, Tom, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan,
-Prafulla Dhariwal, Arvind Neelakantan, et al. 2020. {``Language Models
+{Brown, Tom, Benjamin Mann, Nick Ryder, et al.} 2020. {``Language Models
 Are Few-Shot Learners.''} \emph{Advances in Neural Information
-Processing Systems} 33: 1877--1901.
+Processing Systems} 33: 1877--901.
 
 \bibitem[\citeproctext]{ref-chan2015speech}
 Chan, William, Navdeep Jaitly, Quoc V Le, and Oriol Vinyals. 2015.
@@ -4499,16 +4532,15 @@ Forecasting of COVID-19 Transmission in Canada Using LSTM Networks.''}
 \emph{Chaos, Solitons \& Fractals} 135: 109864.
 
 \bibitem[\citeproctext]{ref-chiu2017speech}
-Chiu, Chung-Cheng, Dieterich Lawson, Yuping Luo, George Tucker, Kevin
-Swersky, Ilya Sutskever, and Navdeep Jaitly. 2017. {``An Online
-Sequence-to-Sequence Model for Noisy Speech Recognition.''} \emph{arXiv
-Preprint arXiv:1706.06428}.
+Chiu, Chung-Cheng, Dieterich Lawson, Yuping Luo, et al. 2017. {``An
+Online Sequence-to-Sequence Model for Noisy Speech Recognition.''}
+\emph{arXiv Preprint arXiv:1706.06428}.
 
 \bibitem[\citeproctext]{ref-cho2014learning}
-Cho, Kyunghyun, Bart Van Merriënboer, Caglar Gulcehre, Dzmitry Bahdanau,
-Fethi Bougares, Holger Schwenk, and Yoshua Bengio. 2014. {``Learning
-Phrase Representations Using RNN Encoder-Decoder for Statistical Machine
-Translation.''} \emph{arXiv Preprint arXiv:1406.1078}.
+Cho, Kyunghyun, Bart Van Merriënboer, Caglar Gulcehre, et al. 2014.
+{``Learning Phrase Representations Using RNN Encoder-Decoder for
+Statistical Machine Translation.''} \emph{arXiv Preprint
+arXiv:1406.1078}.
 
 \bibitem[\citeproctext]{ref-chowdhury2019group}
 Chowdhury, Shrabanti, Saptarshi Chatterjee, Himel Mallick, Prithish
@@ -4523,8 +4555,8 @@ from Stock Markets.''} \emph{Physica A: Statistical Mechanics and Its
 Applications} 632: 129335.
 
 \bibitem[\citeproctext]{ref-das2024decoderonlyfoundationmodel}
-Das, Abhimanyu, Weihao Kong, Rajat Sen, and Yichen Zhou. 2024. {``A
-Decoder-Only Foundation Model for Time-Series Forecasting.''}
+Das, Abhimanyu, Weihao Kong, Rajat Sen, and Yichen Zhou. 2024. \emph{A
+Decoder-Only Foundation Model for Time-Series Forecasting}.
 \url{https://arxiv.org/abs/2310.10688}.
 
 \bibitem[\citeproctext]{ref-denuit2005constraints}
@@ -4535,10 +4567,9 @@ Multivariate Analysis} 93 (1): 40--57.
 \bibitem[\citeproctext]{ref-devlin2019bert}
 Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019.
 {``Bert: Pre-Training of Deep Bidirectional Transformers for Language
-Understanding.''} In \emph{Proceedings of the 2019 Conference of the
-North American Chapter of the Association for Computational Linguistics:
-Human Language Technologies, Volume 1 (Long and Short Papers)},
-4171--86.
+Understanding.''} \emph{Proceedings of the 2019 Conference of the North
+American Chapter of the Association for Computational Linguistics: Human
+Language Technologies, Volume 1 (Long and Short Papers)}, 4171--86.
 
 \bibitem[\citeproctext]{ref-dong2014examining}
 Dong, Chunjiao, Stephen H Richards, David B Clarke, Xuemei Zhou, and
@@ -4558,10 +4589,9 @@ Poisson-Gamma Model for Zero Inflated Rainfall Data.''} \emph{Journal of
 Probability and Statistics} 2018 (1): 1012647.
 
 \bibitem[\citeproctext]{ref-ekambaram2024tinytimemixersttms}
-Ekambaram, Vijay, Arindam Jati, Pankaj Dayama, Sumanta Mukherjee, Nam H.
-Nguyen, Wesley M. Gifford, Chandra Reddy, and Jayant Kalagnanam. 2024.
-{``Tiny Time Mixers (TTMs): Fast Pre-Trained Models for Enhanced
-Zero/Few-Shot Forecasting of Multivariate Time Series.''}
+Ekambaram, Vijay, Arindam Jati, Pankaj Dayama, et al. 2024. \emph{Tiny
+Time Mixers (TTMs): Fast Pre-Trained Models for Enhanced Zero/Few-Shot
+Forecasting of Multivariate Time Series}.
 \url{https://arxiv.org/abs/2401.03955}.
 
 \bibitem[\citeproctext]{ref-feng2020zero}
@@ -4570,7 +4600,7 @@ Transportation Data}. University of Washington.
 
 \bibitem[\citeproctext]{ref-garza2024timegpt1}
 Garza, Azul, Cristian Challu, and Max Mergenthaler-Canseco. 2024.
-{``TimeGPT-1.''} \url{https://arxiv.org/abs/2310.03589}.
+\emph{TimeGPT-1}. \url{https://arxiv.org/abs/2310.03589}.
 
 \bibitem[\citeproctext]{ref-genest2007primer}
 Genest, Christian, and Johanna Nešlehová. 2007. {``A Primer on Copulas
@@ -4579,9 +4609,9 @@ for Count Data.''} \emph{ASTIN Bulletin: The Journal of the IAA} 37 (2):
 
 \bibitem[\citeproctext]{ref-gers2000peephole}
 Gers, Felix A, and Jürgen Schmidhuber. 2000. {``Recurrent Nets That Time
-and Count.''} In \emph{Proceedings of the IEEE-INNS-ENNS International
+and Count.''} \emph{Proceedings of the IEEE-INNS-ENNS International
 Joint Conference on Neural Networks. IJCNN 2000. Neural Computing: New
-Challenges and Perspectives for the New Millennium}, 3:189--94. IEEE.
+Challenges and Perspectives for the New Millennium} 3: 189--94.
 
 \bibitem[\citeproctext]{ref-gers2000lstmgate}
 Gers, Felix A, Jürgen Schmidhuber, and Fred Cummins. 2000. {``Learning
@@ -4590,10 +4620,10 @@ to Forget: Continual Prediction with LSTM.''} \emph{Neural Computation}
 
 \bibitem[\citeproctext]{ref-gmao2015merra2}
 Global Modeling and Assimilation Office (GMAO). 2015.
-{``Tavg1\_2d\_slv\_nx: MERRA-2 2D, 1-Hourly, Time-Averaged,
-Single-Level, Assimilation, Single-Level Diagnostics, V5.12.4.''}
-Greenbelt, Maryland, USA: Goddard Earth Sciences Data; Information
-Services Center (GES DISC). \url{https://doi.org/10.5067/VJAFPLI1CSIV}.
+\emph{Tavg1\_2d\_slv\_nx: MERRA-2 2D, 1-Hourly, Time-Averaged,
+Single-Level, Assimilation, Single-Level Diagnostics, V5.12.4}. Goddard
+Earth Sciences Data; Information Services Center (GES DISC).
+\url{https://doi.org/10.5067/VJAFPLI1CSIV}.
 
 \bibitem[\citeproctext]{ref-goodfellow2016deep}
 Goodfellow, Ian, Yoshua Bengio, Aaron Courville, and Yoshua Bengio.
@@ -4613,8 +4643,8 @@ Transactions on Neural Networks and Learning Systems} 28 (10): 2222--32.
 \bibitem[\citeproctext]{ref-hao2016research}
 Hao, Wang, Yang Ya-dong, and Ma Yong. 2016. {``Research on the Yangtze
 River Accident Casualties Using Zero-Inflated Negative Binomial
-Regression Technique.''} In \emph{2016 IEEE International Conference on
-Intelligent Transportation Engineering (ICITE)}, 72--75. IEEE.
+Regression Technique.''} \emph{2016 IEEE International Conference on
+Intelligent Transportation Engineering (ICITE)}, 72--75.
 
 \bibitem[\citeproctext]{ref-haq2022climate}
 Haq, Mohd Anul. 2022. {``CDLSTM: A Novel Model for Climate Change
@@ -4632,9 +4662,10 @@ Practices.''} \emph{Data Mining and Knowledge Discovery} 37 (2):
 788--832.
 
 \bibitem[\citeproctext]{ref-hewamalage2023forecast}
----------. 2023b. {``Forecast Evaluation for Data Scientists: Common
-Pitfalls and Best Practices.''} \emph{Data Mining and Knowledge
-Discovery} 37 (2): 788--832.
+Hewamalage, Hansika, Klaus Ackermann, and Christoph Bergmeir. 2023b.
+{``Forecast Evaluation for Data Scientists: Common Pitfalls and Best
+Practices.''} \emph{Data Mining and Knowledge Discovery} 37 (2):
+788--832.
 
 \bibitem[\citeproctext]{ref-hewamalage2021reviewrnn}
 Hewamalage, Hansika, Christoph Bergmeir, and Kasun Bandara. 2021.
@@ -4673,10 +4704,11 @@ Zero-Inflated Gamma Distributions and Its Application.''}
 \emph{Mathematics} 10 (24): 4724.
 
 \bibitem[\citeproctext]{ref-kaewprasert2024bayesian}
----------. 2024. {``Bayesian Confidence Intervals for the Ratio of the
-Means of Zero-Inflated Gamma Distributions with Application to Rainfall
-Data.''} \emph{Communications in Statistics-Simulation and Computation}
-53 (12): 5780--96.
+Kaewprasert, Theerapong, Sa-Aat Niwitpong, and Suparat Niwitpong. 2024.
+{``Bayesian Confidence Intervals for the Ratio of the Means of
+Zero-Inflated Gamma Distributions with Application to Rainfall Data.''}
+\emph{Communications in Statistics-Simulation and Computation} 53 (12):
+5780--96.
 
 \bibitem[\citeproctext]{ref-kingma2014adam}
 Kingma, Diederik P, and Jimmy Ba. 2014. {``Adam: A Method for Stochastic
@@ -4706,10 +4738,9 @@ Models Using Data Cloning.''} \emph{Journal of the American Statistical
 Association} 105 (492): 1617--25.
 
 \bibitem[\citeproctext]{ref-liang2024foundation}
-Liang, Yuxuan, Haomin Wen, Yuqi Nie, Yushan Jiang, Ming Jin, Dongjin
-Song, Shirui Pan, and Qingsong Wen. 2024. {``Foundation Models for Time
-Series Analysis: A Tutorial and Survey.''} In \emph{Proceedings of the
-30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
+Liang, Yuxuan, Haomin Wen, Yuqi Nie, et al. 2024. {``Foundation Models
+for Time Series Analysis: A Tutorial and Survey.''} \emph{Proceedings of
+the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
 6555--65.
 
 \bibitem[\citeproctext]{ref-liu2018multivariate}
@@ -4735,11 +4766,10 @@ Forecasting with Neural Networks: A Literature Review.''}
 \emph{Computaci{ó}n y Sistemas} 22 (4): 1085--98.
 
 \bibitem[\citeproctext]{ref-martin2005zero}
-Martin, Tara G, Brendan A Wintle, Jonathan R Rhodes, Petra M Kuhnert,
-Scott A Field, Samantha J Low-Choy, Andrew J Tyre, and Hugh P
-Possingham. 2005. {``Zero Tolerance Ecology: Improving Ecological
-Inference by Modelling the Source of Zero Observations.''} \emph{Ecology
-Letters} 8 (11): 1235--46.
+Martin, Tara G, Brendan A Wintle, Jonathan R Rhodes, et al. 2005.
+{``Zero Tolerance Ecology: Improving Ecological Inference by Modelling
+the Source of Zero Observations.''} \emph{Ecology Letters} 8 (11):
+1235--46.
 
 \bibitem[\citeproctext]{ref-mathew2021highway}
 Mathew, Jacob, and Rahim F Benekohal. 2021. {``Highway-Rail Grade
@@ -4769,8 +4799,8 @@ Natural Resources; Life Sciences, Vienna.
 
 \bibitem[\citeproctext]{ref-mozer2013focused}
 Mozer, Michael C. 2013. {``A Focused Backpropagation Algorithm for
-Temporal Pattern Recognition.''} In \emph{Backpropagation}, 137--69.
-Psychology Press.
+Temporal Pattern Recognition.''} In \emph{Backpropagation}. Psychology
+Press.
 
 \bibitem[\citeproctext]{ref-mullahy1986specification}
 Mullahy, John. 1986. {``Specification and Testing of Some Modified Count
@@ -4792,9 +4822,10 @@ Part 1: Background and Overview.''} \emph{Statistics in Medicine} 35
 (27): 5070--93.
 
 \bibitem[\citeproctext]{ref-neelon2016modelingpart2}
----------. 2016b. {``Modeling Zero-Modified Count and Semicontinuous
-Data in Health Services Research Part 2: Case Studies.''}
-\emph{Statistics in Medicine} 35 (27): 5094--5112.
+Neelon, Brian, A James O'Malley, and Valerie A Smith. 2016b. {``Modeling
+Zero-Modified Count and Semicontinuous Data in Health Services Research
+Part 2: Case Studies.''} \emph{Statistics in Medicine} 35 (27):
+5094--112.
 
 \bibitem[\citeproctext]{ref-neelon2015bayesian}
 Neelon, Brian, Li Zhu, and Sara E Benjamin Neelon. 2015. {``Bayesian
@@ -4803,7 +4834,7 @@ Emergency Department Expenditures.''} \emph{Biostatistics} 16 (3):
 465--79.
 
 \bibitem[\citeproctext]{ref-olah2015understandinglstm}
-Olah, Christopher. 2015. {``Understanding LSTM Networks.''}
+Olah, Christopher. 2015. \emph{Understanding LSTM Networks}.
 \url{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}.
 
 \bibitem[\citeproctext]{ref-paramasivan2021energy}
@@ -4814,9 +4845,9 @@ Review.''} \emph{Revue d'Intelligence Artificielle} 35 (1).
 \bibitem[\citeproctext]{ref-pirani2022comparing}
 Pirani, Muskaan, Paurav Thakkar, Pranay Jivrani, Mohammed Husain Bohara,
 and Dweepna Garg. 2022. {``A Comparative Analysis of ARIMA, GRU, LSTM
-and BiLSTM on Financial Time Series Forecasting.''} In \emph{2022 IEEE
+and BiLSTM on Financial Time Series Forecasting.''} \emph{2022 IEEE
 International Conference on Distributed Computing and Electrical
-Circuits and Electronics (ICDCECE)}, 1--6. IEEE.
+Circuits and Electronics (ICDCECE)}, 1--6.
 
 \bibitem[\citeproctext]{ref-pizer2011time}
 Pizer, Steven D, and Julia C Prentice. 2011. {``Time Is Money:
@@ -4835,20 +4866,19 @@ Raftery, Adrian. 1985a. {``A Model for High-Order Markov Chains.''}
 Methodology} 47 (3): 528--39.
 
 \bibitem[\citeproctext]{ref-raftery1985new}
----------. 1985b. {``A New Model for Discrete-Valued Time Series:
+Raftery, Adrian. 1985b. {``A New Model for Discrete-Valued Time Series:
 Autocorrelations and Extensions.''} \emph{Rassegna Di Metodi Statistici
 Ed Applicazioni} 3 (4): 149--62.
 
 \bibitem[\citeproctext]{ref-raftery1994change}
----------. 1994. {``Change Point and Change Curve Modeling in Stochastic
-Processes and Spatial Statistics.''} \emph{Journal of Applied
+Raftery, Adrian. 1994. {``Change Point and Change Curve Modeling in
+Stochastic Processes and Spatial Statistics.''} \emph{Journal of Applied
 Statistical Science} 1 (4): 403--23.
 
 \bibitem[\citeproctext]{ref-rasul2024lagllama}
-Rasul, Kashif, Arjun Ashok, Andrew Robert Williams, Hena Ghonia, Rishika
-Bhagwatkar, Arian Khorasani, Mohammad Javad Darvishi Bayazi, et al.
-2024. {``Lag-Llama: Towards Foundation Models for Probabilistic Time
-Series Forecasting.''} \url{https://arxiv.org/abs/2310.08278}.
+Rasul, Kashif, Arjun Ashok, Andrew Robert Williams, et al. 2024.
+\emph{Lag-Llama: Towards Foundation Models for Probabilistic Time Series
+Forecasting}. \url{https://arxiv.org/abs/2310.08278}.
 
 \bibitem[\citeproctext]{ref-robinson1987utility}
 Robinson, Anthony J, and Frank Fallside. 1987. \emph{The Utility Driven
@@ -4867,10 +4897,10 @@ with Intermediate Variables for Weather Forecasting.''} \emph{Procedia
 Computer Science} 135: 89--98.
 
 \bibitem[\citeproctext]{ref-sandhu2019energy}
-Sandhu, KS, Anil Ramachandran Nair, et al. 2019. {``A Comparative Study
-of ARIMA and RNN for Short Term Wind Speed Forecasting.''} In \emph{2019
-10th International Conference on Computing, Communication and Networking
-Technologies (ICCCNT)}, 1--7. IEEE.
+{Sandhu, KS, Anil Ramachandran Nair, et al.} 2019. {``A Comparative
+Study of ARIMA and RNN for Short Term Wind Speed Forecasting.''}
+\emph{2019 10th International Conference on Computing, Communication and
+Networking Technologies (ICCCNT)}, 1--7.
 
 \bibitem[\citeproctext]{ref-sherstinsky2020fundamentals}
 Sherstinsky, Alex. 2020. {``Fundamentals of Recurrent Neural Network
@@ -4895,7 +4925,7 @@ Automobile Insurance.''} \emph{Lobachevskii Journal of Mathematics} 45
 
 \bibitem[\citeproctext]{ref-sklar1959fonctions}
 Sklar, M. 1959. {``Fonctions de r{é}partition {à} n Dimensions Et Leurs
-Marges.''} In \emph{Annales de l'ISUP}, 8:229--31. 3.
+Marges.''} \emph{Annales de l'ISUP} 8: 229--31.
 
 \bibitem[\citeproctext]{ref-slime2025optimizing}
 Slime, Mekdad, Abdellah Ould Khal, Abdelhak Zoglat, Mohammed El Kamli,
@@ -4904,8 +4934,8 @@ Generalized Linear Model Approach to Claim Frequency and Severity.''}
 \emph{Statistics, Optimization \& Information Computing}.
 
 \bibitem[\citeproctext]{ref-sun2020zispatial}
-Sun, Nick. 2020. {``Comparison of Gaussian Copula and Random Forests in
-Zero-Inflated Spatial Prediction for Forestry Applications.''}
+Sun, Nick. 2020. \emph{Comparison of Gaussian Copula and Random Forests
+in Zero-Inflated Spatial Prediction for Forestry Applications}.
 
 \bibitem[\citeproctext]{ref-sutskever2014neural}
 Sutskever, Ilya, Oriol Vinyals, and Quoc V Le. 2014. {``Sequence to
@@ -4913,10 +4943,9 @@ Sequence Learning with Neural Networks.''} \emph{Advances in Neural
 Information Processing Systems} 27.
 
 \bibitem[\citeproctext]{ref-vaswani2017attention}
-Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion
-Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017.
-{``Attention Is All You Need.''} \emph{Advances in Neural Information
-Processing Systems} 30.
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, et al. 2017. {``Attention Is
+All You Need.''} \emph{Advances in Neural Information Processing
+Systems} 30.
 
 \bibitem[\citeproctext]{ref-wang2020disease}
 Wang, Peipei, Xinqi Zheng, Gang Ai, Dongya Liu, and Bangren Zhu. 2020.
@@ -4941,8 +4970,8 @@ Review of Statistics and Its Application} 10 (1): 247--70.
 
 \bibitem[\citeproctext]{ref-woo2024moirai}
 Woo, Gerald, Chenghao Liu, Akshat Kumar, Caiming Xiong, Silvio Savarese,
-and Doyen Sahoo. 2024. {``Unified Training of Universal Time Series
-Forecasting Transformers.''} \url{https://arxiv.org/abs/2402.02592}.
+and Doyen Sahoo. 2024. \emph{Unified Training of Universal Time Series
+Forecasting Transformers}. \url{https://arxiv.org/abs/2402.02592}.
 
 \bibitem[\citeproctext]{ref-yang2022nonparametric}
 Yang, Lu. 2022. {``Nonparametric Copula Estimation for Mixed Insurance
@@ -4989,12 +5018,14 @@ Distribution Models.''} \emph{Journal of Computational and Graphical
 Statistics} 31 (1): 283--93.
 
 \bibitem[\citeproctext]{ref-zheng2023nnmpdiscrete}
----------. 2023a. {``Bayesian Geostatistical Modeling for
-Discrete-Valued Processes.''} \emph{Environmetrics} 34 (7): e2805.
+Zheng, Xiaotian, Athanasios Kottas, and Bruno Sansó. 2023a. {``Bayesian
+Geostatistical Modeling for Discrete-Valued Processes.''}
+\emph{Environmetrics} 34 (7): e2805.
 
 \bibitem[\citeproctext]{ref-zheng2023nnmp}
----------. 2023b. {``Nearest-Neighbor Mixture Models for Non-Gaussian
-Spatial Processes.''} \emph{Bayesian Analysis} 18 (4): 1191--1222.
+Zheng, Xiaotian, Athanasios Kottas, and Bruno Sansó. 2023b.
+{``Nearest-Neighbor Mixture Models for Non-Gaussian Spatial
+Processes.''} \emph{Bayesian Analysis} 18 (4): 1191--222.
 
 \bibitem[\citeproctext]{ref-zhou2020two}
 Zhou, Xiaoxiao, Kai Kang, and Xinyuan Song. 2020. {``Two-Part Hidden
@@ -5020,7 +5051,7 @@ Models}\label{sec-appendix-ch2-add-dzig-pzig}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/fig_zigamma_rotated.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Curves representing the zero-inflated gamma distributions with changing zero-inflated probability and threshold parameters with a rotated view}]{appendix/chapter2/../../images/chapter2/fig_zigamma_rotated.png}}
 
 }
 
@@ -5048,7 +5079,7 @@ Plots}\label{gelman-rubin-and-acf-plots}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/res_mcmc_w_gelman_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Diagnostics for weight parameters for gamma one scenario}]{appendix/chapter1/../../images/chapter1/res_mcmc_w_gelman_s1.png}}
 
 }
 
@@ -5061,7 +5092,7 @@ for Scenario 1's \(w\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/res_mcmc_rho_gelman_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Diagnostics for dependence parameters for gamma one scenario}]{appendix/chapter1/../../images/chapter1/res_mcmc_rho_gelman_s1.png}}
 
 }
 
@@ -5074,7 +5105,7 @@ for Scenario 1's \(\rho\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/res_mcmc_marg_gelman_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Diagnostics for marginal parameters for gamma one scenario}]{appendix/chapter1/../../images/chapter1/res_mcmc_marg_gelman_s1.png}}
 
 }
 
@@ -5089,7 +5120,7 @@ for Scenario 1's \(\alpha, \beta\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/res_mcmc_w_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Additional diagnostics for weight parameters for gamma one scenario}]{appendix/chapter1/../../images/chapter1/res_mcmc_w_s1.png}}
 
 }
 
@@ -5102,7 +5133,7 @@ Scenario 1's \(w\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/res_mcmc_rho_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Additional diagnostics for dependence parameters for gamma one scenario}]{appendix/chapter1/../../images/chapter1/res_mcmc_rho_s1.png}}
 
 }
 
@@ -5115,7 +5146,7 @@ Scenario 1's \(\rho\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/res_mcmc_marg_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Additional diagnostics for marginal parameters for gamma one scenario}]{appendix/chapter1/../../images/chapter1/res_mcmc_marg_s1.png}}
 
 }
 
@@ -5134,7 +5165,7 @@ Distribution}\label{sec-appendix-ch1-simu-res-marginal}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/res_gamma_marg_s3456_v2.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Inference results for marginal parameters for gamma four scenarios}]{appendix/chapter1/../../images/chapter1/res_gamma_marg_s3456_v2.png}}
 
 }
 
@@ -5149,7 +5180,7 @@ Dashed lines are \(95\%\) credible intervals.}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/res_gamma_marg_s789_v2.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Inference results for marginal parameters for gamma three scenarios}]{appendix/chapter1/../../images/chapter1/res_gamma_marg_s789_v2.png}}
 
 }
 
@@ -5175,7 +5206,7 @@ Plots}\label{gelman-rubin-and-acf-plots-1}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/res_mcmc_w_gelman_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Diagnostics for weight parameters for zero-inflated gamma one scenario}]{appendix/chapter2/../../images/chapter2/res_mcmc_w_gelman_s1.png}}
 
 }
 
@@ -5188,7 +5219,7 @@ plot for Scenario 1's \(w\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/res_mcmc_rho_gelman_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Diagnostics for dependence parameters for zero-inflated gamma one scenario}]{appendix/chapter2/../../images/chapter2/res_mcmc_rho_gelman_s1.png}}
 
 }
 
@@ -5201,7 +5232,7 @@ ACF plot for Scenario 1's \(\rho\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/res_mcmc_marg_gelman_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Diagnostics for marginal parameters for zero-inflated gamma one scenario}]{appendix/chapter2/../../images/chapter2/res_mcmc_marg_gelman_s1.png}}
 
 }
 
@@ -5216,7 +5247,7 @@ ACF plot for Scenario 1's \(\mu, \beta, P, \epsilon\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/res_mcmc_w_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Additional diagnostics for weight parameters for zero-inflated gamma one scenario}]{appendix/chapter2/../../images/chapter2/res_mcmc_w_s1.png}}
 
 }
 
@@ -5229,7 +5260,7 @@ plot for Scenario 1's \(w\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/res_mcmc_rho_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Additional diagnostics for dependence parameters for zero-inflated gamma one scenario}]{appendix/chapter2/../../images/chapter2/res_mcmc_rho_s1.png}}
 
 }
 
@@ -5242,7 +5273,7 @@ plot for Scenario 1's \(\rho\).}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/res_mcmc_marg_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Additional diagnostics for marginal parameters for zero-inflated gamma one scenario}]{appendix/chapter2/../../images/chapter2/res_mcmc_marg_s1.png}}
 
 }
 
@@ -5261,7 +5292,7 @@ Distribution}\label{sec-appendix-ch2-simu-res-marginal}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/raw_zigamma_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Histogram of simulated data for one scenario}]{appendix/chapter2/../../images/chapter2/raw_zigamma_s1.png}}
 
 }
 
@@ -5275,7 +5306,7 @@ probability.}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/res_zigamma_marg_s1.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Histogram of inference resulrs for one scenario}]{appendix/chapter2/../../images/chapter2/res_zigamma_marg_s1.png}}
 
 }
 
@@ -5294,6 +5325,7 @@ zero-inflated probability.}
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -5329,6 +5361,7 @@ $\mu$ & 7.35 (0.1132) & 1 (1) & 0.0006 & 0.0006 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -5364,6 +5397,7 @@ $\mu$ & 7.232 (0.1128) & 1 (1) & 0.0006 & 0.0006 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -5412,6 +5446,7 @@ $\mu$ & 6.8482 (0.1373) & 1 (1) & 0.0008 & 0.0008 \\
 \centering{
 
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -5460,7 +5495,7 @@ Models}\label{sec-appendix-ch1-add-pred}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/pred_gamma_s3456.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for four scenarios}]{appendix/chapter1/../../images/chapter1/pred_gamma_s3456.png}}
 
 }
 
@@ -5474,7 +5509,7 @@ Scenario 5, and (d) Scenario 6.}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter1/../../images/chapter1/pred_gamma_s789.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for three scenarios}]{appendix/chapter1/../../images/chapter1/pred_gamma_s789.png}}
 
 }
 
@@ -5491,7 +5526,7 @@ Models}\label{sec-appendix-ch2-add-pred}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/pred_zigamma_s3.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 3}]{appendix/chapter2/../../images/chapter2/pred_zigamma_s3.png}}
 
 }
 
@@ -5507,7 +5542,7 @@ threshold shown in parentheses: coverage (coverage for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/pred_zigamma_s4.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 4}]{appendix/chapter2/../../images/chapter2/pred_zigamma_s4.png}}
 
 }
 
@@ -5523,7 +5558,7 @@ threshold shown in parentheses: coverage (coverage for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/pred_zigamma_s5.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 5}]{appendix/chapter2/../../images/chapter2/pred_zigamma_s5.png}}
 
 }
 
@@ -5539,7 +5574,7 @@ threshold shown in parentheses: coverage (coverage for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/pred_zigamma_s6.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 6}]{appendix/chapter2/../../images/chapter2/pred_zigamma_s6.png}}
 
 }
 
@@ -5555,7 +5590,7 @@ threshold shown in parentheses: coverage (coverage for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/pred_zigamma_s7.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 7}]{appendix/chapter2/../../images/chapter2/pred_zigamma_s7.png}}
 
 }
 
@@ -5571,7 +5606,7 @@ threshold shown in parentheses: coverage (coverage for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/pred_zigamma_s8.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 8}]{appendix/chapter2/../../images/chapter2/pred_zigamma_s8.png}}
 
 }
 
@@ -5587,7 +5622,7 @@ threshold shown in parentheses: coverage (coverage for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter2/../../images/chapter2/pred_zigamma_s9.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Visual representation of prediction results for zero-inflated gamma scenario 9}]{appendix/chapter2/../../images/chapter2/pred_zigamma_s9.png}}
 
 }
 
@@ -5608,7 +5643,7 @@ Networks}\label{sec-appendix-ch3-add-pred}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter3/../../images/chapter3/lstm_vs_mtd_gamma_s3456_rmse.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Predicted means for four gamma scenarios}]{appendix/chapter3/../../images/chapter3/lstm_vs_mtd_gamma_s3456_rmse.png}}
 
 }
 
@@ -5623,7 +5658,7 @@ lines are MTD predicted means.}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter3/../../images/chapter3/lstm_vs_mtd_gamma_s789_rmse.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Predicted means for three gamma scenarios}]{appendix/chapter3/../../images/chapter3/lstm_vs_mtd_gamma_s789_rmse.png}}
 
 }
 
@@ -5643,8 +5678,9 @@ MTD predicted means.}
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -5669,8 +5705,9 @@ P01Eps01 & \textbf{3.0477} & 3.2302 \\
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM Below & MTD Below & LSTM Above & MTD Above \\ 
@@ -5695,8 +5732,9 @@ P01Eps01 & 6.8130 & 6.5172 & \textbf{2.6077} & 2.8787 \\
 \centering{
 
 \centering
- 
 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -5722,7 +5760,8 @@ P01Eps01 & 0.4133 & \textbf{0.0071} \\
 
 \centering
 
- 
+
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM Below & MTD Below & LSTM Above & MTD Above \\ 
@@ -5744,7 +5783,7 @@ P01Eps01 & 6.7605 & 6.3816 & \textbf{-0.0121} & -0.4202 \\
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter3/../../images/chapter3/lstm_vs_mtd_zigamma_s2_rmse.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Predicted means for zero-inflated gamma scenario 2}]{appendix/chapter3/../../images/chapter3/lstm_vs_mtd_zigamma_s2_rmse.png}}
 
 }
 
@@ -5761,7 +5800,7 @@ below and above the threshold shown in parentheses: RMSE (RMSE for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter3/../../images/chapter3/lstm_vs_mtd_zigamma_s2_rmse_n200.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Predicted means for zero-inflated gamma scenario 2 with a zoomed-in view}]{appendix/chapter3/../../images/chapter3/lstm_vs_mtd_zigamma_s2_rmse_n200.png}}
 
 }
 
@@ -5781,7 +5820,7 @@ in parentheses: RMSE (RMSE for data \(\leq \epsilon\), RMSE for data
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter3/../../images/chapter3/p_loss_real_bs81632_v2.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Loss curves for real data with varying hyperparameter values}]{appendix/chapter3/../../images/chapter3/p_loss_real_bs81632_v2.png}}
 
 }
 
@@ -5796,7 +5835,7 @@ speeds at 50 m, 10 m, and 2 m above ground level, respectively. Rows
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{appendix/chapter3/../../images/chapter3/p_loss_real_bs64128256_v2.png}}
+\pandocbounded{\includegraphics[keepaspectratio,alt={Loss curves for real data with varying hyperparameter values continued}]{appendix/chapter3/../../images/chapter3/p_loss_real_bs64128256_v2.png}}
 
 }
 
@@ -5815,7 +5854,7 @@ Series}{mtd: An R Package for Modeling Gamma and Zero-inflated Gamma Time Series
 \section{\texorpdfstring{Extension to the \texttt{mtd}
 Package}{Extension to the mtd Package}}\label{extension-to-the-mtd-package}
 
-The \texttt{mtd} package by Zheng, Kottas, and Sansó
+The \texttt{mtd} package by Zheng et al.
 (\citeproc{ref-zheng2022construction}{2022}) includes the Gaussian,
 Poisson, Negative Binomial, and Lomax MTD regression models. We extend
 the package to include the copula-based Gamma and zero-inflated Gamma
