@@ -9,9 +9,9 @@ With weight parameters $\boldsymbol{w}$, dependence parameters for Gaussian copu
 To be consistent with the original MTD studies, we run the Gibbs sampler for $165,000$ iterations, discard the first $5000$ iterations as burn-in, and collect samples every $20$ iterations, resulting in $8000$ iterations per MCMC chain. To ensure that we can assess MCMC convergence and obtain more precise estimates of parameters, we also run four MCMC chains with $8000$ iterations each for all of the following scenarios in Tables (@tbl-scenarios-description, @tbl-scenarios), which contain the description and the summary of scenarios, respectively. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[h!]
     \centering
+    \tagpdfsetup{table/header-rows={1}}
     \begin{tabular}{|p{13.85cm}|}    
         \hline 
         Section \ref{sec-ch1-simu-res-convergence}: Convergence Diagnostics \\         \hline 
@@ -38,9 +38,9 @@ To be consistent with the original MTD studies, we run the Gibbs sampler for $16
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[h!]
     \centering
+    \tagpdfsetup{table/header-rows={1}}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         \textbf{Scenario} & $\boldsymbol{w}$ & $\boldsymbol{\rho}$ & $\alpha$ & $\beta$ \\
@@ -84,9 +84,9 @@ Tables (@tbl-w-table-s1, @tbl-rho-table-s1, @tbl-mar-table-s1) present the poste
 Gelman–Rubin convergence diagnostic and ACF plots (@fig-w-gelman, @fig-rho-gelman, @fig-mar-gelman) can be found in the @sec-appendix-ch1-simu @sec-appendix-ch1-simu-res-convergence. In Scenario 1, the chains converge more rapidly for the parameters related to the marginal distribution, achieving convergence at around $2000$ iterations. The chains converge more slowly for the parameters related to weight and dependence, especially at later lags. Nevertheless, all weight and dependence parameters reach convergence by $8000$ iterations. Similar patterns emerge across all other scenarios. Trace and density plots (@fig-w-trace, @fig-rho-trace, @fig-mar-trace) are also included in @sec-appendix-ch1-simu @sec-appendix-ch1-simu-res-convergence.
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -104,9 +104,9 @@ $w_1 = 0.636$ & 0.6411 (0.0425) & 1 (1) & 0.0002 & 0.0003 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -124,9 +124,9 @@ $\rho_1 = 0.700$ & 0.6789 (0.0281) & 1 (1) & 0.0002 & 0.0002 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -169,9 +169,9 @@ The slice sampler may encounter difficulties when the target distribution is not
 As shown in @tbl-mar-table-s3456, the results appear reasonable; that is, convergence has been achieved and the estimates are consistent with the true values. As shown in @tbl-mar-table-s789, the results also appear reasonable. Additional plots (@fig-gamma-s3456, @fig-gamma-s789) can be found in the @sec-appendix-ch1-simu @sec-appendix-ch1-simu-res-marginal. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -194,9 +194,9 @@ $\alpha = 9$ & 9.1979 (0.4195) & 1 (1) & 0.0023 & 0.0029 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -223,11 +223,11 @@ For the prior sensitivity analysis, we re-run Scenario 1 using five different se
 Results appear reasonable, and the estimates are consistent with the true values, indicating that the model is robust to the choice of prior. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Setups and Prior Specifications for Scenario 1: $\alpha$ and $\beta$.}
 \label{tbl-prior-analysis}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|c|l|l|l|}
 \hline
 . & \textbf{Prior for} $\alpha$ & \textbf{Prior for} $\beta$ & \textbf{Description} \\
@@ -251,11 +251,11 @@ To compute coverage rates, for each of the $40$ replicates, we first combine the
 As shown in Tables (@tbl-coverage-1 and @tbl-coverage-2), the $95\%$ credible intervals for all parameters successfully contain the true values in most replicates across both scenarios. Most parameters achieve full coverage, with a few slightly below $1$, indicating that the credible intervals reliably capture the true parameter values. Importantly, the lengths of the credible intervals vary across parameters, reflecting differences in estimation uncertainty. @fig-coverage-alp-be and @fig-coverage-w-rho show these intervals. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 1.}
-\label{tbl-coverage-1} 
+\label{tbl-coverage-1}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{cccccccccccc}
   \hline
 $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
@@ -267,11 +267,11 @@ $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 2.} 
-\label{tbl-coverage-2} 
+\caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 2.}
+\label{tbl-coverage-2}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{cccccccccccc}
   \hline
 $\alpha$ & $\beta$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 

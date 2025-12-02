@@ -3,9 +3,9 @@
 ## Results
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{rrrr}
   \hline
  & windspeed50mms & windspeed10mms & windspeed2mms \\ 

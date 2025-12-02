@@ -29,9 +29,9 @@
 ![Results for Scenario 1. Grey bars are histogram of the data. Circles are the true gamma density evaluated at the support, i.e., $x > 0$. Solid lines are the posterior means. Dashed lines are $95\%$ credible intervals. Red bar is the zero-inflated probability.](../../images/chapter2/res_zigamma_marg_s1.png){#fig-zigamma-s1 fig-alt="Histogram of inference resulrs for one scenario"} 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -60,9 +60,9 @@ $\mu$ & 7.35 (0.1132) & 1 (1) & 0.0006 & 0.0006 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -91,9 +91,9 @@ $\mu$ & 7.232 (0.1128) & 1 (1) & 0.0006 & 0.0006 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -135,9 +135,9 @@ $\mu$ & 6.8482 (0.1373) & 1 (1) & 0.0008 & 0.0008 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
