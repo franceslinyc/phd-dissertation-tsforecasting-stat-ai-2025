@@ -126,7 +126,11 @@ format:
     toc: true
     toc-depth: 3
     number-sections: true 
+    tagpdf: true
     keep-tex: true
     include-in-header: preamble.tex
     classoption: [seploa]
 
+filters:
+  - at: post-render
+    path: alt-text.lua

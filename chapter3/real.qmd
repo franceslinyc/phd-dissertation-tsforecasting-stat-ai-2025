@@ -47,11 +47,11 @@ To facilitate a more rigorous and independent comparison, we incorporate additio
 As shown in Tables (@tbl-real-uv50, @tbl-real-uv10, @tbl-real-uv2), MTD consistently outperforms the LSTM models across all evaluated metrics and training configurations for wind speeds at 50 m, 10 m, and 2 m above ground level. Since all reported MASE values are less than 1, this indicates that both models outperform the naïve forecasting benchmark on average. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 50 m above ground level.} 
+\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 50 m above ground level.}
 \label{tbl-real-uv50}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -67,11 +67,11 @@ RMSE & 0.6359 & \textbf{0.3508} \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 10 m above ground level.} 
+\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 10 m above ground level.}
 \label{tbl-real-uv10}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -87,11 +87,11 @@ RMSE & 0.4607 & \textbf{0.2376} \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 2 m above ground level.} 
+\caption{Comparison of LSTM and MTD for predicting wind speeds (m/s) at 2 m above ground level.}
 \label{tbl-real-uv2}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -111,11 +111,11 @@ To strengthen the comparison, we conduct an additional experiment by increasing 
 As shown in Tables (@tbl-real-uv50-L15, @tbl-real-uv10-L15, @tbl-real-uv2-L15), the performance of the LSTM network shows slight improvement with a larger window size, though the gains are minimal. In contrast, the MTD model shows no performance gain, but still consistently outperform the LSTM across all metrics. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Comparison of LSTM and MTD with 5 vs. 15 look-back steps for predicting wind speeds (m/s) at 50 m above ground level. $W$ denotes the LSTM input window size and $L$ denotes the MTD order; both represent look-back steps.}
-\label{tbl-real-uv50-L15} 
+\label{tbl-real-uv50-L15}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
@@ -131,11 +131,11 @@ RMSE & 0.6359 & 0.3508 & 0.6185 & 0.3568 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{Comparison of LSTM and MTD with 5 vs. 15 look-back steps for predicting wind speeds (m/s) at 10 m above ground level. $W$ denotes the LSTM input window size and $L$ denotes the MTD order; both represent look-back steps.} 
-\label{tbl-real-uv10-L15} 
+\caption{Comparison of LSTM and MTD with 5 vs. 15 look-back steps for predicting wind speeds (m/s) at 10 m above ground level. $W$ denotes the LSTM input window size and $L$ denotes the MTD order; both represent look-back steps.}
+\label{tbl-real-uv10-L15}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
@@ -151,11 +151,11 @@ RMSE & 0.4607 & 0.2376 & 0.4740 & 0.2407 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{Comparison of LSTM and MTD with 5 vs. 15 look-back steps for predicting wind speeds (m/s) at 2 m above ground level. $W$ denotes the LSTM input window size and $L$ denotes the MTD order; both represent look-back steps.} 
-\label{tbl-real-uv2-L15} 
+\caption{Comparison of LSTM and MTD with 5 vs. 15 look-back steps for predicting wind speeds (m/s) at 2 m above ground level. $W$ denotes the LSTM input window size and $L$ denotes the MTD order; both represent look-back steps.}
+\label{tbl-real-uv2-L15}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM (W = 5) & MTD (L = 5) & LSTM (W = 15) & MTD (L = 15) \\ 
@@ -189,11 +189,11 @@ Empirical coverage is particularly relevant for probabilistic forecasting method
 @tbl-pred-mtd-real summaries the $95\%$ one-step ahead posterior predictive intervals for wind speeds (m/s) at heights of 50 m, 10 m, and 2 m above ground level. As shown in the table, the model appropriately captures the predictive uncertainty across wind speeds at all heights. @fig-pred-mtd-real and @fig-pred-mtd-real-L15 illustrate these intervals. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{Empirical coverage of the $95\%$ predictive intervals for wind speeds (m/s), with look-back steps $L = 5$ vs $15$.} 
+\caption{Empirical coverage of the $95\%$ predictive intervals for wind speeds (m/s), with look-back steps $L = 5$ vs $15$.}
 \label{tbl-pred-mtd-real}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
  . & L = 5 & L = 15 \\ 

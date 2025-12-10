@@ -9,9 +9,9 @@ With weight parameters $\boldsymbol{w}$, dependence parameters for Gaussian copu
 We run the Gibbs sampler for $165,000$ iterations, discard the first $5000$ iterations as burn-in, and collect samples every $20$ iterations, resulting in $8000$ iterations per MCMC chain. To ensure that we can assess MCMC convergence and obtain more precise estimates of parameters, we also run four MCMC chains with $8000$ iterations each for all of the following scenarios in Tables (@tbl-scenarios-description-zigamma, @tbl-scenarios-zigamma), which contain the description and the summary of scenarios, respectively. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[h!]
     \centering
+    \tagpdfsetup{table/header-rows={1}}
     \begin{tabular}{|p{13.85cm}|}    
         \hline 
         Section \ref{sec-ch2-simu-res-convergence}: Convergence Diagnostics \\         \hline 
@@ -36,9 +36,9 @@ We run the Gibbs sampler for $165,000$ iterations, discard the first $5000$ iter
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[h!]
     \centering
+    \tagpdfsetup{table/header-rows={1}}
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
         \textbf{Scenario} & $\boldsymbol{w}$ & $\boldsymbol{\rho}$ & $\mu$ & $\beta$ & $P$ & $\epsilon$ \\
@@ -87,9 +87,9 @@ Tables (@tbl-w-table-s1-zigamma, @tbl-rho-table-s1-zigamma, @tbl-mar-table-s1-zi
 Gelman–Rubin convergence diagnostic and ACF plots  (@fig-w-gelman-zigamma, @fig-rho-gelman-zigamma, @fig-mar-gelman-zigamma) can be found in @sec-appendix-ch2-simu @sec-appendix-ch2-simu-res-convergence. In Scenario 1, the chains converge more rapidly for the parameters related to the marginal distribution, achieving convergence at around $2000$ iterations. The chains converge more slowly for the parameters related to weight and dependence, especially at later lags. Nevertheless, all weight and dependence parameters reach convergence by $8000$ iterations. Similar patterns emerge across all other scenarios. Trace and density plots (@fig-w-trace-zigamma, @fig-rho-trace-zigamma, @fig-mar-trace-zigamma) are also included in @sec-appendix-ch2-simu @sec-appendix-ch2-simu-res-convergence.
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -107,9 +107,9 @@ $w_1 = 0.636$ & 0.6395 (0.0425) & 1 (1) & 0.0002 & 0.0003 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -127,9 +127,9 @@ $\rho_1 = 0.700$ & 0.6847 (0.0274) & 1 (1) & 0.0002 & 0.0002 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -195,9 +195,9 @@ We present the results of Scenario 3 and Scenario 7 as examples. Each scenario c
 To demonstrate how plots showing the marginal results for the Gamma MTD model in @sec-appendix-ch1-simu @sec-appendix-ch1-simu-res-marginal can be generated for the ZIGamma MTD model, we include example plots for Scenario 1 in @sec-appendix-ch2-simu @sec-appendix-ch2-simu-res-marginal: the simulated data in @fig-zigamma-s1-raw and the results overlaid on the simulated data in @fig-zigamma-s1. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -239,9 +239,9 @@ $\mu$ & 4.2017 (0.1022) & 1 (1) & 0.0006 & 0.0006 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{|r|r|r|r|r|}
   \hline
 . & Mean (SD) & R (Upper CI) & Naive SE & Time-series SE \\ 
@@ -289,11 +289,11 @@ To compute coverage rates, for each of the $40$ replicates, we first combine the
 As shown in Tables (@tbl-coverage-1-zigamma and @tbl-coverage-2-zigamma), the $95\%$ credible intervals for all parameters successfully contain the true values in most replicates across both scenarios. Most parameters achieve full coverage, with a few slightly below $1$, indicating that the credible intervals reliably capture the true parameter values. Importantly, the lengths of the credible intervals vary across parameters, reflecting differences in estimation uncertainty.
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 1 (varying $P$ and $\epsilon$), with true parameter values fixed at $\mu = 7$ and $\beta = 1$. The table includes all combinations of $P = 0.1, 0.5, 0.7$ and $\epsilon = 0.1, 0.4$. Specifically, the top two rows correspond to $P = 0.1$ with $\epsilon = 0.1$ and $0.4$; the middle two rows to $P = 0.5$ with $\epsilon = 0.1$ and $0.4$; and the final two rows to $P = 0.7$ with $\epsilon = 0.1$ and $0.4$.}
 \label{tbl-coverage-1-zigamma}  
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{cccccccccccccc}
   \hline
 $\mu$ & $\beta$ & $P$ & $\epsilon$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 
@@ -310,11 +310,11 @@ $\mu$ & $\beta$ & $P$ & $\epsilon$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\r
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Coverage Rates for All Parameters Across 40 Replicates for Scenario 2 (varying $P$ and $\epsilon$), with true parameter values fixed at $\mu = 7$ and $\beta = 1$. The table includes all combinations of $P = 0.1, 0.5, 0.7$ and $\epsilon = 0.1, 0.4$. Specifically, the top two rows correspond to $P = 0.1$ with $\epsilon = 0.1$ and $0.4$; the middle two rows to $P = 0.5$ with $\epsilon = 0.1$ and $0.4$; and the final two rows to $P = 0.7$ with $\epsilon = 0.1$ and $0.4$.} 
 \label{tbl-coverage-2-zigamma} 
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{cccccccccccccc}
   \hline
 $\mu$ & $\beta$ & $P$ & $\epsilon$ & $w_1$ & $w_2$ & $w_3$ & $w_4$ & $w_5$ & $\rho_1$ & $\rho_2$ & $\rho_3$ & $\rho_4$ & $\rho_5$ \\ 

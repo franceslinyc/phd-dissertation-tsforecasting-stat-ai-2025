@@ -9,11 +9,11 @@
 ## Zero-Inflated Gamma {#sec-appendix-ch3-add-pred-zigamma}
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{RMSE Comparison of LSTM and MTD for ZIGamma Scenarios 2. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation.} 
+\caption{RMSE Comparison of LSTM and MTD for ZIGamma Scenarios 2. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation.}
 \label{tbl-pred-zigamma-lstm-vs-mtd-s2}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -30,11 +30,11 @@ P01Eps01 & \textbf{3.0477} & 3.2302 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{RMSE Comparison of LSTM and MTD for ZIGamma Scenarios 2 Above and Below. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation. Reported values show overall RMSE, with decomposed RMSE below and above the threshold.} 
+\caption{RMSE Comparison of LSTM and MTD for ZIGamma Scenarios 2 Above and Below. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation. Reported values show overall RMSE, with decomposed RMSE below and above the threshold.}
 \label{tbl-pred-zigamma-lstm-vs-mtd-s2-lu}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM Below & MTD Below & LSTM Above & MTD Above \\ 
@@ -51,11 +51,11 @@ P01Eps01 & 6.8130 & 6.5172 & \textbf{2.6077} & 2.8787 \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
-\caption{Bias Comparison of LSTM and MTD for ZIGamma Scenarios 2. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation.} 
+\caption{Bias Comparison of LSTM and MTD for ZIGamma Scenarios 2. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation.}
 \label{tbl-pred-zigamma-lstm-vs-mtd-s2-bias}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrr}
   \hline
 . & LSTM & MTD \\ 
@@ -72,11 +72,11 @@ P01Eps01 & 0.4133 & \textbf{0.0071} \\
 ```
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}}
 \begin{table}[ht]
 \centering
 \caption{Bias Comparison of LSTM and MTD for ZIGamma Scenarios 2 Above and Below. Each row label indicates the combination of $P$ (zero-inflated probability) and $\epsilon$ (threshold value) used in the simulation. Reported values show overall RMSE, with decomposed RMSE below and above the threshold.}
-\label{tbl-pred-zigamma-lstm-vs-mtd-s2-lu-bias} 
+\label{tbl-pred-zigamma-lstm-vs-mtd-s2-lu-bias}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lrrrr}
   \hline
 . & LSTM Below & MTD Below & LSTM Above & MTD Above \\ 

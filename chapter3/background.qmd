@@ -129,11 +129,11 @@ Hyperparameter tuning can be performed manually through hand tuning or automatic
 Evaluation metrics are essential for assessing performance and guiding improvements. @tbl-metrics presents a list of common metrics used for evaluating forecasting models. 
 
 ```{=latex}
-\tagpdfsetup{table/header-rows={1}} 
 \begin{table}[ht]
 \centering
 \caption{Common metrics for evaluating forecasting models.}
 \label{tbl-metrics}
+\tagpdfsetup{table/header-rows={1}}
 \begin{tabular}{lll}
 \hline
 \textbf{Metric} & \textbf{Definition} & \textbf{Formula} \\
