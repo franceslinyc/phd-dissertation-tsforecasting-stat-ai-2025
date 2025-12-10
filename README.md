@@ -15,6 +15,16 @@ Link to PDF via ScholarsArchive@OSU (Coming soon)
 
 ## Using the Template
 
-This template was built by Charlotte Wickham, based on the [`beavtex.cls`](_extensions/beav/beavtex.cls) style authored by Rick Treinen, Neville Mehta, Deling Ren, and John Metta.
+This template was built by Charlotte Wickham, based on the [`beavtex.cls`](_extensions/beav/beavtex.cls) style authored by Rick Treinen, Neville Mehta, Deling Ren, and John Metta. 
 
 If you are interested in using the template, please follow the instructions on GitHub repository [beav-thesis](https://github.com/cwickham/beav-thesis). We also recommend using [Positron](https://positron.posit.co). 
+
+## Change Log
+
+### PR #1 Initial Accessible PDF Support
+
+- Introduced support for generating **accessible PDF documents**. 
+
+- Current implementation provides **partial accessibility** only. 
+
+- Full compliance is pending, as the relevant Disability Act requirements are **not yet in effect**. 
