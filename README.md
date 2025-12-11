@@ -21,7 +21,7 @@ If you are interested in using the template, please follow the instructions on G
 
 ## Changelog 
 
-### PR [#1](https://github.com/franceslinyc/phd-dissertation-tsforecasting-stat-ai-2025/pull/1) Initial Accessible PDF Support
+### [[#1]](https://github.com/franceslinyc/phd-dissertation-tsforecasting-stat-ai-2025/pull/1) Initial Accessible PDF Support
 
 - Introduced support for generating **accessible PDF document**. 
 - The current implementation provides **partial accessibility** only, as the relevant Disability Act requirements are **not yet in effect**. 
